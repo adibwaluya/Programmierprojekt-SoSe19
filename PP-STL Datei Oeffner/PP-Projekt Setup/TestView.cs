@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StlExport;
+using ViewModel;
+using StlImport;
+using ErrorHandling;
+using DataModel;
 
-namespace PP_Projekt_Setup
+
+namespace View
 {
-    class StlSpeichern: IStlSpeichern
+    class TestView: IStlExport, IViewModel, IStlImport, IErrorHandling, IDataModel
     {
         private string DataName;
         private int Type;

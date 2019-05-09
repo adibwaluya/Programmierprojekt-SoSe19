@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2FB01607-60B9-498E-AD95-356BB12266C4}</ProjectGuid>
+    <ProjectGuid>{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PP_Projekt_Setup</RootNamespace>
-    <AssemblyName>PP-Projekt Setup</AssemblyName>
+    <RootNamespace>StlExport</RootNamespace>
+    <AssemblyName>StlExport</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IStlSpeichern.cs" />
+    <Compile Include="IStlExport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StlSpeichern.cs" />
+    <Compile Include="Test_StlExport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
