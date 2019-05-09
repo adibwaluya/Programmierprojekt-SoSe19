@@ -1,0 +1,480 @@
+\documentclass[fontsize=10pt, listof = totoc]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage[]{acronym}
+\usepackage[T1]{fontenc}
+\usepackage[absolute]{textpos}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{esvect}
+\usepackage{booktabs} % table style
+\usepackage{longtable} % table style
+\usepackage{multirow} % table style
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{cancel}
+\usepackage{polynom}
+\usepackage{stmaryrd}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2.5cm]{geometry}
+\author{Michael Kaip | Adib Ghassani Waluya | Michael Reno | Maximilian Mews}
+%\title{\noindent\fbox{\parbox{\textwidth}{Pflichtenheft und technische Spezifikation im Programmierprojekt - %\textbf{\underline{Datenprüfung STL}}}}
+\date{}
+
+% Extension for amsmath matrix environment - matrix | vector
+\makeatletter
+	\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  	\hskip -\arraycolsep
+  	\let\@ifnextchar\new@ifnextchar
+  	\array{#1}}
+\makeatother
+
+%Extension for roman numbers
+\newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
+\newcommand{\lowroman}[1]{\romannumeral#1\relax}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{titlepage}
+\vspace*{-\headsep}\vspace{-\headheight}
+\noindent
+\includegraphics[scale=0.5]{logo}
+\hfill
+\textbf{Programmierprojekt SS 2019}\\[-1ex]
+\rule{\linewidth}{1pt}
+
+\begin{textblock*}{13cm}(3.8cm,5.8cm)% Breite, Abstand von links, oben
+\noindent\parbox[t][7cm][c]{\linewidth}{
+\centering
+\vfill
+\large Pflichtenheft und technische Spezifikation im Programmierprojekt
+\vfill
+\LARGE\textbf{Datenprüfung STL}
+\vfill
+\large \dots
+\vfill
+}
+\end{textblock*}
+
+\vfill\vfill\vfill\vfill\vfill% Platz schaffen
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{\textit{\textbf{Gruppenteilnehmer}}}                                    \\ \hline
+\textit{\textbf{Name}} 	& \textit{\textbf{Matr.-Nr.}} & \textit{\textbf{E-Mail}}              \\ \hline
+Michael Kaip           		& 567264		& michael.kaip@student.htw-berlin.de    \\ \hline
+Adib Ghassani Waluya  	& 567271		& adib.waluya@student.htw-berlin.de    \\ \hline
+Michael Reno           		& 565907		& s0565907@htw-berlin.de                	\\ \hline
+Maximilian Mews       		& 564319		& maximilian.mews@student.htw-berlin.de \\ \hline
+\end{tabular}
+\end{table}
+
+\vfill\vfill
+\raggedright
+\textbf{Hochschule fuer Technik und Wirtschaft Berlin}\\
+FB 2 - Ingenieurwisschenschaften Technik und Leben\\
+Studiengang: Ingenieurinformatik
+
+\vfill
+\textbf{Betreut durch:}\\
+Prof. Dr. Jörg Schlingheider\\
+Tel.: +49 30 5019-4354\\
+ joerg.schlingheider@htw-berlin.de
+\end{titlepage}
+\pagenumbering{gobble}
+\newpage
+\tableofcontents\newpage
+\pagenumbering{Roman}
+\listoffigures\newpage
+\listoftables\newpage
+\pagenumbering{arabic}
+
+\section{Vision und Projektziele}
+Es soll eine Software entwickelt werden mit der es möglich ist, in STL-Dateien kodierte 3D-Volumenmodelle, die als Grundlage für den 3D-Druck dienen, zu verarbeiten.\\
+
+Dabei soll es möglich sein, eine solche Datei zu öffnen und das darin enthaltene 3D-Modell auf der Benutzeroberfläche anzuzeigen. Darüber hinaus soll der Nutzer auch in der Lage sein, die dargestellte Geometrie auf Fehler zu untersuchen, diese zu korrigieren und das entsprechend korrigierte Modell dann wieder im STL-Format abzuspeichern.\\
+
+Die Arten von Fehlern, die bei der Kodierung von 3D-Modellen in ein STL-Format entstehen können und somit bei der Geometrieanalyse erkannt werden sollen, sind  die folgenden:
+
+\begin{figure}[htpb]
+\centering
+\includegraphics[scale=0.6]{Fehlerarten}
+\caption{Mögliche Fehler im STL-Dateiformat (Friedrich, 2012)}
+\end{figure}
+
+Eine weitere wesentliche Funktionalität der Software soll es dem Nutzer ermöglichen, die reale Größe der dargestellten Bauteile zu messen, um die Größenverhältnisse der Geometrie zu überprüfen. Werden hierbei Fehler hinsichtlich der Größe erkannt soll es auch hier die Möglichkeit geben, diese durch entsprechende Skalierung der Bauteile zu verändern bzw. neu zu berechnen.\\
+
+Bezüglich der allgemeinen Performance des Systems soll gelten, dass das Laden und Prüfen einer Datei mit einer Größe von etwa 3 MB nicht länger als 20 Sekunden dauert.    
+\newpage
+\section{Systemanforderungen}
+\subsection{Anwendungsfälle}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.7]{UseCases}
+\caption{Anwendungsfall-Diagramm}
+\end{figure}\newpage
+\subsubsection{Beschreibung der Anwendungsfälle}
+\begin{enumerate}
+\item[•] \textbf{[UC 1] STL-Datei öffnen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 1 \\ \midrule
+\textit{Beschreibung} & STL-Datei öffnen \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & Gültige STL-Datei wurde vom User ausgewählt.\\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) Funktion wird über die GUI aufgerufen.\\2) User wählt eine STL-Datei ueber einen angebotenen Dialog. \\ 3) Pfad zur Datei wird übergeben. \\ 4) Übergabe-String und Datei werden auf Gültigkeit hin überprüft.~~~~~~~ \\ 5) Prüfung, in welchem Format die STL-Datei vorliegt \\ (ASCII oder Binär).\\ 6) STL-Datei wird vollständig eingelesen und temporär gespeichert.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & Fehlermeldung bei nicht vorliegen einer gültigen STL-Datei. \\ \midrule
+\textit{Nachbedingungen} & STL-Datei im vorliegenden Format wurde vollständig importiert.\\ \midrule
+\textit{Bemerkung} & Use-Case ist Voraussetzung für Datenmodell erzeugen [UC 11].  \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 01 -- STL-Datei öffnen}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 2] Drehen, Zoomen, Verschieben}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 2 \\ \midrule
+\textit{Beschreibung} & Drehen, Zoomen, Verschieben \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & 3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) Nutzer greift das dargestellte Objekte mit der Maus. \\ 2) System berechnet die Veränderung der Darstellung. \\ 3) Objekt dreht sich entsprechend der vorgegebenen Bewegungsrichtung.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \\ \midrule
+\textit{Nachbedingungen} & Das Modell wird in der vom Nutzer gewählten Perspektive angezeigt. \\ \midrule
+\textit{Bemerkung} & \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 02 -- Drehen, Zoomen, Verschieben}
+\end{table}\newpage
+\item[•] \textbf{[UC 3] STL-Datei speichern}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 3 \\ \midrule
+\textit{Beschreibung} & STL-Datei speichern \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} &  \begin{tabular}[c]{@{}l@{}}3D-Modell vollständig geladen - entsprechendes Datenmodell \\ (in Boundary Representation) liegt vor. \end{tabular} \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) Nutzer wählt die Funktion über die GUI aus.\\ 2) Nutzer benennt die Datei und wählt den gewünschten Speicherort \\ und Datentyp. \\ 3) System erzeugt aus dem Datenmodell eine valide STL-Datei \\ und speichert diese am gewünschten Ort.\\ \end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & Sollte kein Datenmodell vorliegen, wird eine Fehlermeldung angezeigt.\\ \midrule
+\textit{Nachbedingungen} & STL-Datei wurde erzeugt und am gewünschten Ort gespeichert. \\ \midrule
+\textit{Bemerkung} &  \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 03 -- STL-Datei speichern}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 4] Grundeinstellungen vornehmen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 4 \\ \midrule
+\textit{Beschreibung} & Grundeinstellungen vornehmen \\ \midrule
+\textit{Akteure} & User \\ \midrule
+\textit{Vorbedingungen} &  \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User ruft Einstellungen auf.\\ 2) Er wählt die Rubrik Grundeinstellungen.\\ 3) User gibt die gewünschte Fehlertoleranz sowie die Anzeigefarbe der \\ Fehler sowie des Datenmodells an. \\ 4) User speichert seine gewählten Einstellungen.\\ 5) Falls bereits ein geladenes Datenmodell vorliegt, werden diese \\ Einstellungen direkt übernommen und das 3D-Modell entsprechend \\ angezeigt.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & \\ \midrule
+\textit{Nachbedingungen} & 3D-Modelle werden entsprechend den Einstellungen angezeigt.\\ \midrule
+\textit{Bemerkung} & \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 04 -- Grundeinstellungen vornehmen}
+\end{table}\newpage
+\item[•] \textbf{[UC 5] Geometrieelemente auswählen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 5 \\ \midrule
+\textit{Beschreibung} & Geometrieelemente auswählen \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & 3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) Geometrieelemente wie Kanten, Punkte und Flächen können mit der \\ Maus gefangen und durch Mausklick ausgewählt werden.\\ 2) Möglichkeit Geometrieelemente farblich zu verändern oder \\ Abstände zu messen \end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \\ \midrule
+\textit{Nachbedingungen} & Das Modell wird entsprechend der Veränderungen angezeigt. \\ \midrule
+\textit{Bemerkung} & Use-Case ist Voraussetzung für Messen [UC 8] und Heilen [UC 12]. \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 05 -- Geometrieelemente auswählen}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 6] Geometrie analysieren / Fehler finden}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 6 \\ \midrule
+\textit{Beschreibung} & Geometrie analysieren / Fehler finden \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & 3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User ruft die Funktion auf.\\ 2) Funktion ruft eingestellt Fehlertoleranz ab. \\3) Datenmodell wird aktualisiert.\\ \end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \begin{tabular}[c]{@{}l@{}}1) User ruft die Funktion auf.\\ 2) User stellt Fehlertoleranz ein. \\3) Datenmodell wird aktualisiert.\\ \end{tabular} \\ \midrule
+\textit{Nachbedingungen} & \begin{tabular}[c]{@{}l@{}}Sollte ein Fehler vorliegen, so werden die entsprechenden  Punkte und \\ Kanten eingefärbt und angezeigt. \\ \end{tabular} \\ \midrule
+\textit{Bemerkung} & Use-Case ist Voraussetzung für Heilen [UC 12].\\ \bottomrule
+\end{tabular}
+\caption{Use-Case 06 -- Geometrie analysieren / Fehler finden}
+\end{table}\newpage
+\item[•] \textbf{[UC 7] Fehlertoleranz/Anzeigeoptionen definieren}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 7 \\ \midrule
+\textit{Beschreibung} & Fehlertoleranz / Anzeigeoptionen definieren \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User ruft die Funktion auf. \\ 2) Mögliche Aktionen:\\ - User veraendert die Fehlertoleranz \\ - User wählt ein Objekt und ändert die Farbe \\ - User verändert die Hintergrundfarbe \end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & \\ \midrule
+\textit{Nachbedingungen} & \begin{tabular}[c]{@{}l@{}} Moegliche Ergebnisse: \\ - Neue Fehlertoleranz wurde eingestellt \\ - Ein Objekt wird in einer anderen Farbe dargestellt \\ - Hintergrund wird in neuer Farbe dargestellt \end{tabular} \\ \midrule
+\textit{Bemerkung} & Use-Case ist Voraussetzung fuer Geometrie analysieren [UC 6].~~~~~~~~~~~~~~~ \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 07 -- Fehlertoleranz / Anzeigeoptionen definieren}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 8] Messen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 8 \\ \midrule
+\textit{Beschreibung} & Messen \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & 3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt.\\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) Nutzer wählt mit durch Mausklick einen beliebigen Punkt auf\\ der Oberfläche des Modells aus.\\ 2) Punkt wird gefangen und fixiert.\\ 3) Bei Bewegung des Mauszeigers wird der fixierte Punkt kontinuierlich \\ mit einer sichtbaren Linie verbunden.\\ 4) Entfernung zur aktuellen Position wird vom System berechnet und der \\ Wert über dem Mauszeiger angezeigt und ständig aktualisiert.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \\ \midrule
+\textit{Nachbedingungen} & Geladenes 3D-Modell bleibt unverändert. \\ \midrule
+\textit{Bemerkung} &  Use-Case ist Voraussetzung für Skalieren [UC 9]\\ \bottomrule
+\end{tabular}
+\caption{Use-Case 08 -- Messen}
+\end{table}\newpage
+\item[•] \textbf{[UC 9] Skalieren}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 9 \\ \midrule
+\textit{Beschreibung} & Skalieren \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & \begin{tabular}[c]{@{}l@{}} 3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt. \\ Bauteil wurde bereits gemessen und Messergebnisse liegen vor. \end{tabular}\\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User wählt das Bauteil und ruft durch Rechtsklick die Funktion auf. \\ 2) Ein Fenster öffnet sich, in dem die aktuellen Abmessungen des Modells \\ angezeigt werden.\\ 3) User macht Eingaben zu den gewünschten Abmessungen.\\ 4) 3D-Modell wird entsprechend skaliert.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & \begin{tabular}[c]{@{}l@{}} Wenn dass Bauteil noch nicht gemessen wurde, bekommt der User \\ im Fenster einen entsprechenden Hinweis und die Option, die Funktion \\ "Messen" von dort direkt aufzurufen. \end{tabular}\\ \midrule
+\textit{Nachbedingungen} & \begin{tabular}[c]{@{}l@{}} 3D-Modell wurde auf die gewünschte Größe skaliert und das \\ Datenmodell entsprechend verändert.\end{tabular} \\ \midrule
+\textit{Bemerkung} & \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 09 -- Skalieren}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 10] Modell anzeigen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 10 \\ \midrule
+\textit{Beschreibung} & Modell anzeigen \\ \midrule
+\textit{Akteure} & System \\ \midrule
+\textit{Vorbedingungen} & STL-Datei fehlerfrei geladen und Datenmodell erzeugt. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}} Sobald die Erzeugung des Datenmodells abgeschlossen bzw. das \\ Datenmodell durch den User verändert wurde, wird die Funktion \\  automatisch aufgerufen.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & \\ \midrule
+\textit{Nachbedingungen} &  \begin{tabular}[c]{@{}l@{}} Das jeweils aktuellste Datenmodell wird auf der Benutzeroberfläche~~~~~~~~~ \\ angezeigt. \end{tabular}\\ \midrule
+\textit{Bemerkung} & Voraussetzung für [UC 2], [UC 5], [UC 6], [UC 8], [UC 9], [UC 12]. \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 10 -- Modell anzeigen}
+\end{table}\newpage
+\item[•] \textbf{[UC 11] Datenmodell erzeugen / aktualisieren}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 11 \\ \midrule
+\textit{Beschreibung} & Datenmodell erzeugen / aktualisieren \\ \midrule
+\textit{Akteure} & System \\ \midrule
+\textit{Vorbedingungen} & STL-Datei (ASCII oder Binär) geöffnet und eingelesen. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) System wandelt die geöffnete STL-Datei in eine Datenstruktur \\ (Boundary Representation) um.\\ 2) Die Datenstruktur beinhaltet sämtliche Punkte, Kanten und Flächen.~~ \\ 3) Es wird intern eine Verweisstruktur aufgebaut, bei der jede Kante \\ Verweise auf zugehörige Punkte, sowie jede Fläche Verweise auf \\ ihre zugehörigen Kanten enthält.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \\ \midrule
+\textit{Nachbedingungen} & Datenmodell wurde vollständig erzeugt. \\ \midrule
+\textit{Bemerkung} & Use-Case ist Voraussetzung für Modell anzeigen [UC 10]. \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 11 -- Datenmodell erzeugen / aktualisieren}
+\end{table}\newpage
+\item[•] \textbf{[UC 12] Geometrie heilen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 12 \\ \midrule
+\textit{Beschreibung} & Geometrie heilen \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & \begin{tabular}[c]{@{}l@{}}3D-Modell vollständig geladen und auf der Benutzeroberfläche angezeigt. \\ Geometrieanalyse (UC 6) abgeschlossen, Fehler gefunden.\end{tabular} \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User ruft die Funktion auf.\\ 2) User wählt Art der Heilung.\\ 3) User wählt Punkte zur Heilung und ggf. weitere Optionen.\\ 4) User bestätigt seine Eingabe.\\ 5) Datenmodell wird aktualisiert.\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} & \begin{tabular}[c]{@{}l@{}}1) User wählt Punkte zur Heilung.\\ 2) User ruft die Funktion auf.\\ 3) User wählt Art der Heilung.\\ 4) User wählt ggf. weitere Optionen.\\ 5) User bestätigt seine Eingabe.\\ 6) Datenmodell wird aktualisiert.\end{tabular} \\ \midrule
+\textit{Nachbedingungen} & \begin{tabular}[c]{@{}l@{}} Je nach Art der Heilung entsteht entweder eine neue Fläche,\\ oder es werden Punkte von bereits existierenden Flächen \\ zusammengeführt.\end{tabular} \\ \midrule
+\textit{Bemerkung} & \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 12 -- Geometrie heilen}
+\end{table}
+\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+\item[•] \textbf{[UC 13] STL-Datei erzeugen}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textit{\textbf{Informationsart}} & \textit{\textbf{Beschreibung}} \\ \midrule
+\textit{Identifikation} & UC 13 \\ \midrule
+\textit{Beschreibung} & STL-Datei erzeugen \\ \midrule
+\textit{Akteure} & User, System \\ \midrule
+\textit{Vorbedingungen} & 3D-Modell vollständig geladen und Datenmodell erzeugt. \\ \midrule
+\textit{Standardablauf} & \begin{tabular}[c]{@{}l@{}}1) User ruft Funktion auf.\\ 2) User wählt den Speicherort aus. \\ 3) User bestätigt den Datenexport.\\ 4) BRep-Datenmodell wird in STL-Datei geschrieben und gespeichert.~~~~~\end{tabular} \\ \midrule
+\textit{Alternative Abläufe} &  \\ \midrule
+\textit{Nachbedingungen} & Datenmodell wurde als valide STL-Datei gespeichert.\\ \midrule
+\textit{Bemerkung} &  \\ \bottomrule
+\end{tabular}
+\caption{Use-Case 13 -- STL-Datei erzeugen}
+\end{table}\newpage
+\end{enumerate}
+\subsection{Aktivitätsdiagramme}
+
+\subsubsection{Aktivitätsdiagramm Datenmodell erzeugen}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ADDatenmodell}
+\caption{Aktivitätsdiagramm (Datenmodell erzeugen)}
+\end{figure}
+
+\subsubsection{Aktivitätsdiagramm Fehlersuche}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{ADFehlersuche}
+\caption{Aktivitätsdiagramm (Fehlersuche)}
+\end{figure}
+\subsubsection{Aktivitätsdiagramm ViewModel (OpenGL)}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{ADViewModel}
+\caption{Aktivitätsdiagramm (View Model - Datenmodell anzeigen)}
+\end{figure}
+\subsubsection{Aktivitätsdiagramm STL-Export}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{ADSTLExport}
+\caption{Aktivitätsdiagramm (STL-Export)}
+\end{figure}
+\newpage
+\subsection{Grafische Benutzeroberfläche}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{GUIZeichen}
+\caption{Zeichenerklärungen (GUI)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{GUI02}
+\caption{Startseite (GUI)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{GUI03}
+\caption{Toleranzeingabe bei Fehlersuche (GUI)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{GUI04}
+\caption{Grundeinstellungen Allgemein (GUI)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{GUI05}
+\caption{Grundeinstellungen Fehlersuche (GUI)}
+\end{figure}
+
+
+\section{Überblick - Komponentendiagramm}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.6]{Components}
+\caption{Komponenten-Diagramm}
+\end{figure}
+\newpage
+\section{Realisierung}
+\subsection{Allgemeines}
+Die Folgende Tabelle bietet einen Überblick über die zu erstellenden Komponenten (siehe auch Komponenten-Diagramm, S. 14), den in den einzelnen Komponenten enthaltenen Use-Cases sowie eine Zuordnung, welches Teammitglied welche Komponenten bearbeitet.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textit{\textbf{Komponente}} & \textit{\textbf{Use-Cases}} & \textit{\textbf{Bearbeiter}} \\ \hline
+GUI & UC 4 & Michael Reno \\ \hline
+STL-Import & UC 1 & Adib Ghassani Waluya \\ \hline
+Datenmodell & UC 9, UC 11 & Adib Ghassani Waluya \\ \hline
+ViewModel / OpenGL & UC 2, UC 5, UC 8, UC 10 & Michael Kaip \\ \hline
+Fehlerprüfung & UC 6, UC 7, UC 12 & Maximilian Mews \\ \hline
+STL-Export & UC 3, UC 13 & Michael Reno \\ \hline
+\end{tabular}
+\caption{Aufgabenverteilung}
+\end{table}
+
+\subsection{Interne Schnittstellen}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Interfaces}
+\caption{Interne Schnittstellen des Systems}
+\end{figure}
+\subsection{Externe Schnittstellen}
+Das System wird als eine eigenständige Software und nicht als Plug-In für eine andere Software entwickelt, welche bis zu der in diesem Projekt geplanten Entwicklungsstufe nicht die Anbindung oder Ansteuerung anderer externer System (wie z.B. eines 3D-Druckers) vorsieht.\\
+
+Um bspw. das Datenmodell anzuzeigen, zu messen verwenden wir das OpenGL-Framework OpenTK, welches einen Wrapper für die Verwendung der in OpenGL bereitgestellten Funktionalität in der Programmiersprache C\# bereitstellt.
+
+\section{Projektkalkulation}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Projektkalkulation}
+\caption{Projektkalkulation}
+\end{figure}
+
+\section{Abnahmekriterien}
+\begin{enumerate}
+\item Die in den Use-Cases beschriebene Funktionalität muss gegeben sein.
+\item Das Laden einer Datei mit der Größe von 3 MB und Prüfung auf Fehler darf nicht länger als 20 Sekunden dauern.
+\end{enumerate}
+\newpage
+\section{Lizenz}
+\begin{center}
+\textbf{Copyright (c)} \textbf{<2019>}
+\end{center}
+\begin{center}
+\textbf{<Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya>}
+\end{center}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\\
+
+THE SOFTWARE IS PROVIDED (AS IS), WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\\
+
+\hrulefill\\
+
+Hiermit wird unentgeltlich jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen erhält, die Erlaubnis erteilt, sie uneingeschränkt zu nutzen, inklusive und ohne Ausnahme mit dem Recht, sie zu verwenden, zu kopieren, zu verändern, zusammenzufügen, zu veröffentlichen, zu verbreiten, zu unterlizenzieren und/oder zu verkaufen, und Personen, denen diese Software überlassen wird, diese Rechte zu verschaffen, unter den folgenden Bedingungen:\\
+
+DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHEN SCHADEN ODER SONSTIGE ANSPRÜCHE HAFTBAR ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
+\end{document}
