@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
@@ -35,3 +36,42 @@ Global
 		SolutionGuid = {8368D38A-407B-4F21-A61A-2BEF9AF9BEAD}
 	EndGlobalSection
 EndGlobal
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "PP-Projekt Setup\View.csproj", "{2FB01607-60B9-498E-AD95-356BB12266C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StlExport", "StlExport\StlExport.csproj", "{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{291AEA1F-BEE4-4FB1-B871-136377020F1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FB01607-60B9-498E-AD95-356BB12266C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB01607-60B9-498E-AD95-356BB12266C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB01607-60B9-498E-AD95-356BB12266C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB01607-60B9-498E-AD95-356BB12266C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291AEA1F-BEE4-4FB1-B871-136377020F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291AEA1F-BEE4-4FB1-B871-136377020F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291AEA1F-BEE4-4FB1-B871-136377020F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291AEA1F-BEE4-4FB1-B871-136377020F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8368D38A-407B-4F21-A61A-2BEF9AF9BEAD}
+	EndGlobalSection
+EndGlobal
+>>>>>>> 2917d73d9f08c2ea724f11b39e19f61beebf534e
