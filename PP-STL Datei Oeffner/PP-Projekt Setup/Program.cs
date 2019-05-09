@@ -5,15 +5,22 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using StlExport;
+using ViewModel;
+using StlImport;
+using ErrorHandling;
 
 namespace View
 {
-    class Program
+    class Program : IStlExport, IViewModel, IStlImport, IErrorHandling
     {
         static void Main(string[] args)
         {
-            TestView Save = new TestView();
-            Save.StlDataName("Meine geile STL Datei");
+            userControl();
+            findError();
+            repair();
+            openFile();
+            saveFile();
 
         }
     }
