@@ -49,5 +49,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ErrorHandling\ErrorHandling.csproj">
+      <Project>{df63534e-b5be-4532-b758-31326eb565ad}</Project>
+      <Name>ErrorHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StlExport\StlExport.csproj">
+      <Project>{5695ae7e-91eb-4f8b-8fba-ff7e8a3adf67}</Project>
+      <Name>StlExport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ViewModel\ViewModel.csproj">
+      <Project>{291aea1f-bee4-4fb1-b871-136377020f1f}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\View\View.csproj">
+      <Project>{9bc08d45-8d1e-4db7-a581-3f76e9e65d10}</Project>
+      <Name>View</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
