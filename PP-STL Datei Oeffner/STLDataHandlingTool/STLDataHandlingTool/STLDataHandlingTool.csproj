@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataModel\DataModel.csproj">
+      <Project>{8328abef-da53-4cdd-bf51-dd035bf4edf0}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ErrorHandling\ErrorHandling.csproj">
       <Project>{df63534e-b5be-4532-b758-31326eb565ad}</Project>
       <Name>ErrorHandling</Name>
@@ -59,7 +63,7 @@
       <Name>StlExport</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ViewModel\ViewModel.csproj">
-      <Project>{291aea1f-bee4-4fb1-b871-136377020f1f}</Project>
+      <Project>{c295d0a1-b225-4dec-92ce-2ef8d8e26b61}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\View\View.csproj">

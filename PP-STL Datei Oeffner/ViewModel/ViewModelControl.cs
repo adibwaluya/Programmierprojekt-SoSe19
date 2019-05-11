@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    interface IViewModel
+    class ViewModelControl
     {
-        void UserControl();
     }
 }
