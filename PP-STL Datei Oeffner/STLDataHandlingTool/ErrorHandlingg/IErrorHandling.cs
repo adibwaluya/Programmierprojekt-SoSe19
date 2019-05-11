@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STLDataHandlingTool
+namespace ErrorHandling
 {
-    class Program
+    interface IErrorHandling
     {
-        static void Main(string[] args)
-        {
-            
-        }
+        void FindError();
+        void repair();
     }
 }

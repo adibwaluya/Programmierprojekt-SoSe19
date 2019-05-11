@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    interface IDataModel
+    public interface IDataModel
     {
         Object getPoints();
         Object getEdges();

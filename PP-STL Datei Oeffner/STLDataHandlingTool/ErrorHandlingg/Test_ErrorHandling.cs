@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STLDataHandlingTool
+namespace ErrorHandling
 {
-    class Program
+    class Test_ErrorHandling
     {
-        static void Main(string[] args)
-        {
-            
-        }
     }
 }
