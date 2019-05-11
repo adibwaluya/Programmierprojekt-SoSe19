@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8328ABEF-DA53-4CDD-BF51-DD035BF4EDF0}</ProjectGuid>
+    <ProjectGuid>{99FA64FE-4190-40CD-B745-894F37D0D133}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataModel</RootNamespace>
@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDataModel.cs" />
-    <Compile Include="MyTestClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Test_DataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

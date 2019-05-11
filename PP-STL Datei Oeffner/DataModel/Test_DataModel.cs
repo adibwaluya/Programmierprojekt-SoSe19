@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    public class MyTestClass
+    public class Test_DataModel
     {
     }
 }
