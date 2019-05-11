@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataModel\DataModel.csproj">
-      <Project>{8328abef-da53-4cdd-bf51-dd035bf4edf0}</Project>
+      <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ErrorHandling\ErrorHandling.csproj">
