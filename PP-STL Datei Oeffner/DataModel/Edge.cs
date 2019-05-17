@@ -8,5 +8,13 @@ namespace DataModel
 {
     class Edge
     {
+        public Edge(int startPoint, int endPoint)
+        {
+
+        }
+
+        public int StartPoint { get; set; }
+        public int EndPoint { get; set; }
+        public List<Point> Points { get; set; }
     }
 }
