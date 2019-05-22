@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    class Normal : Point
+    public class Normal : Point
     {
         public Normal(double x, double y, double z) : base(x, y, z) { }
         public Normal() : base() { }
