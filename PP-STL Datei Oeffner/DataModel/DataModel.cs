@@ -6,83 +6,31 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    class DataModel
+    public class DataModel
     {
-        //ID registrieren
-        //von der ID zum Punkt
-        Dictionary<int, Point> pointIds;
-        Dictionary<int, Edge> edgeIds;
-        Dictionary<int, Face> faceIds;
-
-        //vom Punkt zur ID
-        Dictionary<Point, int> pointIds2;
-        Dictionary<Edge, int> edgeIds2;
-        Dictionary<Face, int> faceIds2;
-
-        public List<Point> PointList
-        {
-            get
-            {
-                return pointIds.Values.ToList();
-            }
-        }
-
-        public List<Edge> EdgeList
-        {
-            get
-            {
-                return edgeIds.Values.ToList();
-            }
-        }
-
-        public List<Face> FaceList
-        {
-            get
-            {
-                return faceIds.Values.ToList();
-            }
-        }
+        public PointList points = new PointList();
+        public EdgeList edges = new EdgeList();
+        public FaceList faces = new FaceList();
 
         public int AddPoint(double x, double y, double z)
         {
             Point p = new Point(x, y, z);
-            return AddPoint(p);
+            return points.AddOrGetPoint(p);
         }
 
-        public int AddPoint(Point p)
+        public int AddEdge(int pt1, int pt2)
         {
-            if (pointIds2.ContainsKey(p))
-            {
-                return pointIds2[p];
-            }
-            int key = pointIds2.Count;
-            pointIds2[p] = key;
-            pointIds[key] = p;
-            return key;
+            Edge e = new Edge(pt1, pt2, this);
+            return edges.AddOrGetEdge(e);
         }
 
-        public int AddEdge(Edge p)
+        public int AddFace(int e1, int e2, int e3, Normal n, DataModel dm)
         {
-            if (edgeIds2.ContainsKey(p))
-            {
-                return edgeIds2[p];
-            }
-            int key = edgeIds2.Count;
-            edgeIds2[p] = key;
-            edgeIds[key] = p;
-            return key;
+            Face f = new Face(e1, e2, e3, n, dm);
+            return faces.AddOrGetFace(f);
         }
 
-        public int AddFace(Face p)
-        {
-            if (faceIds2.ContainsKey(p))
-            {
-                return faceIds2[p];
-            }
-            int key = faceIds2.Count;
-            faceIds2[p] = key;
-            faceIds[key] = p;
-            return key;
-        }
+
     }
 }
+

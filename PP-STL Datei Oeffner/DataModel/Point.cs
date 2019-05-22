@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    class Point
+    public class Point
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -20,6 +20,16 @@ namespace DataModel
         }
 
         public Point() { }
+
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
     }
 }
