@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Configuration;
-using Microsoft.SqlServer.Server;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace ViewModel
 {
-    internal class ViewModelWindow
+    internal class ViewModelWindow : Point
     {
         #region Members
 
@@ -16,7 +14,7 @@ namespace ViewModel
         //private float _rotation = 0.0f; // Used to apply the rotation 
         private readonly GameWindow _window;
         private static int _vbo;
-        private static Vector3d[] _vertexBuffer; 
+        //private static Vector3d[] _vertexBuffer;
 
 
         #endregion
