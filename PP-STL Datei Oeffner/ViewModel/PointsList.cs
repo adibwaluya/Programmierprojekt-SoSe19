@@ -62,10 +62,5 @@ namespace ViewModel
 
             return ListOfPoints;
         }
-
-        public static implicit operator List<object>(PointsList v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

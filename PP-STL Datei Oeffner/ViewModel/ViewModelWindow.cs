@@ -14,6 +14,8 @@ namespace ViewModel
         //private float _rotation = 0.0f; // Used to apply the rotation 
         private readonly GameWindow _window;
         private static int _vbo;
+
+        private static VertexBuffer _vertBuffer; 
         //private static Vector3d[] _vertexBuffer;
 
 
@@ -74,59 +76,61 @@ namespace ViewModel
             /*
              * Instantiating a vertex buffer object, which holds the vertex data gonna be drawn in the window
              */
-            _vertexBuffer = new Vector3d[36]
-            {
-                // 
-                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
-                // 
-                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01), 
-                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01),
-                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
-                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
-                // 
-                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01), 
-                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
-                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
-                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
-                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01), 
-                //
-                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
-                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
-                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
-                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
-                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
-                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
-                //
-                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
-                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
-                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
-                //
-                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01), 
-                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
-                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
-                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
-                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
-                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
-            };
+             _vertBuffer = new VertexBuffer();
+
+            //_vertexBuffer = new Vector3d[36]
+            //{
+            //    // 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
+            //    // 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01),
+            //    new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+            //    new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
+            //    // 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
+            //    new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01), 
+            //    //
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
+            //    //
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+            //    new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01), 
+            //    //
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01), 
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01), 
+            //    new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+            //    new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+            //    new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+            //    new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+            //};
 
             /*
              * Generating a vertex buffer object, that can be passed into
              */
             _vbo = GL.GenBuffer(); // Generates the buffer and passes back an ID for it
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo); // Binding the buffer
-            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * _vertexBuffer.Length),
-                _vertexBuffer, BufferUsageHint.StaticDraw); // Passing the data to OpenGL
+            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * _vertBuffer.Length),
+                _vertBuffer, BufferUsageHint.StaticDraw); // Passing the data to OpenGL
         }
 
         private void Window_RenderFrame(object sender, FrameEventArgs e)
@@ -201,7 +205,7 @@ namespace ViewModel
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
             GL.VertexPointer(3, VertexPointerType.Double, Vector3d.SizeInBytes, 0);
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertexBuffer.Length);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertBuffer.Length);
 
             GL.Flush();
             _window.SwapBuffers();

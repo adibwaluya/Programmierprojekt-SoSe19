@@ -6,7 +6,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ViewModel
 {
-    public class Point : object
+    public class Point
     {
         public double X { get; set; }
         public double Y { get; set; }

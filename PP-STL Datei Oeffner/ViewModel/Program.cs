@@ -11,6 +11,9 @@ namespace ViewModel
         {
             var modelWindow = new ViewModelWindow(800, 800);
 
+            var tmp = new VertexBuffer();
+           
+
         }
     }
 }

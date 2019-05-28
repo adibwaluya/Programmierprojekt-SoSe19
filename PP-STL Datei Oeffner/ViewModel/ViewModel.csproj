@@ -49,10 +49,9 @@
     <Compile Include="IViewModel.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="PointsList.cs" />
-    <Compile Include="PointsArray.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModelData.cs" />
+    <Compile Include="VertexBuffer.cs" />
     <Compile Include="ViewModelWindow.cs" />
   </ItemGroup>
   <ItemGroup>
