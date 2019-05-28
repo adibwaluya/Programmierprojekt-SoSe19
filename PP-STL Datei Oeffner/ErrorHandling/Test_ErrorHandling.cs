@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ErrorHandling
 {
-    class Test_ErrorHandling : IDataModel
+    class Test_ErrorHandling
     {
         public object addEdge()
         {
