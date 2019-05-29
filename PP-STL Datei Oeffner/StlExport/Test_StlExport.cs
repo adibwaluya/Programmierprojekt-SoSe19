@@ -5,23 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using DataModel;
+using System.Collections;
 
-namespace StlExport: IEnumerable
+namespace StlExport
 {
-    public class Test_StlExport
+    public class Test_StlExport: IEnumerable
     {
         // Collect all coordinates from PointList
         DataModel.DataModel dm = new DataModel.DataModel();
         List<Point> ListOfPoints;
+        int x;
 
-        //public void listCoordinates()
-        //{
-        //    foreach (Point p in dm.points.AddOrGetPoint(p))
-        //    {
-        //        ListOfPoints.Add(p);
-        //    }
+        public void listCoordinates()
+        {
+            foreach (Point p in dm.points)
+            {
+                ListOfPoints.Add(p);
+            }
 
-        //}
+        }
         // Collect all point-normal from Normal
         List<Normal> ListOfNormals;
 
@@ -36,7 +38,19 @@ namespace StlExport: IEnumerable
         // Compile as one STL File
         public void AsFile(List<Point> pts, List<Normal> norms)
         {
-            File.
+            
+        }
+
+
+        // IEnumerator
+        public IEnumerator<Point> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
