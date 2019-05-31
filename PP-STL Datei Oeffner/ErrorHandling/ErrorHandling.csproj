@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Point.cs" />
-    <Compile Include="PointsList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="IErrorHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
