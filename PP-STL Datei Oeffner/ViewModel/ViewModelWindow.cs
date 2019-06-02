@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ViewModel
 {
-    internal class ViewModelWindow : Point
+     class ViewModelWindow : VertexBuffer
     {
         #region Members
 
@@ -15,9 +15,9 @@ namespace ViewModel
         private readonly GameWindow _window;
         private static int _vbo;
 
-        private static VertexBuffer _vertBuffer; 
-        //private static Vector3d[] _vertexBuffer;
-
+        //private static VertexBuffer _vertBuffer; 
+        private static VertexBuffer _vertBuffer;
+        //private float _rotation = 45.0f;
 
         #endregion
 
@@ -60,8 +60,8 @@ namespace ViewModel
              * Setup for perspective projection (3D) (another possibility, orthographic projection (2D), is also available:
              * GL.Ortho();)
              */
-            Matrix4 perspectiveProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(AngleOfProjection * (float)Math.PI / 180, 
-                _window.Width/_window.Height, 1.0f, 200.0f);
+            var perspectiveProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(AngleOfProjection * (float)Math.PI / 180, 
+                _window.Width*1.0f/_window.Height, 1.0f, 200.0f);
 
             GL.LoadMatrix(ref perspectiveProjectionMatrix);
 
@@ -77,7 +77,6 @@ namespace ViewModel
              * Instantiating a vertex buffer object, which holds the vertex data gonna be drawn in the window
              */
              _vertBuffer = new VertexBuffer();
-
             //_vertexBuffer = new Vector3d[36]
             //{
             //    // 
@@ -127,10 +126,10 @@ namespace ViewModel
             /*
              * Generating a vertex buffer object, that can be passed into
              */
-            _vbo = GL.GenBuffer(); // Generates the buffer and passes back an ID for it
+            _vbo = GL.GenBuffer(); // Generates the buffer and passes back a pointer for it
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo); // Binding the buffer
-            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * _vertBuffer.Length),
-                _vertBuffer, BufferUsageHint.StaticDraw); // Passing the data to OpenGL
+            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer,(IntPtr)(Vector3d.SizeInBytes * BufferData.Length),BufferData,
+                BufferUsageHint.StaticDraw);// Passing the data to OpenGL
         }
 
         private void Window_RenderFrame(object sender, FrameEventArgs e)
@@ -195,6 +194,12 @@ namespace ViewModel
 
             // Changes the origin of the coordinate system
             GL.Translate(0.0, 0.0, -100.0); // Can also be called with a vector of three elements
+
+            //// Rotating
+            //GL.Rotate(_rotation, 1.0, 0.0, 0.0); // along the x-axis
+            //GL.Rotate(_rotation, 1.0, 0.0, 1.0); // (Angle of rotation, 3D-Vector along which the rotation takes place)
+
+
             /*
              * 1) EnableClientState(): Defines, that vertices have certain positions
              * 2) Binding the buffer
@@ -205,7 +210,7 @@ namespace ViewModel
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
             GL.VertexPointer(3, VertexPointerType.Double, Vector3d.SizeInBytes, 0);
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertBuffer.Length);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, BufferData.Length);
 
             GL.Flush();
             _window.SwapBuffers();

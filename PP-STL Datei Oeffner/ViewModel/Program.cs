@@ -10,10 +10,6 @@ namespace ViewModel
         static void Main(string[] args)
         {
             var modelWindow = new ViewModelWindow(800, 800);
-
-            var tmp = new VertexBuffer();
-           
-
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ViewModel
 
         public PointsList()
         {
+            ListOfPoints = new List<Point>();
             ListOfPoints = InitializingPointsList();
         }
 

@@ -24,9 +24,9 @@ namespace DataModel
             return edges.AddOrGetEdge(e);
         }
 
-        public int AddFace(int e1, int e2, int e3, Normal n, DataModel dm)
+        public int AddFace(int e1, int e2, int e3, Normal n)
         {
-            Face f = new Face(e1, e2, e3, n, dm);
+            Face f = new Face(e1, e2, e3, n, this);
             return faces.AddOrGetFace(f);
         }
 

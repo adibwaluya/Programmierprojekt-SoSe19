@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OpenGlUserControl;
+using DataModel = DataModel.DataModel;
 
 namespace View
 {
@@ -23,6 +25,15 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dm = new global::DataModel.DataModel();
+
+
+
+            uc1.SetDataModel(dm);
         }
     }
 }

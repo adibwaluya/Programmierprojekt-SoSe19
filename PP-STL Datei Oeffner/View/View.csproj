@@ -93,5 +93,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\STLDataHandlingTool\OpenGlUserControl\ViewModelControl.csproj">
+      <Project>{f8b142ab-47e6-4a54-b5d4-6eecaa6c70fc}</Project>
+      <Name>OpenGlUserControl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

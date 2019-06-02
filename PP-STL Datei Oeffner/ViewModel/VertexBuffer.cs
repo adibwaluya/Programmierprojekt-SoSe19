@@ -7,12 +7,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ViewModel
 {
-    class VertexBuffer 
+    public class VertexBuffer 
     {
 
         #region Members
 
-        public static Vector3d[] _vertexBuffer; 
+        public static Vector3d[] BufferData;
+        public double Length { get; }
 
 
         #endregion
@@ -21,20 +22,16 @@ namespace ViewModel
 
         public VertexBuffer() // Takes a parameter of type List<Point> ListOfPoints
         {
-            var listOfPoints = new List<Point> // Creating a sample of List<Point> points and populating it with sample data
-            {
-                new PointsList()
-            };
+            var tmp = new PointsList();
 
-            _vertexBuffer = new Vector3d[listOfPoints.Count];
+            BufferData = new Vector3d[tmp.ListOfPoints.Count];
 
-            for (var i = 0; i < listOfPoints.Count; i++)
+            for (var i = 0; i < tmp.ListOfPoints.Count; i++)
             {
-                _vertexBuffer[i] = new Vector3d(listOfPoints.ElementAt(i).X, listOfPoints.ElementAt(i).Y, listOfPoints.ElementAt(i).Z);
+                BufferData[i] = new Vector3d(tmp.ListOfPoints.ElementAt(i).X, tmp.ListOfPoints.ElementAt(i).Y, tmp.ListOfPoints.ElementAt(i).Z);
             }
 
-            
-
+            Length = BufferData.Length;
         }
 
         #endregion
