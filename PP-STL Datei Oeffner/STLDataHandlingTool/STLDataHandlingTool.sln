@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "..\ViewModel\V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "..\DataModel\DataModel.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandling", "..\ErrorHandling\ErrorHandling.csproj", "{DF63534E-B5BE-4532-B758-31326EB565AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandling", "ErrorHandlingNew\ErrorHandling.csproj", "{B592228C-E663-4DF1-8ED9-49C447CF6451}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelTest", "ViewModelTest\ViewModelTest.csproj", "{21AB9DCE-9FBC-443B-B54C-83BB564FCFF3}"
 EndProject
@@ -47,6 +47,7 @@ Global
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{DF63534E-B5BE-4532-B758-31326EB565AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF63534E-B5BE-4532-B758-31326EB565AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF63534E-B5BE-4532-B758-31326EB565AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +64,12 @@ Global
 		{67A25E00-711D-4B47-AAB4-AB5DAB42A045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67A25E00-711D-4B47-AAB4-AB5DAB42A045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67A25E00-711D-4B47-AAB4-AB5DAB42A045}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{B592228C-E663-4DF1-8ED9-49C447CF6451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B592228C-E663-4DF1-8ED9-49C447CF6451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B592228C-E663-4DF1-8ED9-49C447CF6451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B592228C-E663-4DF1-8ED9-49C447CF6451}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> 24a732643b6344c82ea75a7cd3c240fde9559723
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
