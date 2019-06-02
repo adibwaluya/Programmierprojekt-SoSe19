@@ -8,7 +8,7 @@ using ErrorHandlingNew;
 
 namespace ErrorHandling
 {
-    class ErrorFinding
+    class ErrorFinding1
     {
         //Wie kann ich hier auf die Instanz vom Datamodel zugreifen, die in der Klasse ErrorHandling erzeugt wird?
 
