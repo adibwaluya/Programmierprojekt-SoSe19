@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:OpenGlUserControl;assembly=OpenGlUserControl"
         x:Class="ViewModelTest.MainWindow"
         mc:Ignorable="d"
         Background="LightGray"
@@ -37,8 +38,10 @@
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Grid.Column="0" Grid.Row="5"
             Height="620" Width="775" Margin="10,10,10,-609" 
-            Background="Green" Loaded="WindowsFormsHost_Loaded">
-            
+            Background="Green">
+            <wf:WinFormsControl x:Name="WinFormsControl"/>
+                
+
         </WindowsFormsHost>
     </Grid>
 </Window>

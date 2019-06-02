@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using OpenGlUserControl;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 
 namespace ViewModelTest
@@ -12,17 +14,12 @@ namespace ViewModelTest
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
+        // EventHandler for Btn in MAinWindow
         private void CreateAndShowModel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello World");
-        }
-
-        private void WindowsFormsHost_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            System.Windows.MessageBox.Show("Hello World");
         }
     }
 }
