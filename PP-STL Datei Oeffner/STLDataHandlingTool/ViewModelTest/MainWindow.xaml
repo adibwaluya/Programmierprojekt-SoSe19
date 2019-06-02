@@ -40,8 +40,6 @@
             Height="620" Width="775" Margin="10,10,10,-609" 
             Background="Green">
             <wf:WinFormsControl x:Name="WinFormsControl"/>
-                
-
         </WindowsFormsHost>
     </Grid>
 </Window>
