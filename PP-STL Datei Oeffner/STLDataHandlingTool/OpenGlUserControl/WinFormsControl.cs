@@ -45,7 +45,7 @@ namespace OpenGlUserControl
             _glControl = new GLControl()
             {
                 Dock = DockStyle.Fill,
-                VSync = true,
+                VSync = true
         };
 
 
