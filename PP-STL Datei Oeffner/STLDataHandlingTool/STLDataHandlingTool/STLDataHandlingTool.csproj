@@ -58,10 +58,6 @@
       <Project>{5695ae7e-91eb-4f8b-8fba-ff7e8a3adf67}</Project>
       <Name>StlExport</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ViewModel\ViewModel.csproj">
-      <Project>{c295d0a1-b225-4dec-92ce-2ef8d8e26b61}</Project>
-      <Name>ViewModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\View\View.csproj">
       <Project>{9bc08d45-8d1e-4db7-a581-3f76e9e65d10}</Project>
       <Name>View</Name>
@@ -69,6 +65,10 @@
     <ProjectReference Include="..\ErrorHandlingNew\ErrorHandling.csproj">
       <Project>{b592228c-e663-4df1-8ed9-49c447cf6451}</Project>
       <Name>ErrorHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGlUserControl\OpenGlUserControl.csproj">
+      <Project>{329e5de2-9a3d-43be-a10b-afa55593f7f5}</Project>
+      <Name>OpenGlUserControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
