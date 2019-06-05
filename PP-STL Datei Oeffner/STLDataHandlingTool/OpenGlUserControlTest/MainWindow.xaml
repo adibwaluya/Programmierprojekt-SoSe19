@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wf="clr-namespace:OpenGlUserControl;assembly=OpenGlUserControl"
     xmlns:wpf="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
-    x:Class="ViewModelTest.MainWindow"
+    x:Class="OpenGlUserControlTest.MainWindow"
     mc:Ignorable="d"
     Background="LightGray"
     Title="OpenGL UserControl (Test)" Height="850" Width="1200">
