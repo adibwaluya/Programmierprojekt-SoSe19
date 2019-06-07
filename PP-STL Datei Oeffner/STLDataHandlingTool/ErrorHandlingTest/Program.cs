@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ErrorHandling;
 using DataModel;
 
-namespace ErrorHandling
+namespace ErrorHandlingTest
 {
     class Program
     {

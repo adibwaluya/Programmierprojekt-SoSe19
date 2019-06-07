@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DataModel;
 
-namespace ErrorHandlingNew
+namespace ErrorHandling
 {
-    class Test_Datamodel
+    public class Test_Datamodel
     {
         public void createDatamodel()
         {
