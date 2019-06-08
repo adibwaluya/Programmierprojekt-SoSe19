@@ -4,20 +4,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataModel;
-using ErrorHandling;
+using ErrorHandlingDataModel;
 
 namespace ErrorHandling
 {
-    class ErrorFinding1
+    public class ErrorFinding
     {
-        //Wie kann ich hier auf die Instanz vom Datamodel zugreifen, die in der Klasse ErrorHandling erzeugt wird?
 
-        //Face face1 = dm.faces.GetFace(0);
-        //List<Edge> listOfEdges = new List<Edge>();
-        //listOfEdges = face1.Edges;
-        //Edge edge1 = listOfEdges[0];
-        //Console.WriteLine(edge1.P1.Z);
+        public void findError(DataModel.DataModel dm)
+        {
+            // nur ein kleiner Test
 
+            Face face1 = dm.faces.GetFace(0);
+            List<Edge> listOfEdges = new List<Edge>();
+            listOfEdges = face1.Edges;
+            Edge currentEdge = listOfEdges[0];
+            Console.WriteLine(currentEdge.P1.Z);
+
+            // Hier geht's los
+
+            int numberOfFaces;
+            bool potentiallyFaulty;
+            bool Faulty;
+
+            for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
+            {
+                currentEdge = dm.edges.GetEdge(currentEdgeNumber);
+
+                Console.WriteLine(currentEdge.P1.Z);
+                numberOfFaces = currentEdgeNumber;      // Anzahl der angrenzenden Flächen wird gezählt (noch nicht im Datenmodell implementiert)
+
+                if (numberOfFaces == 0)
+                {
+                    Console.WriteLine("Faulty");
+                    //currentEdge is Faulty
+                }
+                else if (numberOfFaces == 1)
+                {
+                    Console.WriteLine("potentiallyFaulty");
+                    //currentEdge is potentiallyFaulty
+                }
+                else
+                {
+                    Console.WriteLine("not Faulty");
+                    //currentEdge is not Faulty
+                }
+            }
+        }
 
 
     }
