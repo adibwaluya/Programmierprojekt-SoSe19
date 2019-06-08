@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ErrorHandling;
 using DataModel;
 
 namespace ErrorHandlingTest
@@ -12,8 +11,9 @@ namespace ErrorHandlingTest
     {
         static void Main(string[] args)
         {
-            Test_Datamodel datamodel1 = new Test_Datamodel();
-            datamodel1.createDatamodel();
+            Test_Datamodel test_datamodel1 = new Test_Datamodel();
+            test_datamodel1.CreateDatamodel(new DataModel.DataModel());
+            
         }
     }
 }

@@ -46,10 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorFinding.cs" />
-    <Compile Include="Test_Datamodel.cs" />
-    <Compile Include="Test_ErrorHandling.cs" />
     <Compile Include="IErrorHandling.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +56,10 @@
     <ProjectReference Include="..\..\DataModel\DataModel.csproj">
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ErrorHandlingTest\ErrorHandlingTest.csproj">
+      <Project>{9a1bcf22-a7a1-440f-8048-fa9fd21dcc89}</Project>
+      <Name>ErrorHandlingTest</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
