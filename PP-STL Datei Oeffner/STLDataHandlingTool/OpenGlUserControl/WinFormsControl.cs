@@ -13,13 +13,16 @@ using OpenTK.Graphics.OpenGL;
 
 namespace OpenGlUserControl
 {
-    public partial class WinFormsControl: UserControl
+    public partial class WinFormsControl : UserControl
     {
+        private static float _angle = 0.0f; 
+
         private GLControl _glControl;
 
         // Singleton
         private static WinFormsControl _instance1;
-        public static WinFormsControl Instance1 
+
+        public static WinFormsControl Instance1
         {
             get
             {
@@ -46,37 +49,121 @@ namespace OpenGlUserControl
             {
                 Dock = DockStyle.Fill,
                 VSync = true
-        };
+            };
 
 
             // Adding the glControl to the panel inside WinFormsControl
             WinformsControlPanel.Controls.Add(_glControl);
 
-            _glControl.Paint += GlControl_Paint;
-            _glControl.SizeChanged += GlControl_SizeChanged;
+            _glControl.Resize += _glControl_Resize;
+            _glControl.Paint += _glControl_Paint;
+
+
+            GL.ClearColor(Color.DimGray);
+            GL.Enable(EnableCap.DepthTest);
+
+            Application.Idle += Application_Idle;
+
+            _glControl_Resize(_glControl, EventArgs.Empty); // Makes sure, the viewport an projection matrix are going to be correctly set.
         }
 
-        private void GlControl_Paint(object sender, PaintEventArgs e)
-        {
-            _glControl.MakeCurrent();
-            GL.ClearColor(Color.Blue);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            
-            GL.Viewport(Point.Empty, _glControl.Size);
+        #region Eventhandlers
 
-            GL.Begin(PrimitiveType.Triangles);
-            GL.Vertex2(-1, -1);
-            GL.Vertex2(1, -1);
-            GL.Vertex2(0, 1);
-            GL.End();
+        private void _glControl_Resize(object sender, EventArgs e)
+        {
+            if (sender is GLControl glControl && glControl.ClientSize.Height == 0)
+            {
+                glControl.ClientSize = new Size(glControl.ClientSize.Width, 1);
+            }
+
+            Matrix4 perspectiveProjection =
+                Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Width*1.0f / Height, 1.0f, 100.0f);
+
+            GL.MatrixMode(MatrixMode.Projection);
+
+            GL.LoadMatrix(ref perspectiveProjection); 
+        }
+
+        private void _glControl_Paint(object sender, PaintEventArgs e)
+        {
+            Render();
+        }
+
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            while (_glControl.IsIdle)
+            {
+                Render();
+            }
+        }
+
+        private void Render()
+        {
+            Matrix4 lookAt = Matrix4.LookAt(0, 5, 5, 0, 0, 0, 1, 3, 0);
+
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(ref lookAt);
+
+            //GL.Rotate(_angle, 0.0f, 1.0f, 0.0);
+            //_angle += 0.5f;
+
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            Draw();
 
             _glControl.SwapBuffers();
-
         }
 
-        private void GlControl_SizeChanged(object sender, EventArgs e)
+        #endregion
+
+        #region Drawing Method
+
+        private void Draw()
         {
-            _glControl.Invalidate();
+            GL.Begin(BeginMode.Quads);
+
+            GL.Color3(Color.Silver);
+            GL.Vertex3(-1.0f, -1.0f, -1.0f);
+            GL.Vertex3(-1.0f, 1.0f, -1.0f);
+            GL.Vertex3(1.0f, 1.0f, -1.0f);
+            GL.Vertex3(1.0f, -1.0f, -1.0f);
+
+            GL.Color3(Color.Honeydew);
+            GL.Vertex3(-1.0f, -1.0f, -1.0f);
+            GL.Vertex3(1.0f, -1.0f, -1.0f);
+            GL.Vertex3(1.0f, -1.0f, 1.0f);
+            GL.Vertex3(-1.0f, -1.0f, 1.0f);
+
+            GL.Color3(Color.Moccasin);
+
+            GL.Vertex3(-1.0f, -1.0f, -1.0f);
+            GL.Vertex3(-1.0f, -1.0f, 1.0f);
+            GL.Vertex3(-1.0f, 1.0f, 1.0f);
+            GL.Vertex3(-1.0f, 1.0f, -1.0f);
+
+            GL.Color3(Color.IndianRed);
+            GL.Vertex3(-1.0f, -1.0f, 1.0f);
+            GL.Vertex3(1.0f, -1.0f, 1.0f);
+            GL.Vertex3(1.0f, 1.0f, 1.0f);
+            GL.Vertex3(-1.0f, 1.0f, 1.0f);
+
+            GL.Color3(Color.PaleVioletRed);
+            GL.Vertex3(-1.0f, 1.0f, -1.0f);
+            GL.Vertex3(-1.0f, 1.0f, 1.0f);
+            GL.Vertex3(1.0f, 1.0f, 1.0f);
+            GL.Vertex3(1.0f, 1.0f, -1.0f);
+
+            GL.Color3(Color.ForestGreen);
+            GL.Vertex3(1.0f, -1.0f, -1.0f);
+            GL.Vertex3(1.0f, 1.0f, -1.0f);
+            GL.Vertex3(1.0f, 1.0f, 1.0f);
+            GL.Vertex3(1.0f, -1.0f, 1.0f);
+
+            GL.End();
         }
+
+        #endregion
     }
+
 }
+        
