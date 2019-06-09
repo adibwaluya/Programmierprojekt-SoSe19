@@ -53,9 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataModel\DataModel.csproj">
+    <ProjectReference Include="..\..\DataModel\DataStructure.csproj">
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
-      <Name>DataModel</Name>
+      <Name>DataStructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\ErrorHandlingDataModel\ErrorHandlingDataModel.csproj">
       <Project>{108fc228-40de-43a5-a7ec-314028cbf251}</Project>

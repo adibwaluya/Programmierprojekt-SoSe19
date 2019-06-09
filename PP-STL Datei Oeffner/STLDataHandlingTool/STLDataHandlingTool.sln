@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StlExport", "..\StlExport\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "..\View\View.csproj", "{9BC08D45-8D1E-4DB7-A581-3F76E9E65D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "..\DataModel\DataModel.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructure", "..\DataModel\DataStructure.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandling", "ErrorHandlingNew\ErrorHandling.csproj", "{B592228C-E663-4DF1-8ED9-49C447CF6451}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandlingTest", "ErrorHandlingTest\ErrorHandlingTest.csproj", "{9A1BCF22-A7A1-440F-8048-FA9FD21DCC89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandlingDataModel", "ErrorHandlingDataModel\ErrorHandlingDataModel.csproj", "{108FC228-40DE-43A5-A7EC-314028CBF251}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "importSTL", "importSTL\importSTL.csproj", "{C177D020-9612-4BB3-8A5C-33444DEE8618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{108FC228-40DE-43A5-A7EC-314028CBF251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{108FC228-40DE-43A5-A7EC-314028CBF251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{108FC228-40DE-43A5-A7EC-314028CBF251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

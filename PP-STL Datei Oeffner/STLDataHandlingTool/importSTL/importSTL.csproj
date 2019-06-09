@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5695AE7E-91EB-4F8B-8FBA-FF7E8A3ADF67}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>StlExport</RootNamespace>
-    <AssemblyName>StlExport</AssemblyName>
+    <ProjectGuid>{C177D020-9612-4BB3-8A5C-33444DEE8618}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>importSTL</RootNamespace>
+    <AssemblyName>importSTL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,18 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IStlExport.cs" />
+    <Compile Include="DataReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test_StlExport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataModel\DataStructure.csproj">
+    <ProjectReference Include="..\..\DataModel\DataStructure.csproj">
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
-      <Name>DataModel</Name>
+      <Name>DataStructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
