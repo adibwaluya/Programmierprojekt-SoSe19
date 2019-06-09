@@ -8,7 +8,7 @@ namespace DataModel
 {
     public class Face
     {
-        public Face(int firstEdge, int secondEdge, int thirdEdge, Normal n, DataModel dm)
+        public Face(int firstEdge, int secondEdge, int thirdEdge, Normal n, DataStructure dm)
         {
             FirstEdge = firstEdge;
             SecondEdge = secondEdge;
@@ -54,7 +54,7 @@ namespace DataModel
         }
         
         public Normal N { get; set; }
-        public DataModel Datamodel { get; set; }
+        public DataStructure Datamodel { get; set; }
 
 
     }

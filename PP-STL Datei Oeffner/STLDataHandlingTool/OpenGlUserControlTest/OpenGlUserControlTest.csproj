@@ -99,9 +99,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataModel\DataStructure.csproj">
+    <ProjectReference Include="..\..\DataModel\DataModel.csproj">
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
-      <Name>DataStructure</Name>
+      <Name>DataModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenGlUserControl\OpenGlUserControl.csproj">
       <Project>{329e5de2-9a3d-43be-a10b-afa55593f7f5}</Project>

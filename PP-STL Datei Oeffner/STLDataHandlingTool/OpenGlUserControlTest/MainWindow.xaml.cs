@@ -13,7 +13,7 @@ namespace OpenGlUserControlTest
         }
 
         // Helper for creating a dummy-datamodel
-        private void addFace(DataModel.Point p1, DataModel.Point p2, DataModel.Point p3, Normal n, DataModel.DataModel dm)
+        private void addFace(DataModel.Point p1, DataModel.Point p2, DataModel.Point p3, Normal n, DataModel.DataStructure dm)
         {
             int pntId1 = dm.AddPoint(p1.X,p1.Y,p1.Z);
             int pntId2 = dm.AddPoint(p2.X, p2.Y, p2.Z);
@@ -27,7 +27,7 @@ namespace OpenGlUserControlTest
         // EventHandler for Btn in MAinWindow
         private void CreateAndShowModel_Click(object sender, RoutedEventArgs e)
         {
-            var dm = new DataModel.DataModel();
+            var dm = new DataModel.DataStructure();
 
             Point p1 = new Point(1.000000e+01, -1.000000e+01, -1.000000e+01);
             Point p2 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);

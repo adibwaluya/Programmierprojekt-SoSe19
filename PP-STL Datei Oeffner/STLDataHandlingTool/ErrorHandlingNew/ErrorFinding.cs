@@ -11,7 +11,7 @@ namespace ErrorHandling
     public class ErrorFinding
     {
 
-        public void findError(DataModel.DataModel dm)
+        public void findError(DataModel.DataStructure dm)
         {
             // nur ein kleiner Test
 

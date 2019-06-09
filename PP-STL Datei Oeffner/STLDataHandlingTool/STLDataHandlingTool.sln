@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StlExport", "..\StlExport\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "..\View\View.csproj", "{9BC08D45-8D1E-4DB7-A581-3F76E9E65D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructure", "..\DataModel\DataStructure.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "..\DataModel\DataModel.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandling", "ErrorHandlingNew\ErrorHandling.csproj", "{B592228C-E663-4DF1-8ED9-49C447CF6451}"
 EndProject
