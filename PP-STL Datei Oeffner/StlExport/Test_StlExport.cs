@@ -14,16 +14,14 @@ namespace StlExport
         // Collect all coordinates from PointList
         DataModel.DataStructure dm = new DataModel.DataStructure();
         List<Point> ListOfPoints;
-        int x;
 
-        //public void listCoordinates()
-        //{
-        //    foreach (Point p in dm.points)
-        //    {
-        //        ListOfPoints.Add(p);
-        //    }
-
-        //}
+        public void listCoordinates()
+        {
+            foreach (Point p in dm.points)
+            {
+                ListOfPoints.Add(p);
+            }
+        }
 
         // Collect all point-normal from Normal
         List<Normal> ListOfNormals;
@@ -58,8 +56,12 @@ namespace StlExport
             dm.AddEdge(3, 0);
             dm.AddEdge(3, 1);
 
-            dm.AddFace(3, 1, 2, new Normal(1, 1, 1));
-            dm.AddFace(0, 1, 2, new Normal(1, 2, 3));
+            Normal norm1 = new Normal(1, 1, 1);
+            Normal norm2 = new Normal(1, 2, 3);
+
+
+            dm.AddFace(3, 1, 2, norm1);
+            dm.AddFace(0, 1, 2, norm2);
         }
     }
 }
