@@ -13,19 +13,21 @@ namespace ErrorHandling
 
         public void findError(DataStructure dm)
         {
+
             // Test
 
-            Face face1 = dm.faces.GetFace(0);
-            List<Edge> listOfEdges = new List<Edge>();
-            listOfEdges = face1.Edges;
-            Edge currentEdge = listOfEdges[0];
-            Console.WriteLine(currentEdge.P1.Z);
-            int FaceOfEdge = currentEdge.FaceIDs[0];
-            Console.WriteLine(FaceOfEdge);
-            Console.WriteLine(currentEdge.FaceIDs.Count);
+            //Face face1 = dm.faces.GetFace(0);
+            //List<Edge> listOfEdges = new List<Edge>();
+            //listOfEdges = face1.Edges;
+            //Edge currentEdge = listOfEdges[0];
+            //Console.WriteLine(currentEdge.P1.Z);
+            //int FaceOfEdge = currentEdge.FaceIDs[0];
+            //Console.WriteLine(FaceOfEdge);
+            //Console.WriteLine(currentEdge.FaceIDs.Count);
 
             // Hier geht's los
 
+            Edge currentEdge;
             int numberOfFaces;
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
