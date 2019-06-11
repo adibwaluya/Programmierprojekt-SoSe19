@@ -11,15 +11,16 @@ namespace ErrorHandling
     public class ErrorFinding
     {
 
-        public void findError(DataModel.DataStructure dm)
+        public void findError(DataStructure dm)
         {
-            // nur ein kleiner Test
+            // Test
 
             Face face1 = dm.faces.GetFace(0);
             List<Edge> listOfEdges = new List<Edge>();
             listOfEdges = face1.Edges;
             Edge currentEdge = listOfEdges[0];
             Console.WriteLine(currentEdge.P1.Z);
+
 
             // Hier geht's los
 

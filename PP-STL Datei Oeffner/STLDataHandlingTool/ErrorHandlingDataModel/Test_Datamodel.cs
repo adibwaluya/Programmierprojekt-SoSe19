@@ -9,7 +9,7 @@ namespace ErrorHandlingDataModel
 {
     public class Test_Datamodel
     {
-        public void FillDatamodel(DataModel.DataStructure dm)
+        public void FillDatamodel(DataStructure dm)
         {
             dm.AddPoint(1, 2, 42);
             dm.AddPoint(2, 2, 2);
