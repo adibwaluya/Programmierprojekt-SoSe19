@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{79FADB57-8897-4FE0-99BC-A99DC3E475C1}</ProjectGuid>
+    <ProjectGuid>{C177D020-9612-4BB3-8A5C-33444DEE8618}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DataModel</RootNamespace>
-    <AssemblyName>DataModel</AssemblyName>
+    <RootNamespace>importSTL</RootNamespace>
+    <AssemblyName>importSTL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,18 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Edge.cs" />
-    <Compile Include="EdgeList.cs" />
-    <Compile Include="Face.cs" />
-    <Compile Include="FaceList.cs" />
-    <Compile Include="Normal.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="PointList.cs" />
+    <Compile Include="DataReader.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataStructure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataModel\DataModel.csproj">
+      <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

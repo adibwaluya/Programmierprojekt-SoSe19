@@ -15,7 +15,7 @@ namespace ErrorHandlingTest
         static void Main(string[] args)
         {
             Test_Datamodel test_datamodel1 = new Test_Datamodel();
-            DataModel.DataModel dm = new DataModel.DataModel();
+            DataStructure dm = new DataStructure();
             test_datamodel1.FillDatamodel(dm);
 
             ErrorFinding errorFinding = new ErrorFinding();
