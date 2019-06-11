@@ -16,12 +16,17 @@ namespace OpenGlUserControl
     public partial class WinFormsControl : UserControl
     {
         private static float _angle = 0.0f; 
-
         private GLControl _glControl;
 
-        // Singleton
+        private Vector3d[] _vertexBuffer;
+        private int _vbo;
+
+        #region ---Creating the GLControl---
+
+        
         private static WinFormsControl _instance1;
 
+        // Singleton
         public static WinFormsControl Instance1
         {
             get
@@ -62,10 +67,10 @@ namespace OpenGlUserControl
             GL.ClearColor(Color.DimGray);
             GL.Enable(EnableCap.DepthTest);
 
-            Application.Idle += Application_Idle;
-
             _glControl_Resize(_glControl, EventArgs.Empty); // Makes sure, the viewport an projection matrix are going to be correctly set.
         }
+
+        #endregion
 
         #region Eventhandlers
 
@@ -89,18 +94,9 @@ namespace OpenGlUserControl
             Render();
         }
 
-        private void Application_Idle(object sender, EventArgs e)
-        {
-            while (_glControl.IsIdle)
-            {
-                Render();
-            }
-        }
-
         private void Render()
         {
             Matrix4 lookAt = Matrix4.LookAt(0, 5, 5, 0, 0, 0, 1, 3, 0);
-
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref lookAt);
 
@@ -109,57 +105,83 @@ namespace OpenGlUserControl
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Draw();
+            GetDataModel(); // Getting the Data from DataModel and loading them into the _vertexBuffer
+
+            _vbo = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
+            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * _vertexBuffer.Length),
+                _vertexBuffer,BufferUsageHint.StaticDraw); // DynamicDraw!!!
+
+            GL.EnableClientState(ArrayCap.VertexArray);
+            //GL.EnableClientState(ArrayCap.NormalArray);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
+            GL.VertexPointer(3, VertexPointerType.Double, Vector3d.SizeInBytes, 0);
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertexBuffer.Length);
 
             _glControl.SwapBuffers();
         }
 
         #endregion
 
-        #region Drawing Method
+        #region 
 
-        private void Draw()
+        private void GetDataModel()
         {
-            GL.Begin(BeginMode.Quads);
+          
 
-            GL.Color3(Color.Silver);
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
+            _vertexBuffer = new Vector3d[36]
+            {
+                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
+               
+                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
 
-            GL.Color3(Color.Honeydew);
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
+                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+0),
 
-            GL.Color3(Color.Moccasin);
+                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
 
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
+                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
 
-            GL.Color3(Color.IndianRed);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
+                new Vector3d(1.000000e+01, -1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
 
-            GL.Color3(Color.PaleVioletRed);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
+                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
 
-            GL.Color3(Color.ForestGreen);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
+                new Vector3d(-1.000000e+01, -1.000000e+01, 1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
 
-            GL.End();
+                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
+
+                new Vector3d(-1.000000e+01, -1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(1.000000e+01, -1.000000e+01, -1.000000e+01),
+
+                new Vector3d(-1.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, -1.000000e+01),
+
+                new Vector3d(11.000000e+01, 1.000000e+01, -1.000000e+01),
+                new Vector3d(-1.000000e+01, 1.000000e+01, 1.000000e+01),
+                new Vector3d(1.000000e+01, 1.000000e+01, 1.000000e+01),
+
+            };
+
         }
 
         #endregion
