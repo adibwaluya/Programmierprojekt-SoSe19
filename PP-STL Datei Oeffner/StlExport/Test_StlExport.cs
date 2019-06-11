@@ -12,18 +12,18 @@ namespace StlExport
     public class Test_StlExport: IEnumerable
     {
         // Collect all coordinates from PointList
-        DataModel.DataModel dm = new DataModel.DataModel();
+        DataModel.DataStructure dm = new DataModel.DataStructure();
         List<Point> ListOfPoints;
         int x;
 
-        public void listCoordinates()
-        {
-            foreach (Point p in dm.points)
-            {
-                ListOfPoints.Add(p);
-            }
+        //public void listCoordinates()
+        //{
+        //    foreach (Point p in dm.points)
+        //    {
+        //        ListOfPoints.Add(p);
+        //    }
 
-        }
+        //}
         // Collect all point-normal from Normal
         List<Normal> ListOfNormals;
 
