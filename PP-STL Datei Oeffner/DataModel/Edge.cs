@@ -8,6 +8,10 @@ namespace DataModel
 {
     public class Edge
     {
+        public bool potentiallyFaulty;
+        public bool faulty;
+        public IList<int> FaceIDs = new List<int>();
+
         public Edge(int startPoint, int endPoint, DataStructure model)
         {
             StartPoint = startPoint;

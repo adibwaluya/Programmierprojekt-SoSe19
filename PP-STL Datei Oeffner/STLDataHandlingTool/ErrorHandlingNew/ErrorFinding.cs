@@ -11,47 +11,45 @@ namespace ErrorHandling
     public class ErrorFinding
     {
 
-        public void findError(DataModel.DataStructure dm)
+        public void findError(DataStructure dm)
         {
-            // nur ein kleiner Test
+            // Test
 
             Face face1 = dm.faces.GetFace(0);
             List<Edge> listOfEdges = new List<Edge>();
             listOfEdges = face1.Edges;
             Edge currentEdge = listOfEdges[0];
             Console.WriteLine(currentEdge.P1.Z);
+            int FaceOfEdge = currentEdge.FaceIDs[0];
+            Console.WriteLine(FaceOfEdge);
+            Console.WriteLine(currentEdge.FaceIDs.Count);
 
             // Hier geht's los
 
             int numberOfFaces;
-            bool potentiallyFaulty;
-            bool Faulty;
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
 
-                Console.WriteLine(currentEdge.P1.Z);
-                numberOfFaces = currentEdgeNumber;      // Anzahl der angrenzenden Flächen wird gezählt (noch nicht im Datenmodell implementiert)
+                numberOfFaces = currentEdge.FaceIDs.Count;      // Anzahl der angrenzenden Flächen wird gezählt
 
                 if (numberOfFaces == 0)
                 {
                     Console.WriteLine("Faulty");
-                    //currentEdge is Faulty
+                    currentEdge.faulty = true;
                 }
                 else if (numberOfFaces == 1)
                 {
                     Console.WriteLine("potentiallyFaulty");
-                    //currentEdge is potentiallyFaulty
+                    currentEdge.potentiallyFaulty = true;
                 }
                 else
                 {
                     Console.WriteLine("not Faulty");
-                    //currentEdge is not Faulty
+                    currentEdge.faulty = false;
                 }
             }
         }
-
-
     }
 }

@@ -30,6 +30,11 @@ namespace DataModel
         public int AddFace(int e1, int e2, int e3, Normal n)
         {
             Face f = new Face(e1, e2, e3, n, this);
+            
+            edges.GetEdge(e1).FaceIDs.Add(faces.AddOrGetFace(f));
+            edges.GetEdge(e2).FaceIDs.Add(faces.AddOrGetFace(f));
+            edges.GetEdge(e3).FaceIDs.Add(faces.AddOrGetFace(f));
+
             return faces.AddOrGetFace(f);
         }
 
