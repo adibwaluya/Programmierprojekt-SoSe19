@@ -17,6 +17,19 @@ namespace DataModel
             Datamodel = dm;
         }
 
+        public Face(Point firstPoint, Point secondPoint, Point thirdPoint, Normal n, DataStructure dm)
+        {
+            FirstPoint = firstPoint;
+            SecondPoint = secondPoint;
+            ThirdPoint = thirdPoint;
+            N = n;
+            Datamodel = dm;
+        }
+
+        public Point FirstPoint { get; set; }
+        public Point SecondPoint { get; set; }
+        public Point ThirdPoint { get; set; }
+
         public int FirstEdge { get; set; }
         public int SecondEdge { get; set; }
         public int ThirdEdge { get; set; }
