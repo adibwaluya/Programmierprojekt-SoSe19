@@ -26,6 +26,7 @@ namespace StlExport
         // Collect all point-normal from Normal
         List<Normal> ListOfNormals;
 
+
         public void listNormal()
         {
             foreach (Point pts in ListOfPoints)
@@ -34,10 +35,11 @@ namespace StlExport
             }
         }
 
-        // Compile as one STL File
-        public void AsFile(List<Point> pts, List<Normal> norms)
+        // Compile as one STL ASCII File
+        public void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath)
         {
-            
+            StreamWriter txtWriter = new StreamWriter(filePath);
+
         }
     }
 
