@@ -25,6 +25,7 @@ namespace ErrorHandlingDataModel
             dm.AddFace(3, 1, 2, new Normal(1, 2, 3));
             dm.AddFace(2, 3, 1, new Normal(1, 2, 3));
             dm.AddFace(0, 4, 5, new Normal(1, 2, 3));
+            dm.AddFace(3, 2, 1, new Normal(1, 2, 3));
         }
     }
 }
