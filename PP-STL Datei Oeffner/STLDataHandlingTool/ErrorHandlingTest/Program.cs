@@ -25,8 +25,8 @@ namespace ErrorHandlingTest
             identifyBodies.FindBodies(dm);
 
             Console.WriteLine(dm.faces.GetFace(0).bodyID);
-            Console.WriteLine(dm.faces.GetFace(0).bodyID);
-            Console.WriteLine(dm.faces.GetFace(0).bodyID);
+            Console.WriteLine(dm.faces.GetFace(1).bodyID);
+            Console.WriteLine(dm.faces.GetFace(2).bodyID);
 
             Console.ReadLine();
 

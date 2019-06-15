@@ -33,9 +33,9 @@ namespace ErrorHandling
             Edge thirdEdge;
             NextFaces.Add(startID);
 
-            foreach (int currentFaceNumber in NextFaces)
+            for (int i = 0; i < NextFaces.Count; i++)
             {
-                currentFace = dm.faces.GetFace(currentFaceNumber);
+                currentFace = dm.faces.GetFace(NextFaces[i]);
 
                 if (currentFace.bodyID != 0)
                 {
@@ -50,7 +50,7 @@ namespace ErrorHandling
                 LabelFaces(secondEdge, dm, bodyID);
                 LabelFaces(thirdEdge, dm, bodyID);
 
-                NextFaces.Remove(currentFaceNumber);
+                NextFaces.Remove(NextFaces[i]);
             }
 
         }
