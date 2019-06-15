@@ -11,7 +11,7 @@ namespace ErrorHandling
     public class ErrorFinding
     {
 
-        public void findError(DataStructure dm)
+        public void FindError(DataStructure dm)
         {
 
             // Test

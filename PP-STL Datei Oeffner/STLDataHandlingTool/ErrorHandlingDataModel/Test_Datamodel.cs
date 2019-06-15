@@ -20,9 +20,11 @@ namespace ErrorHandlingDataModel
             dm.AddEdge(2, 0);
             dm.AddEdge(3, 0);
             dm.AddEdge(3, 1);
+            dm.AddEdge(3, 2);
             //Normal normalVector = new Normal(1, 2, 3);
             dm.AddFace(3, 1, 2, new Normal(1, 2, 3));
-            dm.AddFace(0, 1, 2, new Normal(1, 2, 3));
+            dm.AddFace(2, 3, 1, new Normal(1, 2, 3));
+            dm.AddFace(0, 4, 5, new Normal(1, 2, 3));
         }
     }
 }

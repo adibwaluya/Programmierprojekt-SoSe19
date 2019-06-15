@@ -8,6 +8,9 @@ namespace DataModel
 {
     public class Face
     {
+        // bodyID Implemented by Maximilian
+        public int bodyID = 0;
+
         public Face(int firstEdge, int secondEdge, int thirdEdge, Normal n, DataStructure dm)
         {
             FirstEdge = firstEdge;
