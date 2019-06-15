@@ -38,8 +38,34 @@ namespace StlExport
         // Compile as one STL File
         public void AsFile(List<Point> pts, List<Normal> norms, string filePath)
         {
-            StreamWriter txtWriter = new StreamWriter(filePath);
+            //TODO: Add indentation as a method
+            
 
+            try
+            {
+                // Add file name and location to StreamWriter
+                StreamWriter txtWriter = new StreamWriter(filePath);
+
+                // Write an opening line of ASCII STL Data
+                txtWriter.WriteLine("solid ");
+
+                //Write the body of ASCII STL Data
+                txtWriter.WriteLine("facet normal" + ListOfNormals[1]);
+                txtWriter.WriteLine();
+
+
+                //Close the file
+                txtWriter.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
+        }
         }
     }
 
