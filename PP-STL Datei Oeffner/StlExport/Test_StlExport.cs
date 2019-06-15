@@ -39,7 +39,8 @@ namespace StlExport
         public void AsFile(List<Point> pts, List<Normal> norms, string filePath)
         {
             //TODO: Add indentation as a method
-            
+            string indent = String.Join("    ", new String[4]);
+            string indent2 = String.Join("    ", new String[8]);
 
             try
             {
@@ -51,7 +52,12 @@ namespace StlExport
 
                 //Write the body of ASCII STL Data
                 txtWriter.WriteLine("facet normal" + ListOfNormals[1]);
-                txtWriter.WriteLine();
+                    txtWriter.WriteLine(indent + "outer loop");
+                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point1
+                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point2
+                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point3
+                    txtWriter.WriteLine(indent + "endloop");
+                txtWriter.WriteLine("endfacet");
 
 
                 //Close the file
@@ -63,7 +69,7 @@ namespace StlExport
             }
             finally
             {
-                Console.WriteLine("endsolid" ); //TODO: + Filename!
+                Console.WriteLine("endsolid" ); //TODO: + Filename! or change into another WriteLine
             }
         }
         }
