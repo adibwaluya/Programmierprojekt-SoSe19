@@ -63,7 +63,7 @@ namespace StlExport
             }
             finally
             {
-                Console.WriteLine("Executing finally block.");
+                Console.WriteLine("endsolid" ); //TODO: + Filename!
             }
         }
         }
