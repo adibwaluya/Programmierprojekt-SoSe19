@@ -11,24 +11,54 @@ namespace ErrorHandling
     public class ErrorFinding
     {
 
+        // Test
+
+        //Face face1 = dm.faces.GetFace(0);
+        //List<Edge> listOfEdges = new List<Edge>();
+        //listOfEdges = face1.Edges;
+        //Edge currentEdge = listOfEdges[0];
+        //Console.WriteLine(currentEdge.P1.Z);
+        //int FaceOfEdge = currentEdge.FaceIDs[0];
+        //Console.WriteLine(FaceOfEdge);
+        //Console.WriteLine(currentEdge.FaceIDs.Count);
+
+
         public void FindError(DataStructure dm)
         {
+            if (simpleErrorFinding(dm) > 2)
+            {
+                advancedErrorFinding(dm);
+            }
+            markPotentiallyFaultyEdgesAsFaulty(dm);
+        }
 
-            // Test
+        private void markPotentiallyFaultyEdgesAsFaulty(DataStructure dm)
+        {
+            throw new NotImplementedException();
+        }
 
-            //Face face1 = dm.faces.GetFace(0);
-            //List<Edge> listOfEdges = new List<Edge>();
-            //listOfEdges = face1.Edges;
-            //Edge currentEdge = listOfEdges[0];
-            //Console.WriteLine(currentEdge.P1.Z);
-            //int FaceOfEdge = currentEdge.FaceIDs[0];
-            //Console.WriteLine(FaceOfEdge);
-            //Console.WriteLine(currentEdge.FaceIDs.Count);
+        private void advancedErrorFinding(DataStructure dm)
+        {
+            Edge currentEdge;
+            int[,] array = new int[3,12345];
 
-            // Hier geht's los
+            for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
+            {
+                currentEdge = dm.edges.GetEdge(currentEdgeNumber);
 
+            }
+        }
+
+        private void makeVectorsFromPotentiallyFaultyEdges()
+        {
+            throw new NotImplementedException();
+        }
+
+        private int simpleErrorFinding(DataStructure dm)
+        {
             Edge currentEdge;
             int numberOfFaces;
+            int potentiallyFaultyCounter = 0;
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
@@ -45,6 +75,7 @@ namespace ErrorHandling
                 {
                     Console.WriteLine("potentiallyFaulty");
                     currentEdge.potentiallyFaulty = true;
+                    potentiallyFaultyCounter++;
                 }
                 else
                 {
@@ -52,6 +83,7 @@ namespace ErrorHandling
                     currentEdge.faulty = false;
                 }
             }
+            return potentiallyFaultyCounter;
         }
     }
 }
