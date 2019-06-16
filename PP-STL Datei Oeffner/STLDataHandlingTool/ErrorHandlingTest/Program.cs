@@ -19,7 +19,15 @@ namespace ErrorHandlingTest
             test_datamodel1.FillDatamodel(dm);
 
             ErrorFinding errorFinding = new ErrorFinding();
-            errorFinding.findError(dm);
+            errorFinding.FindError(dm);
+
+            IdentifyBodies identifyBodies = new IdentifyBodies();
+            identifyBodies.FindBodies(dm);
+
+            Console.WriteLine(dm.faces.GetFace(0).bodyID);
+            Console.WriteLine(dm.faces.GetFace(1).bodyID);
+            Console.WriteLine(dm.faces.GetFace(2).bodyID);
+            Console.WriteLine(dm.faces.GetFace(3).bodyID);
 
             Console.ReadLine();
 

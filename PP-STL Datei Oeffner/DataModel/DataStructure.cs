@@ -45,6 +45,7 @@ namespace DataModel
         {
             Face f = new Face(e1, e2, e3, n, this);
             
+            // Adds FaceID to the list of every edge. Implemented by Maximilian
             edges.GetEdge(e1).FaceIDs.Add(faces.AddOrGetFace(f));
             edges.GetEdge(e2).FaceIDs.Add(faces.AddOrGetFace(f));
             edges.GetEdge(e3).FaceIDs.Add(faces.AddOrGetFace(f));

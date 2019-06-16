@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace DataModel
 {
-    public class PointList
+    public class PointList : IEnumerable
     {
         private int m_idx = 0; // Starting index
         public Dictionary<int, Point> m_int2pt = new Dictionary<int, Point>(); // register point if ID is given
@@ -23,6 +24,11 @@ namespace DataModel
             m_int2pt[m_idx] = p;
             m_pt2int[p] = m_idx;
             return m_idx++;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
 
         /* User defines a point by giving an ID to this methode as parameter */

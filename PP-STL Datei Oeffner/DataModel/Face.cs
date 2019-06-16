@@ -8,6 +8,9 @@ namespace DataModel
 {
     public class Face
     {
+        // bodyID Implemented by Maximilian
+        public int bodyID = 0;
+
         public Face(int firstEdge, int secondEdge, int thirdEdge, Normal n, DataStructure dm)
         {
             FirstEdge = firstEdge;
@@ -16,6 +19,19 @@ namespace DataModel
             N = n;
             Datamodel = dm;
         }
+
+        public Face(Point firstPoint, Point secondPoint, Point thirdPoint, Normal n, DataStructure dm)
+        {
+            FirstPoint = firstPoint;
+            SecondPoint = secondPoint;
+            ThirdPoint = thirdPoint;
+            N = n;
+            Datamodel = dm;
+        }
+
+        public Point FirstPoint { get; set; }
+        public Point SecondPoint { get; set; }
+        public Point ThirdPoint { get; set; }
 
         public int FirstEdge { get; set; }
         public int SecondEdge { get; set; }
