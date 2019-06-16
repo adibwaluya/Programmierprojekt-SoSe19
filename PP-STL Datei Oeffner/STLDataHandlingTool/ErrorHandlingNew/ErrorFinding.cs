@@ -10,7 +10,7 @@ namespace ErrorHandling
 {
     public class ErrorFinding
     {
-
+        public int edgeListLength;
         // Test
 
         //Face face1 = dm.faces.GetFace(0);
@@ -40,12 +40,20 @@ namespace ErrorHandling
         private void advancedErrorFinding(DataStructure dm)
         {
             Edge currentEdge;
-            int[,] array = new int[3,12345];
+            Point point1;
+            Point point2;
+            double[,] array = new double[2, edgeListLength];
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
-
+                if (currentEdge.potentiallyFaulty)
+                {
+                    point1 = currentEdge.P1;
+                    point2 = currentEdge.P2;
+                    array[0, currentEdgeNumber] = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);
+                    array[1, currentEdgeNumber] = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                }
             }
         }
 
@@ -66,6 +74,8 @@ namespace ErrorHandling
 
                 numberOfFaces = currentEdge.FaceIDs.Count;      // Anzahl der angrenzenden Flächen wird gezählt
 
+                edgeListLength = currentEdgeNumber+1;
+
                 if (numberOfFaces == 0)
                 {
                     Console.WriteLine("Faulty");
@@ -83,6 +93,7 @@ namespace ErrorHandling
                     currentEdge.faulty = false;
                 }
             }
+            
             return potentiallyFaultyCounter;
         }
     }
