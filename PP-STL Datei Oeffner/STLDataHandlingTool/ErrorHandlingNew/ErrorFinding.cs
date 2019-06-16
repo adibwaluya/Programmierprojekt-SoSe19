@@ -49,10 +49,9 @@ namespace ErrorHandling
             Edge currentEdge;
             Point point1;
             Point point2;
-            double[,] vectorArray = new double[edgeListLength, edgeListLength]; // kann theoretisch noch kleiner gemacht werden
-            int number = 0;
             double currentVectorY;
             double currentVectorZ;
+            List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
@@ -63,33 +62,25 @@ namespace ErrorHandling
                     point2 = currentEdge.P2;
                     currentVectorY = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);     // Die X Position ist immer 1 und wird daher nicht im Array angegeben
                     currentVectorZ = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
-                    // bereits vorhanden?
-                    for (int currentNumber = 0; vectorArray[0, currentNumber] != 0; currentNumber++)    // Wir laufen durch alle Eintragungen im Array nach unten durch
-                    {
-                        if (vectorArray[0, currentNumber] == currentVectorY && vectorArray[1, currentNumber] == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist ...
-                        {
-                            for (int currentNumber2 = 0; true; currentNumber2++)     // ... laufen wir den Array seitwärts durch und fügen die Edge mit currentEdgeNumber am Ende ein
-                            {
-                                if (vectorArray[currentNumber2, currentNumber] == 0)
-                                {
 
-                                }
-                            }
+                    VectorOfEdge vectorOfEdge = new VectorOfEdge();
+                    vectorList.Add(vectorOfEdge);
+                    vectorOfEdge.addCoordinates(currentVectorY, currentVectorZ);
+                    
+                    // Edge, die in gleiche Richtung zeigt bereits vorhanden?
+                    foreach (VectorOfEdge vector in vectorList)    // Wir laufen durch alle Eintragungen in der Liste durch
+                    {
+                        if (vectorOfEdge.edgeIDList[0] == currentVectorY && vectorOfEdge.edgeIDList[1] == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist
+                        {
+                            vectorOfEdge.edgeIDList.Add(currentEdgeNumber);
+                            vectorList.RemoveAt(vectorList.Count - 1);
+                            break;
                         }
                     }
-                    number++;
                 }
             }
-            for (int currentNumber = 0; vectorArray[0, currentNumber] != 0; currentNumber++)
-            {
-                //currentVectorY = vectorArray[1, currentNumber];
-                //currentVectorZ = vectorArray[2, currentNumber];
-                for (int currentNumber2 = 0; currentNumber2 < edgeListLength; currentNumber2++)
-                {
-                    //currentVectorY == vectorArray[1, currentNumber2];
-                    //currentVectorZ == vectorArray[2, currentNumber2];
-                }
-            }
+            // Zwei identische Vektoren mit gleichem Anfangspunkt vorhanden?
+            // Edge muss einige Nachbar-Edges kennen
         }
 
         private void makeVectorsFromPotentiallyFaultyEdges()
