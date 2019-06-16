@@ -49,7 +49,7 @@ namespace ErrorHandling
             Edge currentEdge;
             Point point1;
             Point point2;
-            double[,] vectorArray = new double[3, edgeListLength];
+            double[,] vectorArray = new double[edgeListLength, edgeListLength]; // kann theoretisch noch kleiner gemacht werden
             int number = 0;
             double currentVectorY;
             double currentVectorZ;
@@ -61,16 +61,29 @@ namespace ErrorHandling
                 {
                     point1 = currentEdge.P1;
                     point2 = currentEdge.P2;
-                    vectorArray[0, number] = currentEdgeNumber+1;
-                    vectorArray[1, number] = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X); // Die X Position ist immer 1 und wird daher nicht im Array angegeben
-                    vectorArray[2, number] = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                    currentVectorY = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);     // Die X Position ist immer 1 und wird daher nicht im Array angegeben
+                    currentVectorZ = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                    // bereits vorhanden?
+                    for (int currentNumber = 0; vectorArray[0, currentNumber] != 0; currentNumber++)    // Wir laufen durch alle Eintragungen im Array nach unten durch
+                    {
+                        if (vectorArray[0, currentNumber] == currentVectorY && vectorArray[1, currentNumber] == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist ...
+                        {
+                            for (int currentNumber2 = 0; true; currentNumber2++)     // ... laufen wir den Array seitwärts durch und fügen die Edge mit currentEdgeNumber am Ende ein
+                            {
+                                if (vectorArray[currentNumber2, currentNumber] == 0)
+                                {
+
+                                }
+                            }
+                        }
+                    }
                     number++;
                 }
             }
             for (int currentNumber = 0; vectorArray[0, currentNumber] != 0; currentNumber++)
             {
-                currentVectorY = vectorArray[1, currentNumber];
-                currentVectorZ = vectorArray[2, currentNumber];
+                //currentVectorY = vectorArray[1, currentNumber];
+                //currentVectorZ = vectorArray[2, currentNumber];
                 for (int currentNumber2 = 0; currentNumber2 < edgeListLength; currentNumber2++)
                 {
                     //currentVectorY == vectorArray[1, currentNumber2];
@@ -96,7 +109,7 @@ namespace ErrorHandling
 
                 numberOfFaces = currentEdge.FaceIDs.Count;      // Anzahl der angrenzenden Flächen wird gezählt
 
-                edgeListLength = currentEdgeNumber+1;
+                edgeListLength = currentEdgeNumber + 1;
 
                 if (numberOfFaces == 0)
                 {
@@ -115,7 +128,7 @@ namespace ErrorHandling
                     currentEdge.faulty = false;
                 }
             }
-            
+
             return potentiallyFaultyCounter;
         }
     }
