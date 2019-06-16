@@ -40,6 +40,29 @@ namespace DataModel
                 return model.points.GetPoint(EndPoint);
             }
         }
-       
+
+        // Doesn't work yet. Still need improvement
+        public override int GetHashCode()
+        {
+
+            return StartPoint.GetHashCode() ^ EndPoint.GetHashCode() ^ model.GetHashCode();
+        }
+
+
+        // Two edges would not be counted as two edges if they both have similar point IDs
+        // Two edges with two almost similar pointIDs (e.g. 1,2 and 2,1) are equal
+        public override bool Equals(object obj)
+        {
+            var edge = obj as Edge;
+            if (obj == null) return false;
+            if (edge.StartPoint == StartPoint ^ edge.StartPoint == EndPoint && edge.EndPoint == EndPoint ^ edge.EndPoint == StartPoint)
+            {
+                return edge.StartPoint == StartPoint ^ edge.StartPoint == EndPoint && edge.EndPoint == EndPoint ^ edge.EndPoint == StartPoint;
+            }
+
+
+            return false;
+        }
+
     }
 }
