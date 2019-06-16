@@ -9,8 +9,8 @@ namespace DataModel
     public class FaceList
     {
         private int m_idx = 0; // Starting index
-        private Dictionary<int, Face> m_int2Face = new Dictionary<int, Face>(); // register face if ID is given
-        private Dictionary<Face, int> m_Face2int = new Dictionary<Face, int>(); // register face if face is given
+        public Dictionary<int, Face> m_int2Face = new Dictionary<int, Face>(); // register face if ID is given
+        public Dictionary<Face, int> m_Face2int = new Dictionary<Face, int>(); // register face if face is given
 
         /* User adds or gets face if a 'face' variable is given */
         public int AddOrGetFace(Face p)

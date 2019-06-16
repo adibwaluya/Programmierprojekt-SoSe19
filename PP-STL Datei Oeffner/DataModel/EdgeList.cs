@@ -9,8 +9,8 @@ namespace DataModel
     public class EdgeList
     {
         private int m_idx = 0; // Starting index
-        private Dictionary<int, Edge> m_int2edge = new Dictionary<int, Edge>(); // register edge if ID is given
-        private Dictionary<Edge, int> m_edge2int = new Dictionary<Edge, int>(); // register edge if edge is given
+        public Dictionary<int, Edge> m_int2edge = new Dictionary<int, Edge>(); // register edge if ID is given
+        public Dictionary<Edge, int> m_edge2int = new Dictionary<Edge, int>(); // register edge if edge is given
 
         /* User adds or gets edge if an 'edge' variable is given */
         public int AddOrGetEdge(Edge p)

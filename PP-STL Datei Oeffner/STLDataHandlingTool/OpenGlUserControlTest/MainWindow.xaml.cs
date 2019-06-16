@@ -24,81 +24,81 @@ namespace OpenGlUserControlTest
             dm.AddFace(ie1, ie2, ie3, n);
         }
 
-        // EventHandler for Btn in MAinWindow
+        // EventHandler for Btn in MainWindow: Creates a dummy-datamodel for component-testing
         private void CreateAndShowModel_Click(object sender, RoutedEventArgs e)
         {
-            var dm = new DataModel.DataStructure();
+            DataStructure.DataStructureInstance  = new DataStructure();
 
             Point p1 = new Point(1.000000e+01, -1.000000e+01, -1.000000e+01);
             Point p2 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);
             Point p3 = new Point(-1.000000e+01, -1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, -1.000000e+00, 0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, -1.000000e+00, 0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 2
             p1 = new Point(-1.000000e+01, -1.000000e+01, -1.000000e+01);
             p2 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);
             p3 = new Point(-1.000000e+01, -1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, -1.000000e+00, 0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, -1.000000e+00, 0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 3
             p1 = new Point(1.000000e+01, 1.000000e+01, -1.000000e+01);
             p2 = new Point(1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(1.000000e+01, -1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(1.000000e+00, 0.000000e+00, -0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(1.000000e+00, 0.000000e+00, -0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 4
             p1 = new Point(1.000000e+01, -1.000000e+01, -1.000000e+01);
             p2 = new Point(1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(1.000000e+00, 0.000000e+00, 0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(1.000000e+00, 0.000000e+00, 0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 5
             p1 = new Point(1.000000e+01, 1.000000e+01, 1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, 1.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, 1.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 6
             p1 = new Point(1.000000e+01, -1.000000e+01, 1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(-1.000000e+01, -1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, 1.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, 1.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 7
             p1 = new Point(-1.000000e+01, 1.000000e+01, 1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, -1.000000e+01);
             p3 = new Point(-1.000000e+01, -1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(-1.000000e+00, -0.000000e+00, -0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(-1.000000e+00, -0.000000e+00, -0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 8
             p1 = new Point(-1.000000e+01, -1.000000e+01, 1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, -1.000000e+01);
             p3 = new Point(-1.000000e+01, -1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(-1.000000e+00, 0.000000e+00, 0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(-1.000000e+00, 0.000000e+00, 0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 9
             p1 = new Point(-1.000000e+01, 1.000000e+01, -1.000000e+01);
             p2 = new Point(1.000000e+01, 1.000000e+01, -1.000000e+01);
             p3 = new Point(-1.000000e+01, -1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, -1.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, -1.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 10
             p1 = new Point(-1.000000e+01, -1.000000e+01, -1.000000e+01);
             p2 = new Point(1.000000e+01, 1.000000e+01, -1.000000e+01);
             p3 = new Point(1.000000e+01, -1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, -1.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 0.000000e+00, -1.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 11
             p1 = new Point(-1.000000e+01, 1.000000e+01, -1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(1.000000e+01, 1.000000e+01, -1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 1.000000e+00, 0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 1.000000e+00, 0.000000e+00), DataStructure.DataStructureInstance);
 
             // Face 12
             p1 = new Point(1.000000e+01, 1.000000e+01, -1.000000e+01);
             p2 = new Point(-1.000000e+01, 1.000000e+01, 1.000000e+01);
             p3 = new Point(1.000000e+01, 1.000000e+01, 1.000000e+01);
-            addFace(p1, p2, p3, new Normal(0.000000e+00, 1.000000e+00, -0.000000e+00), dm);
+            addFace(p1, p2, p3, new Normal(0.000000e+00, 1.000000e+00, -0.000000e+00), DataStructure.DataStructureInstance);
         }
     }
 }

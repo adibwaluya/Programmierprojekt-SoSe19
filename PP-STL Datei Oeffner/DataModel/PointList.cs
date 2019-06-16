@@ -9,8 +9,8 @@ namespace DataModel
     public class PointList
     {
         private int m_idx = 0; // Starting index
-        private Dictionary<int, Point> m_int2pt = new Dictionary<int, Point>(); // register point if ID is given
-        private Dictionary<Point, int> m_pt2int = new Dictionary<Point, int>(); // register point if point is given
+        public Dictionary<int, Point> m_int2pt = new Dictionary<int, Point>(); // register point if ID is given
+        public Dictionary<Point, int> m_pt2int = new Dictionary<Point, int>(); // register point if point is given
 
         /* User adds or gets point if a 'point' variable is given */
         public int AddOrGetPoint(Point p)
