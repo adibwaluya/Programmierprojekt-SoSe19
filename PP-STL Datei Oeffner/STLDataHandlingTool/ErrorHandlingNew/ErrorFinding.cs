@@ -34,7 +34,14 @@ namespace ErrorHandling
 
         private void markPotentiallyFaultyEdgesAsFaulty(DataStructure dm)
         {
-            throw new NotImplementedException();
+            for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
+            {
+                if (dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty)
+                {
+                    dm.edges.GetEdge(currentEdgeNumber).faulty = true;
+                    dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty = false;
+                }
+            }
         }
 
         private void advancedErrorFinding(DataStructure dm)
@@ -42,7 +49,10 @@ namespace ErrorHandling
             Edge currentEdge;
             Point point1;
             Point point2;
-            double[,] array = new double[2, edgeListLength];
+            double[,] vectorArray = new double[3, edgeListLength];
+            int number = 0;
+            double currentVectorY;
+            double currentVectorZ;
 
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
@@ -51,8 +61,20 @@ namespace ErrorHandling
                 {
                     point1 = currentEdge.P1;
                     point2 = currentEdge.P2;
-                    array[0, currentEdgeNumber] = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);
-                    array[1, currentEdgeNumber] = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                    vectorArray[0, number] = currentEdgeNumber+1;
+                    vectorArray[1, number] = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X); // Die X Position ist immer 1 und wird daher nicht im Array angegeben
+                    vectorArray[2, number] = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                    number++;
+                }
+            }
+            for (int currentNumber = 0; vectorArray[0, currentNumber] != 0; currentNumber++)
+            {
+                currentVectorY = vectorArray[1, currentNumber];
+                currentVectorZ = vectorArray[2, currentNumber];
+                for (int currentNumber2 = 0; currentNumber2 < edgeListLength; currentNumber2++)
+                {
+                    //currentVectorY == vectorArray[1, currentNumber2];
+                    //currentVectorZ == vectorArray[2, currentNumber2];
                 }
             }
         }
