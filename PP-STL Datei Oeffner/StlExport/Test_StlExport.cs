@@ -36,7 +36,7 @@ namespace StlExport
         }
 
         // Compile as one STL File
-        private void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath)
+        private void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath) //TODO: ALL POINTS AS e-SIGN EXPONENT FORMAT! (z.B. 2.68548e-022)
         {
             //TODO: Add indentation as a method
             string indent = String.Join("    ", new String[4]);
@@ -53,6 +53,9 @@ namespace StlExport
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
+                    //All points as e-sign exponent format
+                    //ListOfPoints[i].X.
+
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine("facet normal" + ListOfNormals[i]);
                     txtWriter.WriteLine(indent + "outer loop");
