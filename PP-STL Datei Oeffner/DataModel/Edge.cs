@@ -9,8 +9,9 @@ namespace DataModel
     public class Edge
     {
         /// <summary>
-        /// potentiallyFaulty, faulty and FaceIDs. Implemented by Maximilian
+        /// potentiallyFaulty, faulty and FaceIDs and ring. Implemented by Maximilian
         /// </summary>
+        public bool ring;
         public bool potentiallyFaulty;
         public bool faulty;
         public IList<int> FaceIDs = new List<int>();

@@ -53,6 +53,7 @@ namespace ErrorHandling
             double currentVectorZ;
             List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
 
+            // Richtung der Edges, die potentiell falsch sind ermitteln und Edges mit gleicher Richtung in eine Liste einordnen
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
@@ -79,11 +80,40 @@ namespace ErrorHandling
                     }
                 }
             }
-            // Zwei identische Vektoren mit gleichem Anfangspunkt vorhanden?
-            // Edge muss einige Nachbar-Edges kennen
+            // Ring bilden
+            Point startPoint;
+            Point currentEndPoint;
+            Edge current_Edge;
+            foreach (VectorOfEdge vector in vectorList)
+            {
+                startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
+                currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
+                while (true)
+                {
+                    foreach (int edgeID in vector.edgeIDList)
+                    {
+                        current_Edge = dm.edges.GetEdge(edgeID);
+                        if (currentEndPoint == current_Edge.P1)
+                        {
+                            dm.edges.GetEdge(edgeID).ring = true;
+                            currentEndPoint = current_Edge.P2;
+                        }
+                        else if (currentEndPoint == current_Edge.P2)
+                        {
+                            dm.edges.GetEdge(edgeID).ring = true;
+                            currentEndPoint = current_Edge.P1;
+                        }
+                    }// was wenn keine weitere passende Edge gefunden wird?
+                    if (currentEndPoint == startPoint)
+                    {
+                        markRingEdgesAsNotFaulty(dm);
+                        break;
+                    }
+                }
+            }
         }
 
-        private void makeVectorsFromPotentiallyFaultyEdges()
+        private void markRingEdgesAsNotFaulty(DataStructure dm)
         {
             throw new NotImplementedException();
         }
