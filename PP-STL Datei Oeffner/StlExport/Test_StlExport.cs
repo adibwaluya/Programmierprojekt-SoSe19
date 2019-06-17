@@ -47,18 +47,21 @@ namespace StlExport
                 // Add file name and location to StreamWriter
                 StreamWriter txtWriter = new StreamWriter(filePath);
 
+
                 // Write an opening line of ASCII STL Data
                 txtWriter.WriteLine("solid ");
 
-                //Write the body of ASCII STL Data
-                txtWriter.WriteLine("facet normal" + ListOfNormals[1]);
+                for (int i = 0; i < ListOfPoints.Count; i = i + 3)
+                {
+                    //Write the body of ASCII STL Data
+                    txtWriter.WriteLine("facet normal" + ListOfNormals[i]);
                     txtWriter.WriteLine(indent + "outer loop");
-                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point1
-                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point2
-                        txtWriter.WriteLine(indent2 + "vertex "); //TODO: + coordinates point3
+                    txtWriter.WriteLine(indent2 + "vertex " + ListOfPoints[i].X + " " + ListOfPoints[i].Y + " " + ListOfPoints[i].Z);       //coordinates point1
+                    txtWriter.WriteLine(indent2 + "vertex " + ListOfPoints[i+1].X + " " + ListOfPoints[i+1].Y + " " + ListOfPoints[i+1].Z); //coordinates point2
+                    txtWriter.WriteLine(indent2 + "vertex " + ListOfPoints[i+2].X + " " + ListOfPoints[i+2].Y + " " + ListOfPoints[i+2].Z); //coordinates point3
                     txtWriter.WriteLine(indent + "endloop");
-                txtWriter.WriteLine("endfacet");
-
+                    txtWriter.WriteLine("endfacet");
+                }
 
                 //Close the file
                 txtWriter.Close();
