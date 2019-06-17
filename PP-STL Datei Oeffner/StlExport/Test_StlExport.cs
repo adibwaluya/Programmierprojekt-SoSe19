@@ -13,9 +13,9 @@ namespace StlExport
     {
         // Collect all coordinates from PointList
         DataModel.DataStructure dm = new DataModel.DataStructure();
-        List<Point> ListOfPoints;
+        private List<Point> ListOfPoints;
 
-        public void listCoordinates()
+        private void listCoordinates()
         {
             foreach (Point p in dm.points)
             {
@@ -24,10 +24,10 @@ namespace StlExport
         }
 
         // Collect all point-normal from Normal
-        List<Normal> ListOfNormals;
+        private List<Normal> ListOfNormals;
 
 
-        public void listNormal()
+        private void listNormal()
         {
             foreach (Point pts in ListOfPoints)
             {
@@ -36,7 +36,7 @@ namespace StlExport
         }
 
         // Compile as one STL File
-        public void AsFile(List<Point> pts, List<Normal> norms, string filePath)
+        private void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath)
         {
             //TODO: Add indentation as a method
             string indent = String.Join("    ", new String[4]);
@@ -75,7 +75,8 @@ namespace StlExport
                 Console.WriteLine("endsolid" ); //TODO: + Filename! or change into another WriteLine
             }
         }
-        }
+
+
     }
 
     public class ExportTest_DataModel
