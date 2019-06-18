@@ -36,13 +36,14 @@ namespace StlExport
             }
         }
 
-        // Compile as one STL File
-        private void AsASCIIFile(string filePath, string fileName)
-        {
-            // Indentation as strings
-            string indent = String.Join("    ", new String[4]);
-            string indent2 = String.Join("    ", new String[8]);
+        // Indentation as strings
+        string indent = String.Join("    ", new String[4]);
+        string indent2 = String.Join("    ", new String[8]);
 
+        // Compile as one STL File
+        // This one is as ASCII file
+        private void AsASCIIFile(string filePath)
+        {
             try
             {
                 // Add file name and location to StreamWriter
@@ -81,6 +82,9 @@ namespace StlExport
                     txtWriter.WriteLine("endfacet");
                 }
 
+                // Finish the file
+                txtWriter.Write("endsolid"); //TODO: or use finally??
+
                 //Close the file
                 txtWriter.Close();
             }
@@ -92,6 +96,24 @@ namespace StlExport
             {
                 Console.WriteLine("endsolid" ); //TODO: + Filename! or change into another WriteLine
             }
+        }
+
+        // This one is as binary file
+        private void AsBinaryFile(string Filepath)
+        {
+            using (StreamWriter txtWriter = new StreamWriter(Filepath))
+            {
+                try
+                {
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+            
         }
 
 
