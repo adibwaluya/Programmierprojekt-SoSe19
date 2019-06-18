@@ -46,7 +46,7 @@ namespace ErrorHandling
 
         private void advancedErrorFinding(DataStructure dm)
         {
-            Edge currentEdge;
+            Edge current_Edge;
             Point point1;
             Point point2;
             double currentVectorY;
@@ -56,11 +56,11 @@ namespace ErrorHandling
             // Richtung der Edges, die potentiell falsch sind ermitteln und Edges mit gleicher Richtung in eine Liste einordnen
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
-                currentEdge = dm.edges.GetEdge(currentEdgeNumber);
-                if (currentEdge.potentiallyFaulty)
+                current_Edge = dm.edges.GetEdge(currentEdgeNumber);
+                if (current_Edge.potentiallyFaulty)
                 {
-                    point1 = currentEdge.P1;
-                    point2 = currentEdge.P2;
+                    point1 = current_Edge.P1;
+                    point2 = current_Edge.P2;
                     currentVectorY = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);     // Die X Position ist immer 1 und wird daher nicht im Array angegeben
                     currentVectorZ = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
 
@@ -83,31 +83,38 @@ namespace ErrorHandling
             // Ring bilden
             Point startPoint;
             Point currentEndPoint;
-            Edge current_Edge;
+            Edge currentEdge = dm.edges.GetEdge(0);
+
             foreach (VectorOfEdge vector in vectorList)
             {
-                startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
+                startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1; //Startpunkt muss der Punkt der ersten Edge sein die noch nicht notFaulty ist
                 currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
                 while (true)
                 {
                     foreach (int edgeID in vector.edgeIDList)
                     {
-                        current_Edge = dm.edges.GetEdge(edgeID);
-                        if (currentEndPoint == current_Edge.P1)
+                        currentEdge = dm.edges.GetEdge(edgeID);
+                        if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false)
                         {
-                            dm.edges.GetEdge(edgeID).ring = true;
-                            currentEndPoint = current_Edge.P2;
+                            currentEdge.ring = true;
+                            currentEndPoint = currentEdge.P2;
+                            break;
                         }
-                        else if (currentEndPoint == current_Edge.P2)
+                        else if (currentEndPoint == currentEdge.P2 && currentEdge.ring == false)
                         {
-                            dm.edges.GetEdge(edgeID).ring = true;
-                            currentEndPoint = current_Edge.P1;
+                            currentEdge.ring = true;
+                            currentEndPoint = currentEdge.P1;
+                            break;
                         }
                     }// was wenn keine weitere passende Edge gefunden wird?
                     if (currentEndPoint == startPoint)
                     {
                         markRingEdgesAsNotFaulty(dm);
                         break;
+                    }
+                    else if (currentEdge.ring==false)
+                    {
+
                     }
                 }
             }
