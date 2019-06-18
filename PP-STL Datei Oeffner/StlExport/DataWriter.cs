@@ -17,7 +17,7 @@ namespace StlExport
         DataModel.DataStructure dm = new DataModel.DataStructure();
         private List<Point> ListOfPoints;
 
-        private void listCoordinates()
+        private void ListCoordinates()
         {
             foreach (Point p in dm.points)
             {
@@ -29,7 +29,7 @@ namespace StlExport
         private List<Normal> ListOfNormals;
 
 
-        private void listNormal()
+        private void ListNormal()
         {
             foreach (Point pts in ListOfPoints)
             {
@@ -38,8 +38,8 @@ namespace StlExport
         }
 
         // Indentation as strings
-        string indent = String.Join("    ", new String[4]);
-        string indent2 = String.Join("    ", new String[8]);
+        readonly string indent = String.Join("    ", new String[4]);
+        readonly string indent2 = String.Join("    ", new String[8]);
 
         // Compile as one STL File
         // This one is as ASCII file
