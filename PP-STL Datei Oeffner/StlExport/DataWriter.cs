@@ -105,7 +105,14 @@ namespace StlExport
             {
                 try
                 {
-                    txtWriter.WriteLine();
+                    // Binary file starts here
+                    // Header
+                    txtWriter.WriteLine(Filepath); //TODO: Change header to file's name?
+
+                    // Total number of triangles
+                    txtWriter.WriteLine(ListOfPoints.Count);
+
+
                 }
                 catch (Exception e)
                 {
