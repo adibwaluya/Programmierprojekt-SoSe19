@@ -37,7 +37,7 @@ namespace StlExport
         }
 
         // Compile as one STL File
-        private void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath) //TODO: ALL POINTS AS e-SIGN EXPONENT FORMAT! (z.B. 2.68548e-022)
+        private void AsASCIIFile(string filePath, string fileName)
         {
             // Indentation as strings
             string indent = String.Join("    ", new String[4]);
