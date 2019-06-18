@@ -53,26 +53,29 @@ namespace StlExport
                 // Starting to write the data from here
                 // Write an opening line of ASCII STL Data
                 txtWriter.WriteLine("solid ");
-                CultureInfo current = 
+
+                // Setting the culture info to make sure the exponents are the same
+                CultureInfo current = new CultureInfo("en-US");
+                
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
                     //All normal and points as e-sign exponent format
-                    string nXasE = ListOfNormals[i].X.ToString("E", CultureInfo.InvariantCulture);
-                    string nYasE = ListOfNormals[i].Y.ToString("E", CultureInfo.InvariantCulture);
-                    string nZasE = ListOfNormals[i].Z.ToString("E", CultureInfo.InvariantCulture);
+                    string nXasE = ListOfNormals[i].X.ToString("E", current);
+                    string nYasE = ListOfNormals[i].Y.ToString("E", current);
+                    string nZasE = ListOfNormals[i].Z.ToString("E", current);
 
-                    string iXasE = ListOfPoints[i].X.ToString("E", CultureInfo.CreateSpecificCulture("en-US")); // for i
-                    string iYasE = ListOfPoints[i].Y.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
-                    string iZasE = ListOfPoints[i].Z.ToString("E", CultureInfo.InvariantCulture); //TODO: specific culture or invariant culture?
+                    string iXasE = ListOfPoints[i].X.ToString("E", current); // for i
+                    string iYasE = ListOfPoints[i].Y.ToString("E", current);
+                    string iZasE = ListOfPoints[i].Z.ToString("E", current); //TODO: specific culture or invariant culture?
 
-                    string i1XasE = ListOfPoints[i + 1].X.ToString("E", CultureInfo.CreateSpecificCulture("en-US")); // for i + 1
-                    string i1YasE = ListOfPoints[i + 1].Y.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
-                    string i1ZasE = ListOfPoints[i + 1].Z.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
+                    string i1XasE = ListOfPoints[i + 1].X.ToString("E", current); // for i + 1
+                    string i1YasE = ListOfPoints[i + 1].Y.ToString("E", current);
+                    string i1ZasE = ListOfPoints[i + 1].Z.ToString("E", current);
 
-                    string i2XasE = ListOfPoints[i + 2].X.ToString("E", CultureInfo.CreateSpecificCulture("en-US")); // for i + 2
-                    string i2YasE = ListOfPoints[i + 2].Y.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
-                    string i2ZasE = ListOfPoints[i + 2].Z.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
+                    string i2XasE = ListOfPoints[i + 2].X.ToString("E", current); // for i + 2
+                    string i2YasE = ListOfPoints[i + 2].Y.ToString("E", current);
+                    string i2ZasE = ListOfPoints[i + 2].Z.ToString("E", current);
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
@@ -85,7 +88,7 @@ namespace StlExport
                 }
 
                 // Finish the file
-                txtWriter.Write("endsolid"); //TODO: or use finally??
+                txtWriter.Write("endsolid");
 
                 
             }
