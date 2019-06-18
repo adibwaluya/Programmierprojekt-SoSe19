@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace StlExport
 {
-    public class Test_StlExport
+    public class DataWriter
     {
         // Collect all coordinates from PointList
         DataModel.DataStructure dm = new DataModel.DataStructure();
