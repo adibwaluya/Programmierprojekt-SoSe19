@@ -112,6 +112,7 @@ namespace StlExport
                     // Total number of triangles
                     txtWriter.WriteLine(ListOfPoints.Count);
 
+                    //TODO: finish binary files
 
                 }
                 catch (Exception e)
