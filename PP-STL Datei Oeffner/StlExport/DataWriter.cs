@@ -44,14 +44,16 @@ namespace StlExport
         // This one is as ASCII file
         private void AsAsciiFile(string filePath)
         {
+            StreamWriter txtWriter = null;
             try
             {
                 // Add file name and location to StreamWriter
-                StreamWriter txtWriter = new StreamWriter(filePath);
+                txtWriter = new StreamWriter(filePath);
 
                 // Starting to write the data from here
                 // Write an opening line of ASCII STL Data
                 txtWriter.WriteLine("solid ");
+                CultureInfo current = 
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
@@ -85,8 +87,7 @@ namespace StlExport
                 // Finish the file
                 txtWriter.Write("endsolid"); //TODO: or use finally??
 
-                //Close the file
-                txtWriter.Close();
+                
             }
             catch (Exception e)
             {
@@ -94,20 +95,22 @@ namespace StlExport
             }
             finally
             {
-                Console.WriteLine("endsolid" ); //TODO: + Filename! or change into another WriteLine
+                
+                //Close the file
+                if (txtWriter != null) txtWriter.Close();
             }
         }
 
         // This one is as binary file
-        private void AsBinaryFile(string Filepath)
+        private void AsBinaryFile(string File)
         {
-            using (StreamWriter txtWriter = new StreamWriter(Filepath))
+            using (StreamWriter txtWriter = new StreamWriter(File))
             {
                 try
                 {
                     // Binary file starts here
                     // Header
-                    txtWriter.WriteLine(Filepath); //TODO: Change header to file's name?
+                    txtWriter.WriteLine(File); //TODO: Change header to file's name?
 
                     // Total number of triangles
                     txtWriter.WriteLine(ListOfPoints.Count);
