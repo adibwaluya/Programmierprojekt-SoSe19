@@ -54,7 +54,11 @@ namespace StlExport
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
-                    //All points as e-sign exponent format
+                    //All normal and points as e-sign exponent format
+                    string nXasE = ListOfNormals[i].X.ToString("E", CultureInfo.InvariantCulture);
+                    string nYasE = ListOfNormals[i].Y.ToString("E", CultureInfo.InvariantCulture);
+                    string nZasE = ListOfNormals[i].Z.ToString("E", CultureInfo.InvariantCulture);
+
                     string iXasE = ListOfPoints[i].X.ToString("E", CultureInfo.CreateSpecificCulture("en-US")); // for i
                     string iYasE = ListOfPoints[i].Y.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
                     string iZasE = ListOfPoints[i].Z.ToString("E", CultureInfo.InvariantCulture); //TODO: specific culture or invariant culture?
@@ -68,11 +72,11 @@ namespace StlExport
                     string i2ZasE = ListOfPoints[i + 2].Z.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
 
                     //Write the body of ASCII STL Data
-                    txtWriter.WriteLine("facet normal" + ListOfNormals[i]);
+                    txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
                     txtWriter.WriteLine(indent + "outer loop");
-                    txtWriter.WriteLine(indent2 + "vertex " + iXasE + " " + iYasE + " " + iZasE);       //coordinates point1
-                    txtWriter.WriteLine(indent2 + "vertex " + i1XasE + " " + i1YasE + " " + i1ZasE);    //coordinates point2
-                    txtWriter.WriteLine(indent2 + "vertex " + i2XasE + " " + i2YasE + " " + i2ZasE);    //coordinates point3
+                    txtWriter.WriteLine($"{indent2} vertex {iXasE} {iYasE} {iZasE}");       //coordinates point1
+                    txtWriter.WriteLine($"{indent2} vertex {i1XasE} {i1YasE} {i1ZasE}");    //coordinates point2
+                    txtWriter.WriteLine($"{indent2} vertex {i2XasE} {i2YasE} {i2ZasE}");    //coordinates point3
                     txtWriter.WriteLine(indent + "endloop");
                     txtWriter.WriteLine("endfacet");
                 }
