@@ -42,7 +42,7 @@ namespace StlExport
 
         // Compile as one STL File
         // This one is as ASCII file
-        private void AsASCIIFile(string filePath)
+        private void AsAsciiFile(string filePath)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace StlExport
             {
                 try
                 {
-
+                    txtWriter.WriteLine();
                 }
                 catch (Exception e)
                 {
