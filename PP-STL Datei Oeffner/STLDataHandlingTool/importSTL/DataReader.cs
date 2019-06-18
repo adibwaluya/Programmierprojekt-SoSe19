@@ -9,44 +9,30 @@ using System.Threading;
 using System.Globalization;
 using System.Reflection;
 
+
 namespace importSTL
 {
     public class DataReader
     {
         public string path;
         private enum FileType { NONE, BINARY, ASCII };
+        private bool processError;
 
-        private FileType GetFileType(string filePath)
+        private void ReadBinaryFile(string stlPath)
         {
-            FileType stlFileType = FileType.NONE;
+            DataModel.DataStructure dm = new DataModel.DataStructure();
+            CultureInfo ci = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            if (File.Exists(filePath))
-            {
-                int lineCount = 0;
-                lineCount = File.ReadLines(filePath).Count();
+            byte[] lines = File.ReadAllBytes(stlPath);
 
-                string firstLine = File.ReadLines(filePath).First();
-
-                string endLine = File.ReadLines(filePath).Skip(lineCount - 1).Take(1).First() +
-                                 File.ReadLines(filePath).Skip(lineCount - 2).Take(1).First();
-
-                if ((firstLine.IndexOf("solid") != -1) & (endLine.IndexOf("endsolid") != -1))
-                {
-                    stlFileType = FileType.ASCII;
-                }
-                else
-                {
-                    stlFileType = FileType.BINARY;
-                }
-            }
-            else
-            {
-                stlFileType = FileType.NONE;
-            }
-
-            return stlFileType;
+            DataModel.Point normal;
+            DataModel.Point[] points = new DataModel.Point[3];
+            int idxByte = 0;
         }
 
+
+        // Register points from text (string)
         private DataModel.Point FromStrings(string s1, string s2, string s3)
         {
             if (double.TryParse(s1, out double d1))
@@ -59,46 +45,53 @@ namespace importSTL
 
         }
 
-        private DataModel.DataStructure ReadASCIIFile(string stlPath)
+        private void ReadASCIIFile(string stlPath) // !As Array of Datastructur or rather a void methode(?)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
-            CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
-            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+            CultureInfo ci = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            string[] lines = File.ReadAllLines(stlPath);
+            string[] lines = File.ReadAllLines(stlPath); // Opens the STL file and read all lines of the file
+
+            // defining all the components for the data structure
             DataModel.Point normal;
             DataModel.Point[] points = new DataModel.Point[3];
             int idxPoint = -1;
 
+            // Process of reading ASCII Data starts here
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                // Trim() removes all whitespace characters from the beginning and end of the string
-                // Replace() will replace designated characters with the given replacement
-                // In this case, replace to " " 
-                string[] parts = line.Split(' ');
+                string[] parts = line.Split(' '); // each word in ASCII file structure will be represented as part
                 if (parts.Length == 0) continue;
+
                 switch (parts[0])
                 {
                     case "facet":
+                        // invalid if the line 'facet' doesn't consist of 5 parts (words)
                         if (parts.Length != 5)
                         {
-                            //Fehlermeldung or such (?)
+                            processError = true;
                         }
+                        // if it's valid, normal will be added
                         normal = FromStrings(parts[2], parts[3], parts[4]);
                         idxPoint = 0;
                         break;
                     case "vertex":
+                        // invalid if the line 'vertex' doesn't consist of 4 parts (words)
                         if (parts.Length != 4)
                         {
-                            //Fehlermeldung or such (?)
+                            processError = true;
                         }
+                        // invalid if it's out of range
                         if (idxPoint > 2 || idxPoint == -1)
                         {
-
+                            processError = true;
                         }
+                        //if it's valid, points will be registered from the first vertex and continues until the 3rd vertex
                         points[idxPoint++] = FromStrings(parts[1], parts[2], parts[3]);
                         break;
+
                     case "endfacet":
                         if (idxPoint != 3)
                         { }
@@ -107,14 +100,19 @@ namespace importSTL
                         int p1 = dm.points.AddOrGetPoint(points[0]);
                         int p2 = dm.points.AddOrGetPoint(points[1]);
                         int p3 = dm.points.AddOrGetPoint(points[2]);
-                        int p2, p3; //Noch nicht fertig
+                        
                         DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
                         int ei1 = dm.edges.AddOrGetEdge(e1);
                         idxPoint = -1;
                         break;
+
+                    default:
+                        //no information(?)
+                        break;
                 }
             }
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+
+            Thread.CurrentThread.CurrentCulture = ci;
         }
 
     }
