@@ -7,6 +7,7 @@ using System.IO;
 using DataModel;
 using System.Collections;
 using System.Globalization;
+using System.Threading;
 
 namespace StlExport
 {
@@ -42,7 +43,7 @@ namespace StlExport
 
         // Compile as one STL File
         // This one is as ASCII file
-        private void AsAsciiFile(string filePath)
+        private void AsAsciiFile(string filePath) //TODO: Data Model as parameter and Exception as return type?
         {
             StreamWriter txtWriter = null;
             try
@@ -56,26 +57,27 @@ namespace StlExport
 
                 // Setting the culture info to make sure the exponents are the same
                 CultureInfo current = new CultureInfo("en-US");
-                
+                Thread.CurrentThread.CurrentCulture = current;
+                Thread.CurrentThread.CurrentUICulture = current;
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
                     //All normal and points as e-sign exponent format
-                    string nXasE = ListOfNormals[i].X.ToString("E", current);
-                    string nYasE = ListOfNormals[i].Y.ToString("E", current);
-                    string nZasE = ListOfNormals[i].Z.ToString("E", current);
+                    string nXasE = ListOfNormals[i].X.ToString("E");
+                    string nYasE = ListOfNormals[i].Y.ToString("E");
+                    string nZasE = ListOfNormals[i].Z.ToString("E");
 
-                    string iXasE = ListOfPoints[i].X.ToString("E", current); // for i
-                    string iYasE = ListOfPoints[i].Y.ToString("E", current);
-                    string iZasE = ListOfPoints[i].Z.ToString("E", current); //TODO: specific culture or invariant culture?
+                    string iXasE = ListOfPoints[i].X.ToString("E"); // for i
+                    string iYasE = ListOfPoints[i].Y.ToString("E");
+                    string iZasE = ListOfPoints[i].Z.ToString("E");
 
-                    string i1XasE = ListOfPoints[i + 1].X.ToString("E", current); // for i + 1
-                    string i1YasE = ListOfPoints[i + 1].Y.ToString("E", current);
-                    string i1ZasE = ListOfPoints[i + 1].Z.ToString("E", current);
+                    string i1XasE = ListOfPoints[i + 1].X.ToString("E"); // for i + 1
+                    string i1YasE = ListOfPoints[i + 1].Y.ToString("E");
+                    string i1ZasE = ListOfPoints[i + 1].Z.ToString("E");
 
-                    string i2XasE = ListOfPoints[i + 2].X.ToString("E", current); // for i + 2
-                    string i2YasE = ListOfPoints[i + 2].Y.ToString("E", current);
-                    string i2ZasE = ListOfPoints[i + 2].Z.ToString("E", current);
+                    string i2XasE = ListOfPoints[i + 2].X.ToString("E"); // for i + 2
+                    string i2YasE = ListOfPoints[i + 2].Y.ToString("E");
+                    string i2ZasE = ListOfPoints[i + 2].Z.ToString("E");
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
@@ -90,7 +92,6 @@ namespace StlExport
                 // Finish the file
                 txtWriter.Write("endsolid");
 
-                
             }
             catch (Exception e)
             {
@@ -98,7 +99,6 @@ namespace StlExport
             }
             finally
             {
-                
                 //Close the file
                 if (txtWriter != null) txtWriter.Close();
             }
