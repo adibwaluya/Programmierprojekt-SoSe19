@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using DataModel;
 using System.Collections;
+using System.Globalization;
 
 namespace StlExport
 {
@@ -38,7 +39,7 @@ namespace StlExport
         // Compile as one STL File
         private void AsASCIIFile(List<Point> pts, List<Normal> norms, string filePath) //TODO: ALL POINTS AS e-SIGN EXPONENT FORMAT! (z.B. 2.68548e-022)
         {
-            //TODO: Add indentation as a method
+            // Indentation as strings
             string indent = String.Join("    ", new String[4]);
             string indent2 = String.Join("    ", new String[8]);
 
@@ -47,14 +48,14 @@ namespace StlExport
                 // Add file name and location to StreamWriter
                 StreamWriter txtWriter = new StreamWriter(filePath);
 
-
+                // Starting to write the data from here
                 // Write an opening line of ASCII STL Data
                 txtWriter.WriteLine("solid ");
 
                 for (int i = 0; i < ListOfPoints.Count; i = i + 3)
                 {
                     //All points as e-sign exponent format
-                    //ListOfPoints[i].X.
+                    string iXasE = ListOfPoints[i].X.ToString("E", CultureInfo.CreateSpecificCulture("en-US"));
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine("facet normal" + ListOfNormals[i]);
