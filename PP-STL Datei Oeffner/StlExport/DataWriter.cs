@@ -118,7 +118,7 @@ namespace StlExport
                 txtWriter.Write(Header);
 
                 // UINT32 – Number of triangles
-
+                txtWriter.Write((ListOfPoints.Count / 3)); // A triangle consists of 3 points
 
                 // foreach triangle
                 // REAL32[3] – Normal vector
