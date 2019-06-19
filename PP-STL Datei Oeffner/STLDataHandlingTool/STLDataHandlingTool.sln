@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandlingDataModel", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "importSTL", "importSTL\importSTL.csproj", "{C177D020-9612-4BB3-8A5C-33444DEE8618}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{E6F10CAA-37F7-448F-B217-97AFC62930CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C177D020-9612-4BB3-8A5C-33444DEE8618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F10CAA-37F7-448F-B217-97AFC62930CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F10CAA-37F7-448F-B217-97AFC62930CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F10CAA-37F7-448F-B217-97AFC62930CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F10CAA-37F7-448F-B217-97AFC62930CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
