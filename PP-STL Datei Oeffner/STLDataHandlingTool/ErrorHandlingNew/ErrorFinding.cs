@@ -83,17 +83,26 @@ namespace ErrorHandling
             // Ring bilden
             Point startPoint;
             Point currentEndPoint;
-            Edge currentEdge = dm.edges.GetEdge(0);
+            Edge currentEdge;
+            bool exit_flag=false;
 
             foreach (VectorOfEdge vector in vectorList)
             {
-                startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1; //Startpunkt muss der Punkt der ersten Edge sein die noch nicht notFaulty ist
+                startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
                 currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
-                while (true)
+                currentEdge = dm.edges.GetEdge(0);
+                while (!exit_flag)
                 {
+                    exit_flag = true;
                     foreach (int edgeID in vector.edgeIDList)
                     {
                         currentEdge = dm.edges.GetEdge(edgeID);
+
+                        if (currentEdge.potentiallyFaulty)
+                        {
+                            exit_flag = false;
+                        }
+
                         if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false)
                         {
                             currentEdge.ring = true;
@@ -106,23 +115,26 @@ namespace ErrorHandling
                             currentEndPoint = currentEdge.P1;
                             break;
                         }
-                    }// was wenn keine weitere passende Edge gefunden wird?
+                    }
                     if (currentEndPoint == startPoint)
                     {
-                        markRingEdgesAsNotFaulty(dm);
-                        break;
+                        markRingEdges(dm, "notFaulty");
+                        // Startpunkt muss der Punkt der ersten Edge sein die noch nicht notFaulty ist
                     }
-                    else if (currentEdge.ring==false)
+                    // was wenn keine weitere passende Edge gefunden wird?
+                    else if (currentEdge.ring == false)
                     {
-
+                        markRingEdges(dm, "Faulty");
                     }
                 }
+                Console.WriteLine();
             }
         }
 
-        private void markRingEdgesAsNotFaulty(DataStructure dm)
+        private void markRingEdges(DataStructure dm, string state)
         {
             throw new NotImplementedException();
+            // ring = false
         }
 
         private int simpleErrorFinding(DataStructure dm)
