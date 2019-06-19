@@ -25,14 +25,14 @@ namespace ErrorHandling
 
         public void FindError(DataStructure dm)
         {
-            if (simpleErrorFinding(dm) > 2)
+            if (SimpleErrorFinding(dm) > 2)
             {
-                advancedErrorFinding(dm);
+                AdvancedErrorFinding(dm);
             }
-            markPotentiallyFaultyEdgesAsFaulty(dm);
+            MarkPotentiallyFaultyEdgesAsFaulty(dm);
         }
 
-        private void markPotentiallyFaultyEdgesAsFaulty(DataStructure dm)
+        private void MarkPotentiallyFaultyEdgesAsFaulty(DataStructure dm)
         {
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
@@ -44,7 +44,7 @@ namespace ErrorHandling
             }
         }
 
-        private void advancedErrorFinding(DataStructure dm)
+        private void AdvancedErrorFinding(DataStructure dm)
         {
             Edge current_Edge;
             Point point1;
@@ -84,23 +84,32 @@ namespace ErrorHandling
             Point startPoint;
             Point currentEndPoint;
             Edge currentEdge;
-            bool exit_flag=false;
+            bool noPotentiallyFaultyEdgesLeft = false;
+            bool newStartPoint = true;
 
             foreach (VectorOfEdge vector in vectorList)
             {
+                // falls die nächste foreach Schleife nie durchlaufen wird (was eigentlich nicht passieren kann)
                 startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
-                currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
+                currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P2;
                 currentEdge = dm.edges.GetEdge(0);
-                while (!exit_flag)
+                //
+                while (!noPotentiallyFaultyEdgesLeft)
                 {
-                    exit_flag = true;
+                    noPotentiallyFaultyEdgesLeft = true;
                     foreach (int edgeID in vector.edgeIDList)
                     {
                         currentEdge = dm.edges.GetEdge(edgeID);
 
                         if (currentEdge.potentiallyFaulty)
                         {
-                            exit_flag = false;
+                            if (newStartPoint)
+                            {
+                                startPoint = currentEdge.P1;
+                                currentEndPoint = currentEdge.P2;
+                                newStartPoint = false;
+                            }
+                            noPotentiallyFaultyEdgesLeft = false;
                         }
 
                         if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false)
@@ -118,26 +127,27 @@ namespace ErrorHandling
                     }
                     if (currentEndPoint == startPoint)
                     {
-                        markRingEdges(dm, "notFaulty");
-                        // Startpunkt muss der Punkt der ersten Edge sein die noch nicht notFaulty ist
+                        MarkRingEdges(dm, "notFaulty");
+                        newStartPoint = true;
                     }
                     // was wenn keine weitere passende Edge gefunden wird?
                     else if (currentEdge.ring == false)
                     {
-                        markRingEdges(dm, "Faulty");
+                        MarkRingEdges(dm, "Faulty");
+                        newStartPoint = true;
                     }
                 }
                 Console.WriteLine();
             }
         }
 
-        private void markRingEdges(DataStructure dm, string state)
+        private void MarkRingEdges(DataStructure dm, string state)
         {
             throw new NotImplementedException();
             // ring = false
         }
 
-        private int simpleErrorFinding(DataStructure dm)
+        private int SimpleErrorFinding(DataStructure dm)
         {
             Edge currentEdge;
             int numberOfFaces;
