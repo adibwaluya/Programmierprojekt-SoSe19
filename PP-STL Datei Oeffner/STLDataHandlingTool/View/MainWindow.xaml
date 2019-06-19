@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1200">
 
     <Border Margin="10">
         <StackPanel>
@@ -40,8 +41,9 @@
                         </MenuItem.Header>
                     </MenuItem>
                 </Menu>
-                <Button Grid.Column="1" Margin="5 0 5 0" Content="Edit" Background="Gray"/>
-                <Button Grid.Column="2" Margin="5 0 0 0" Content="Tools" Background="Gray" Height="35" VerticalAlignment="Bottom"/>
+                <Button Grid.Column="1" Margin="5 0 5 0" Content="Save" Background="Gray"/>
+                <Button Grid.Column="2" Margin="5 0 5 0" Content="Undo" Background="Gray" Height="35" VerticalAlignment="Bottom"/>
+                <Button Grid.Column="3" Margin="5 0 5 0" Content="Redo" Background="Gray"/>
                 <Button Grid.Column="8" Content="Help"  Background="Gray"/>
             </Grid>
             <!-- Ende von Top Bar -->
