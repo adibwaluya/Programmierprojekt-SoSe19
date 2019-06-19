@@ -52,6 +52,7 @@ namespace ErrorHandling
             double currentVectorY;
             double currentVectorZ;
             List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
+            bool noObjectYet;
 
             // Richtung der Edges, die potentiell falsch sind ermitteln und Edges mit gleicher Richtung in eine Liste einordnen
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
@@ -59,24 +60,28 @@ namespace ErrorHandling
                 current_Edge = dm.edges.GetEdge(currentEdgeNumber);
                 if (current_Edge.potentiallyFaulty)
                 {
+                    noObjectYet = true;
                     point1 = current_Edge.P1;
                     point2 = current_Edge.P2;
                     currentVectorY = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);     // Die X Position ist immer 1 und wird daher nicht im Array angegeben
                     currentVectorZ = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
 
-                    VectorOfEdge vectorOfEdge = new VectorOfEdge();
-                    vectorList.Add(vectorOfEdge);
-                    vectorOfEdge.addCoordinates(currentVectorY, currentVectorZ);
-                    
+                   
                     // Edge, die in gleiche Richtung zeigt bereits vorhanden?
                     foreach (VectorOfEdge vector in vectorList)    // Wir laufen durch alle Eintragungen in der Liste durch
                     {
                         if (vector.vectorY == currentVectorY && vector.vectorZ == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist
                         {
-                            vectorOfEdge.edgeIDList.Add(currentEdgeNumber);
-                            vectorList.RemoveAt(vectorList.Count - 1);
+                            vector.edgeIDList.Add(currentEdgeNumber);
+                            noObjectYet = false;
                             break;
                         }
+                    }
+                    if (noObjectYet)
+                    {
+                        VectorOfEdge vectorOfEdge = new VectorOfEdge();
+                        vectorList.Add(vectorOfEdge);
+                        vectorOfEdge.addCoordinates(currentVectorY, currentVectorZ);
                     }
                 }
             }
