@@ -45,7 +45,7 @@ namespace importSTL
 
         }
 
-        private void ReadASCIIFile(string stlPath) // !As Array of Datastructur or rather a void methode(?)
+        public void ReadASCIIFile(string stlPath) // !As Array of Datastructur or rather a void methode(?)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
@@ -54,14 +54,14 @@ namespace importSTL
             string[] lines = File.ReadAllLines(stlPath); // Opens the STL file and read all lines of the file
 
             // defining all the components for the data structure
-            DataModel.Point normal;
+            DataModel.Normal normal = null;
             DataModel.Point[] points = new DataModel.Point[3];
             int idxPoint = -1;
 
             // Process of reading ASCII Data starts here
             for (int i = 0; i < lines.Length; i++)
             {
-                string line = lines[i];
+                string line = lines[i].Trim();
                 string[] parts = line.Split(' '); // each word in ASCII file structure will be represented as part
                 if (parts.Length == 0) continue;
 
@@ -74,7 +74,8 @@ namespace importSTL
                             processError = true;
                         }
                         // if it's valid, normal will be added
-                        normal = FromStrings(parts[2], parts[3], parts[4]);
+                        DataModel.Point n = FromStrings(parts[2], parts[3], parts[4]);
+                        normal = new DataModel.Normal(n.X, n.Y, n.Z);
                         idxPoint = 0;
                         break;
                     case "vertex":
@@ -102,7 +103,14 @@ namespace importSTL
                         int p3 = dm.points.AddOrGetPoint(points[2]);
                         
                         DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
+                        DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
+                        DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
+
                         int ei1 = dm.edges.AddOrGetEdge(e1);
+                        int ei2 = dm.edges.AddOrGetEdge(e2);
+                        int ei3 = dm.edges.AddOrGetEdge(e3);
+
+                        dm.AddFace(ei1, ei2, ei3, normal);
                         idxPoint = -1;
                         break;
 
