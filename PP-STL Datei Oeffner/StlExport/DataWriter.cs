@@ -7,6 +7,8 @@ using System.IO;
 using DataModel;
 using System.Collections;
 using System.Globalization;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 
 namespace StlExport
@@ -107,27 +109,37 @@ namespace StlExport
         // This one is as binary file
         private void AsBinaryFile(string File)
         {
-            using (StreamWriter txtWriter = new StreamWriter(File))
+            using (var txtWriter = new BinaryWriter(System.IO.File.OpenWrite(File), Encoding.ASCII))
             {
-                try
-                {
-                    // Binary file starts here
-                    // Header
-                    txtWriter.WriteLine(File); //TODO: Change header to file's name?
-
-                    BitConverter.DoubleToInt64Bits(ListOfPoints.Count);
-                    // Total number of triangles
-                    txtWriter.WriteLine();
-
-                    //TODO: finish binary files
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                // Encode the header of the binary file as ASCII and set the buffer to 80 bytes
+                string HeaderAsString = File;
+                byte[] Header = new byte[80];
+                Encoding.ASCII.GetBytes(HeaderAsString, 0, HeaderAsString.Length, Header, 0);
+                txtWriter.Write(Header);
+                
             }
+
+            //using (StreamWriter txtWriter = new StreamWriter(File))
+            //{
+            //    try
+            //    {
+            //        // Binary file starts here
+            //        // Header
+            //        txtWriter.WriteLine(File); //TODO: Change header to file's name?
+
+            //        BitConverter.DoubleToInt64Bits(ListOfPoints.Count);
+            //        // Total number of triangles
+            //        txtWriter.WriteLine();
+
+            //        //TODO: finish binary files
+
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e);
+            //        throw;
+            //    }
+            //}
             
         }
 
