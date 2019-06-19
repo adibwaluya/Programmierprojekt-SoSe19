@@ -59,6 +59,10 @@
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\STLDataHandlingTool\View\View.csproj">
+      <Project>{e6f10caa-37f7-448f-b217-97afc62930cb}</Project>
+      <Name>View</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
