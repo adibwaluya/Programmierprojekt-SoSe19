@@ -8,13 +8,13 @@ namespace ErrorHandling
 {
     public class VectorOfEdge
     {
-        double currentVectorY;
-        double currentVectorZ;
+        public double vectorY;
+        public double vectorZ;
         public List<int> edgeIDList = new List<int>();
-        public void addCoordinates(double _currentVectorY, double _currentVectorZ)
+        public void addCoordinates(double _VectorY, double _VectorZ)
         {
-            currentVectorY = _currentVectorY;
-            currentVectorZ = _currentVectorZ;
+            vectorY = _VectorY;
+            vectorZ = _VectorZ;
         }
     }
 }

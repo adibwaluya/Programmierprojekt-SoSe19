@@ -19,7 +19,7 @@ namespace ErrorHandlingTest
             test_datamodel1.FillDatamodel(dm);
 
             ErrorFinding errorFinding = new ErrorFinding();
-            //errorFinding.FindError(dm);
+            errorFinding.FindError(dm);
 
             IdentifyBodies identifyBodies = new IdentifyBodies();
             identifyBodies.FindBodies(dm);
@@ -32,6 +32,11 @@ namespace ErrorHandlingTest
             Console.WriteLine(dm.faces.GetFace(5).bodyID);
             Console.WriteLine(dm.faces.GetFace(6).bodyID);
             Console.WriteLine(dm.faces.GetFace(7).bodyID);
+
+            for (int i = 0; dm.edges.GetEdge(i) != null; i++)
+            {
+                Console.WriteLine(dm.edges.GetEdge(i).faulty);
+            }
 
             Console.ReadLine();
 

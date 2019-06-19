@@ -71,7 +71,7 @@ namespace ErrorHandling
                     // Edge, die in gleiche Richtung zeigt bereits vorhanden?
                     foreach (VectorOfEdge vector in vectorList)    // Wir laufen durch alle Eintragungen in der Liste durch
                     {
-                        if (vectorOfEdge.edgeIDList[0] == currentVectorY && vectorOfEdge.edgeIDList[1] == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist
+                        if (vector.vectorY == currentVectorY && vector.vectorZ == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist
                         {
                             vectorOfEdge.edgeIDList.Add(currentEdgeNumber);
                             vectorList.RemoveAt(vectorList.Count - 1);
@@ -127,13 +127,13 @@ namespace ErrorHandling
                     }
                     if (currentEndPoint == startPoint)
                     {
-                        MarkRingEdges(dm, "notFaulty");
+                        MarkRingEdges(dm, "notFaulty", vector.edgeIDList);
                         newStartPoint = true;
                     }
-                    // was wenn keine weitere passende Edge gefunden wird?
+                    // was, wenn keine weitere passende Edge gefunden wird?
                     else if (currentEdge.ring == false)
                     {
-                        MarkRingEdges(dm, "Faulty");
+                        MarkRingEdges(dm, "faulty", vector.edgeIDList);
                         newStartPoint = true;
                     }
                 }
@@ -141,10 +141,24 @@ namespace ErrorHandling
             }
         }
 
-        private void MarkRingEdges(DataStructure dm, string state)
+        private void MarkRingEdges(DataStructure dm, string state, List<int> list)
         {
-            throw new NotImplementedException();
-            // ring = false
+            Edge currentEdge;
+
+            foreach (int edgeID in list)
+            {
+                currentEdge = dm.edges.GetEdge(edgeID);
+                currentEdge.ring = false;
+                currentEdge.potentiallyFaulty = false;
+                if (state == "faulty")
+                {
+                    currentEdge.faulty = true;
+                }
+                else if(state == "notFaulty")
+                {
+                    currentEdge.faulty = false;
+                }
+            }
         }
 
         private int SimpleErrorFinding(DataStructure dm)

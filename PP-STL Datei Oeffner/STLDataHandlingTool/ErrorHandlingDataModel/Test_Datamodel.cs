@@ -11,11 +11,11 @@ namespace ErrorHandlingDataModel
     {
         public void FillDatamodel(DataStructure dm)
         {
-            dm.AddPoint(0, 0, 0);
+            dm.AddPoint(0, 0, 0);//0
             dm.AddPoint(0, 4, 0);
-            dm.AddPoint(4, 4, 0);
+            dm.AddPoint(4, 4, 0);//2
             dm.AddPoint(4, 0, 4);
-            dm.AddPoint(2, 2, 0);
+            dm.AddPoint(2, 2, 0);//4
             dm.AddPoint(2, 2, 3);
 
             dm.AddPoint(10, 123, 123);
@@ -27,10 +27,10 @@ namespace ErrorHandlingDataModel
             dm.AddEdge(2, 3);
             dm.AddEdge(3, 0);//3
 
-            dm.AddEdge(0, 4);//4
-            dm.AddEdge(2, 4);
+            dm.AddEdge(0, 4);//4//
+            dm.AddEdge(2, 4);//
             dm.AddEdge(1, 4);
-            dm.AddEdge(0, 2);//7
+            dm.AddEdge(0, 2);//7//
 
             dm.AddEdge(0, 5);//8
             dm.AddEdge(1, 5);
