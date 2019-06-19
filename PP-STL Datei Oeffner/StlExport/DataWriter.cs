@@ -115,8 +115,9 @@ namespace StlExport
                     // Header
                     txtWriter.WriteLine(File); //TODO: Change header to file's name?
 
+                    BitConverter.DoubleToInt64Bits(ListOfPoints.Count);
                     // Total number of triangles
-                    txtWriter.WriteLine(ListOfPoints.Count);
+                    txtWriter.WriteLine();
 
                     //TODO: finish binary files
 
