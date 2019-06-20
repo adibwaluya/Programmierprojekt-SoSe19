@@ -18,17 +18,32 @@ namespace importSTL
         private enum FileType { NONE, BINARY, ASCII };
         private bool processError;
 
+        // Convert bytes to double
+        private static double ConvertByteToDouble(byte[] b)
+        {
+            return BitConverter.ToDouble(b, 0);
+            
+        }
+
         private void ReadBinaryFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            byte[] lines = File.ReadAllBytes(stlPath);
+            byte[] binaryParts = File.ReadAllBytes(stlPath);
 
-            DataModel.Point normal;
-            DataModel.Point[] points = new DataModel.Point[3];
-            int idxByte = 0;
+            int nr = BitConverter.ToInt32(binaryParts, 81); // Number of triangles
+
+
+            for (int i = 0; i < nr; i++)
+            {
+                int start = 50 * i + 81 + 4;
+                DataModel.Normal n = new DataModel.Normal(BitConverter.ToSingle(binaryParts, start), BitConverter.ToSingle(binaryParts, start + 4), BitConverter.ToSingle(binaryParts, start + 8));
+
+            }
+
+            
         }
 
 
