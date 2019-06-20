@@ -15,7 +15,26 @@ namespace StlExportDataModel
             dm.AddPoint(11, 22, 33);
             dm.AddPoint(20, 10, 30);
             dm.AddPoint(1, 2, 3);
+
             dm.AddPoint(4, 6, 8);
+            dm.AddPoint(11, 22, 33);
+            dm.AddPoint(20, 10, 30);
+
+            dm.AddPoint(1, 2, 3);
+            dm.AddPoint(4, 6, 8);
+            dm.AddPoint(11, 22, 33);
+
+            dm.AddPoint(11, 22, 33);
+            dm.AddPoint(20, 10, 30);
+            dm.AddPoint(1, 2, 3);
+
+            dm.AddPoint(4, 6, 8);
+            dm.AddPoint(11, 22, 33);
+            dm.AddPoint(20, 10, 30);
+
+            dm.AddPoint(1, 2, 3);
+            dm.AddPoint(4, 6, 8);
+            dm.AddPoint(11, 22, 33);
 
             dm.AddEdge(0, 1);
             dm.AddEdge(1, 2);

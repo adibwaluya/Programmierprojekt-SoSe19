@@ -44,59 +44,30 @@ namespace StlExport
                 Thread.CurrentThread.CurrentCulture = current;
                 Thread.CurrentThread.CurrentUICulture = current;
 
-                foreach (var dictionaries in dataStructure.points.m_int2pt)
-                {
-                    Point pPlus1 = dataStructure.points.GetPoint(dictionaries.Key + 1);
-                    Point pPlus2 = dataStructure.points.GetPoint(dictionaries.Key + 2);
-
-                    string normX = dictionaries.Value.X.ToString("E");
-                    string normY = dictionaries.Value.Y.ToString("E");
-                    string normZ = dictionaries.Value.Z.ToString("E");
-
-                    string iXasE = dictionaries.Value.X.ToString("E"); // for i
-                    string iYasE = dictionaries.Value.Y.ToString("E");
-                    string iZasE = dictionaries.Value.Z.ToString("E");
-
-                    string i1XasE = pPlus1.X.ToString("E"); // for i + 1
-                    string i1YasE = pPlus1.Y.ToString("E");
-                    string i1ZasE = pPlus1.Z.ToString("E");
-
-                    string i2XasE = pPlus2.X.ToString("E"); // for i + 2
-                    string i2YasE = pPlus2.Y.ToString("E");
-                    string i2ZasE = pPlus2.Z.ToString("E");
-
-
-                    //Write the body of ASCII STL Data
-                    txtWriter.WriteLine($"facet normal {normX} {normY} {normZ}");
-                    txtWriter.WriteLine(indent + "outer loop");
-                    txtWriter.WriteLine($"{indent2} vertex {iXasE} {iYasE} {iZasE}");       //coordinates point1
-                    txtWriter.WriteLine($"{indent2} vertex {i1XasE} {i1YasE} {i1ZasE}");    //coordinates point2
-                    txtWriter.WriteLine($"{indent2} vertex {i2XasE} {i2YasE} {i2ZasE}");    //coordinates point3
-                    txtWriter.WriteLine(indent + "endloop");
-                    txtWriter.WriteLine("endfacet");
-                }
-
-                //for (int i = 0; i < testDM.points.m_int2pt.Count; i = i + 3)
+                //foreach (var dictionaries in dataStructure.points.m_int2pt)
                 //{
-                //    //All normal and points as e-sign exponent format
-                //    string nXasE = dataStructure.points.m_int2pt[i].X.ToString("E");
-                //    string nYasE = dataStructure.points.m_int2pt[i].Y.ToString("E");
-                //    string nZasE = dataStructure.points.m_int2pt[i].Z.ToString("E");
+                //    Point pPlus1 = dataStructure.points.GetPoint(dictionaries.Key + 1);
+                //    Point pPlus2 = dataStructure.points.GetPoint(dictionaries.Key + 2);
 
-                //    string iXasE = dataStructure.points.m_int2pt[i].X.ToString("E"); // for i
-                //    string iYasE = dataStructure.points.m_int2pt[i].Y.ToString("E");
-                //    string iZasE = dataStructure.points.m_int2pt[i].Z.ToString("E");
+                //    string normX = dictionaries.Value.X.ToString("E");
+                //    string normY = dictionaries.Value.Y.ToString("E");
+                //    string normZ = dictionaries.Value.Z.ToString("E");
 
-                //    string i1XasE = dataStructure.points.m_int2pt[i + 1].X.ToString("E"); // for i + 1
-                //    string i1YasE = dataStructure.points.m_int2pt[i + 1].Y.ToString("E");
-                //    string i1ZasE = dataStructure.points.m_int2pt[i + 1].Z.ToString("E");
+                //    string iXasE = dictionaries.Value.X.ToString("E"); // for i
+                //    string iYasE = dictionaries.Value.Y.ToString("E");
+                //    string iZasE = dictionaries.Value.Z.ToString("E");
 
-                //    string i2XasE = dataStructure.points.m_int2pt[i + 2].X.ToString("E"); // for i + 2
-                //    string i2YasE = dataStructure.points.m_int2pt[i + 2].Y.ToString("E");
-                //    string i2ZasE = dataStructure.points.m_int2pt[i + 2].Z.ToString("E");
+                //    string i1XasE = pPlus1.X.ToString("E"); // for i + 1
+                //    string i1YasE = pPlus1.Y.ToString("E");
+                //    string i1ZasE = pPlus1.Z.ToString("E");
+
+                //    string i2XasE = pPlus2.X.ToString("E"); // for i + 2
+                //    string i2YasE = pPlus2.Y.ToString("E");
+                //    string i2ZasE = pPlus2.Z.ToString("E");
+
 
                 //    //Write the body of ASCII STL Data
-                //    txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
+                //    txtWriter.WriteLine($"facet normal {normX} {normY} {normZ}");
                 //    txtWriter.WriteLine(indent + "outer loop");
                 //    txtWriter.WriteLine($"{indent2} vertex {iXasE} {iYasE} {iZasE}");       //coordinates point1
                 //    txtWriter.WriteLine($"{indent2} vertex {i1XasE} {i1YasE} {i1ZasE}");    //coordinates point2
@@ -104,6 +75,35 @@ namespace StlExport
                 //    txtWriter.WriteLine(indent + "endloop");
                 //    txtWriter.WriteLine("endfacet");
                 //}
+
+                for (int i = 0; i < dataStructure.points.int2pts.Count; i = i + 3)
+                {
+                    //All normal and points as e-sign exponent format
+                    string nXasE = dataStructure.points.int2pts[i].X.ToString("E");
+                    string nYasE = dataStructure.points.int2pts[i].Y.ToString("E");
+                    string nZasE = dataStructure.points.int2pts[i].Z.ToString("E");
+
+                    string iXasE = dataStructure.points.int2pts[i].X.ToString("E"); // for i
+                    string iYasE = dataStructure.points.int2pts[i].Y.ToString("E");
+                    string iZasE = dataStructure.points.int2pts[i].Z.ToString("E");
+
+                    string i1XasE = dataStructure.points.int2pts[i + 1].X.ToString("E"); // for i + 1
+                    string i1YasE = dataStructure.points.int2pts[i + 1].Y.ToString("E");
+                    string i1ZasE = dataStructure.points.int2pts[i + 1].Z.ToString("E");
+
+                    string i2XasE = dataStructure.points.int2pts[i + 2].X.ToString("E"); // for i + 2
+                    string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E");
+                    string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E");
+
+                    //Write the body of ASCII STL Data
+                    txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
+                    txtWriter.WriteLine(indent + "outer loop");
+                    txtWriter.WriteLine($"{indent2} vertex {iXasE} {iYasE} {iZasE}");       //coordinates point1
+                    txtWriter.WriteLine($"{indent2} vertex {i1XasE} {i1YasE} {i1ZasE}");    //coordinates point2
+                    txtWriter.WriteLine($"{indent2} vertex {i2XasE} {i2YasE} {i2ZasE}");    //coordinates point3
+                    txtWriter.WriteLine(indent + "endloop");
+                    txtWriter.WriteLine("endfacet");
+                }
 
                 // Finish the file
                 txtWriter.Write("endsolid");

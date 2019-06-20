@@ -40,7 +40,7 @@ namespace View
             SaveFileDialog saveDlg = new SaveFileDialog
             {
                 // Set the filter so the user will know which format of STL will be saved
-                Filter = "ASCII STL File (*.stl)|*.stl|Binary STL File (*.stl)|*.stl",
+                Filter = "ASCII STL File (*.stl)|* ASCII.stl|Binary STL File (*.stl)|* Bin.stl",
                 // Set the initial directory of the saved file to My Documents
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
@@ -54,7 +54,9 @@ namespace View
             #endregion
 
             // Requirements to save the file
-            if (saveDlg.ShowDialog() == true) //& saveDlg.Filter == "ASCII STL File (*.stl)")
+            bool reqA = saveDlg.ShowDialog() == true;
+            bool reqB = saveDlg.Filter == "ASCII STL File (*.stl)|* ASCII.stl";
+            if (reqA)
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
                 dw.AsAsciiFile(saveDlg.FileName, dm);

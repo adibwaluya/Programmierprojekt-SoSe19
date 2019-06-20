@@ -13,9 +13,17 @@ namespace DataModel
         public Dictionary<int, Point> m_int2pt = new Dictionary<int, Point>(); // register point if ID is given
         public Dictionary<Point, int> m_pt2int = new Dictionary<Point, int>(); // register point if point is given
 
+        // The following two fields are for STL Export
+        private int idx = 0;
+        public Dictionary<int, Point> int2pts = new Dictionary<int, Point>();
+
         /* User adds or gets point if a 'point' variable is given */
         public int AddOrGetPoint(Point p)
         {
+            // the following two are for STL Export
+            int2pts[idx] = p;
+            idx++;
+
             /* If a point's already registered in dictionary and contains an ID */
             if (m_pt2int.ContainsKey(p))
                 return m_pt2int[p];
@@ -28,7 +36,7 @@ namespace DataModel
 
         public IEnumerator GetEnumerator()
         {
-            return m_int2pt.GetEnumerator();
+            return int2pts.GetEnumerator();
         }
 
         /* User defines a point by giving an ID to this methode as parameter */
