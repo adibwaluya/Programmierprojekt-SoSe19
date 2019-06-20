@@ -43,15 +43,19 @@ namespace View
             // Set the initial directory of the saved file to My Documents
             SaveDlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
+            // Instantiate data writer to access its methods
+            DataWriter dw = new DataWriter();
+
             // Requirement to save the file
             if (SaveDlg.ShowDialog() == true & SaveDlg.Filter == "ASCII STL File")
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
+                dw.AsAsciiFile(SaveDlg.FileName, new DataStructure());
             }
-
-            if (SaveDlg.ShowDialog() == true & SaveDlg.Filter == "Binary STL File")
+            else
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
+                dw.AsBinaryFile(SaveDlg.FileName, new DataStructure());
             }
         }
     }

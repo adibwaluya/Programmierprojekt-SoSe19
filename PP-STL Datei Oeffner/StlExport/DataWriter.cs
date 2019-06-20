@@ -27,13 +27,13 @@ namespace StlExport
 
         // Compile as one STL File
         // This one is as ASCII file
-        public void AsAsciiFile(string filePath) //TODO: Data Model as parameter and Exception as return type?
+        public void AsAsciiFile(string File, DataStructure dataStructure) //TODO: Data Model as parameter and Exception as return type?
         {
             StreamWriter txtWriter = null;
             try
             {
                 // Add file name and location to StreamWriter
-                txtWriter = new StreamWriter(filePath);
+                txtWriter = new StreamWriter(File);
 
                 // Starting to write the data from here
                 // Write an opening line of ASCII STL Data
@@ -89,7 +89,7 @@ namespace StlExport
         }
 
         // This one is as binary file
-        public void AsBinaryFile(string File)
+        public void AsBinaryFile(string File, DataStructure dataStructure)
         {
             using (var txtWriter = new BinaryWriter(System.IO.File.OpenWrite(File), Encoding.ASCII))
             {
