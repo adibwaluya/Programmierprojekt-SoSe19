@@ -72,7 +72,11 @@ namespace View
             // Set the initial directory of open file to My Documents
             OpenDlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            // Connect to STL Import dummy
+            // Requirements to open the file
+            if (OpenDlg.ShowDialog() == true)
+            {
+                // Connect to STL Import dummy
+            }
         }
     }
 }
