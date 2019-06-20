@@ -11,14 +11,15 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using StlExportDataModel;
+using DataModel;
 
 namespace StlExport
 {
     public class DataWriter
     {
         // Collect all coordinates from PointList in test environment (from View)
-        DataModel.DataStructure dm = new DataModel.DataStructure();
-        StlExportDataModel.StlExportTestDM testDM = new StlExportTestDM();
+        DataStructure dm = new DataStructure();
+        StlExportTestDM testDM = new StlExportTestDM();
 
         // Indentation as strings
         readonly string indent = String.Join("    ", new String[4]);
@@ -26,7 +27,7 @@ namespace StlExport
 
         // Compile as one STL File
         // This one is as ASCII file
-        private void AsAsciiFile(string filePath) //TODO: Data Model as parameter and Exception as return type?
+        public void AsAsciiFile(string filePath) //TODO: Data Model as parameter and Exception as return type?
         {
             StreamWriter txtWriter = null;
             try
@@ -88,7 +89,7 @@ namespace StlExport
         }
 
         // This one is as binary file
-        private void AsBinaryFile(string File)
+        public void AsBinaryFile(string File)
         {
             using (var txtWriter = new BinaryWriter(System.IO.File.OpenWrite(File), Encoding.ASCII))
             {
