@@ -49,6 +49,7 @@ namespace ErrorHandling
             Edge current_Edge;
             Point point1;
             Point point2;
+            double currentVectorX;
             double currentVectorY;
             double currentVectorZ;
             List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
@@ -63,10 +64,24 @@ namespace ErrorHandling
                     noObjectYet = true;
                     point1 = current_Edge.P1;
                     point2 = current_Edge.P2;
-                    currentVectorY = Math.Abs(point1.Y - point2.Y) / Math.Abs(point1.X - point2.X);     // Die X Position ist immer 1 und wird daher nicht im Array angegeben
-                    currentVectorZ = Math.Abs(point1.Z - point2.Z) / Math.Abs(point1.X - point2.X);
+                    currentVectorX = point1.X - point2.X;
+                    currentVectorY = point1.Y - point2.Y;
 
-                   
+                    if (currentVectorX == 0 && currentVectorY != 0)
+                    {
+                        currentVectorZ = (point1.Z - point2.Z) / (currentVectorY);
+
+                    }
+                    else if (currentVectorX == 0 && currentVectorY == 0)
+                    {
+                        currentVectorZ = 1;
+                    }
+                    else
+                    {
+                        currentVectorY = currentVectorY / (currentVectorX);     // Die X Position ist immer 1 und wird daher nicht angegeben
+                        currentVectorZ = (point1.Z - point2.Z) / (currentVectorX);
+                    }
+
                     // Edge, die in gleiche Richtung zeigt bereits vorhanden?
                     foreach (VectorOfEdge vector in vectorList)    // Wir laufen durch alle Eintragungen in der Liste durch
                     {
@@ -82,6 +97,7 @@ namespace ErrorHandling
                         VectorOfEdge vectorOfEdge = new VectorOfEdge();
                         vectorList.Add(vectorOfEdge);
                         vectorOfEdge.addCoordinates(currentVectorY, currentVectorZ);
+                        vectorOfEdge.edgeIDList.Add(currentEdgeNumber);
                     }
                 }
             }
@@ -159,7 +175,7 @@ namespace ErrorHandling
                 {
                     currentEdge.faulty = true;
                 }
-                else if(state == "notFaulty")
+                else if (state == "notFaulty")
                 {
                     currentEdge.faulty = false;
                 }
