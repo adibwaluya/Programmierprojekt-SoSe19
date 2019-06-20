@@ -30,7 +30,14 @@ namespace StlExportDataModel
             dm.AddFace(3, 1, 2, norm1);
             dm.AddFace(0, 1, 2, norm2);
 
-            return dm;
+            if (dm != null)
+            {
+                return dm;
+            }
+            else
+            {
+                return FillDatamodel(dm);
+            }
         }
 
         public List<Point> ListOfPoints;
