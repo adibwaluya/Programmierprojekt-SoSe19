@@ -24,14 +24,14 @@ namespace ErrorHandlingTest
             IdentifyBodies identifyBodies = new IdentifyBodies();
             identifyBodies.FindBodies(dm);
 
-            Console.WriteLine(dm.faces.GetFace(0).bodyID);
-            Console.WriteLine(dm.faces.GetFace(1).bodyID);
-            Console.WriteLine(dm.faces.GetFace(2).bodyID);
-            Console.WriteLine(dm.faces.GetFace(3).bodyID);
-            Console.WriteLine(dm.faces.GetFace(4).bodyID);
-            Console.WriteLine(dm.faces.GetFace(5).bodyID);
-            Console.WriteLine(dm.faces.GetFace(6).bodyID);
-            Console.WriteLine(dm.faces.GetFace(7).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(0).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(1).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(2).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(3).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(4).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(5).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(6).bodyID);
+            //Console.WriteLine(dm.faces.GetFace(7).bodyID);
 
             for (int i = 0; dm.edges.GetEdge(i) != null; i++)
             {
