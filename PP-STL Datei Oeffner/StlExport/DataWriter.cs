@@ -44,24 +44,24 @@ namespace StlExport
                 Thread.CurrentThread.CurrentCulture = current;
                 Thread.CurrentThread.CurrentUICulture = current;
 
-                for (int i = 0; i < testDM.ListOfPoints.Count; i = i + 3)
+                for (int i = 0; i < testDM.points.m_int2pt.Count; i = i + 3)
                 {
                     //All normal and points as e-sign exponent format
-                    string nXasE = testDM.ListOfNormals[i].X.ToString("E");
-                    string nYasE = testDM.ListOfNormals[i].Y.ToString("E");
-                    string nZasE = testDM.ListOfNormals[i].Z.ToString("E");
+                    string nXasE = testDM.points.m_int2pt[i].X.ToString("E");
+                    string nYasE = testDM.points.m_int2pt[i].Y.ToString("E");
+                    string nZasE = testDM.points.m_int2pt[i].Z.ToString("E");
 
-                    string iXasE = testDM.ListOfPoints[i].X.ToString("E"); // for i
-                    string iYasE = testDM.ListOfPoints[i].Y.ToString("E");
-                    string iZasE = testDM.ListOfPoints[i].Z.ToString("E");
+                    string iXasE = testDM.points.m_int2pt[i].X.ToString("E"); // for i
+                    string iYasE = testDM.points.m_int2pt[i].Y.ToString("E");
+                    string iZasE = testDM.points.m_int2pt[i].Z.ToString("E");
 
-                    string i1XasE = testDM.ListOfPoints[i + 1].X.ToString("E"); // for i + 1
-                    string i1YasE = testDM.ListOfPoints[i + 1].Y.ToString("E");
-                    string i1ZasE = testDM.ListOfPoints[i + 1].Z.ToString("E");
+                    string i1XasE = testDM.points.m_int2pt[i + 1].X.ToString("E"); // for i + 1
+                    string i1YasE = testDM.points.m_int2pt[i + 1].Y.ToString("E");
+                    string i1ZasE = testDM.points.m_int2pt[i + 1].Z.ToString("E");
 
-                    string i2XasE = testDM.ListOfPoints[i + 2].X.ToString("E"); // for i + 2
-                    string i2YasE = testDM.ListOfPoints[i + 2].Y.ToString("E");
-                    string i2ZasE = testDM.ListOfPoints[i + 2].Z.ToString("E");
+                    string i2XasE = testDM.points.m_int2pt[i + 2].X.ToString("E"); // for i + 2
+                    string i2YasE = testDM.points.m_int2pt[i + 2].Y.ToString("E");
+                    string i2ZasE = testDM.points.m_int2pt[i + 2].Z.ToString("E");
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
@@ -107,27 +107,27 @@ namespace StlExport
                     txtWriter.Write(Header);
 
                     // UINT32 – Number of triangles
-                    txtWriter.Write(((testDM.ListOfPoints.Count) / 3)); // A triangle consists of 3 points
+                    txtWriter.Write(((testDM.points.m_int2pt.Count) / 3)); // A triangle consists of 3 points
 
                     // foreach triangle
-                    for (int i = 0; i < testDM.ListOfPoints.Count; i = i + 3)
+                    for (int i = 0; i < testDM.points.m_int2pt.Count; i = i + 3)
                     {
                         //All normal and points as e-sign exponent format
-                        string nXasE = testDM.ListOfNormals[i].X.ToString("E");
-                        string nYasE = testDM.ListOfNormals[i].Y.ToString("E");
-                        string nZasE = testDM.ListOfNormals[i].Z.ToString("E");
+                        string nXasE = testDM.points.m_int2pt[i].X.ToString("E");
+                        string nYasE = testDM.points.m_int2pt[i].Y.ToString("E");
+                        string nZasE = testDM.points.m_int2pt[i].Z.ToString("E");
 
-                        string iXasE = testDM.ListOfPoints[i].X.ToString("E"); // for i
-                        string iYasE = testDM.ListOfPoints[i].Y.ToString("E");
-                        string iZasE = testDM.ListOfPoints[i].Z.ToString("E");
+                        string iXasE = testDM.points.m_int2pt[i].X.ToString("E"); // for i
+                        string iYasE = testDM.points.m_int2pt[i].Y.ToString("E");
+                        string iZasE = testDM.points.m_int2pt[i].Z.ToString("E");
 
-                        string i1XasE = testDM.ListOfPoints[i + 1].X.ToString("E"); // for i + 1
-                        string i1YasE = testDM.ListOfPoints[i + 1].Y.ToString("E");
-                        string i1ZasE = testDM.ListOfPoints[i + 1].Z.ToString("E");
+                        string i1XasE = testDM.points.m_int2pt[i + 1].X.ToString("E"); // for i + 1
+                        string i1YasE = testDM.points.m_int2pt[i + 1].Y.ToString("E");
+                        string i1ZasE = testDM.points.m_int2pt[i + 1].Z.ToString("E");
 
-                        string i2XasE = testDM.ListOfPoints[i + 2].X.ToString("E"); // for i + 2
-                        string i2YasE = testDM.ListOfPoints[i + 2].Y.ToString("E");
-                        string i2ZasE = testDM.ListOfPoints[i + 2].Z.ToString("E");
+                        string i2XasE = testDM.points.m_int2pt[i + 2].X.ToString("E"); // for i + 2
+                        string i2YasE = testDM.points.m_int2pt[i + 2].Y.ToString("E");
+                        string i2ZasE = testDM.points.m_int2pt[i + 2].Z.ToString("E");
 
                         // Write the body of binary STL Data
 
