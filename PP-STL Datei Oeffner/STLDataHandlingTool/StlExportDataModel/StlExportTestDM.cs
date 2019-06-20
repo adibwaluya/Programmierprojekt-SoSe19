@@ -9,7 +9,6 @@ namespace StlExportDataModel
 {
     public class StlExportTestDM
     {
-        //DataStructure dm = new DataStructure();
         public void FillDatamodel(DataStructure dm)
         {
             dm.AddPoint(11, 22, 33);
@@ -49,27 +48,5 @@ namespace StlExportDataModel
             dm.AddFace(3, 1, 2, norm1);
             dm.AddFace(0, 1, 2, norm2);
         }
-
-        //public List<Point> ListOfPoints = new List<Point>();
-
-        //public void ListCoordinates()
-        //{
-        //    foreach (Point p in dm.points)
-        //    {
-        //        ListOfPoints.Add(p);
-        //    }
-        //}
-
-        // Collect all point-normal from Normal
-        //public List<Normal> ListOfNormals = new List<Normal>();
-
-
-        //public void ListNormal()
-        //{
-        //    foreach (Point pts in ListOfPoints)
-        //    {
-        //        ListOfNormals.Add(Normal.FromPoint(pts));
-        //    }
-        //}
     }
 }

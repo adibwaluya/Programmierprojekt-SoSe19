@@ -12,9 +12,17 @@ namespace DataModel
         public Dictionary<int, Face> m_int2Face = new Dictionary<int, Face>(); // register face if ID is given
         public Dictionary<Face, int> m_Face2int = new Dictionary<Face, int>(); // register face if face is given
 
+        // The following two fields are for STL Export
+        private int idx = 0;
+        public Dictionary<int, Face> Int2Faces = new Dictionary<int, Face>();
+
         /* User adds or gets face if a 'face' variable is given */
         public int AddOrGetFace(Face p)
         {
+            // the following two are for STL Export
+            Int2Faces[idx] = p;
+            idx++;
+
             /* If a face's already registered in dictionary and contains an ID */
             if (m_Face2int.ContainsKey(p))
                 return m_Face2int[p];
