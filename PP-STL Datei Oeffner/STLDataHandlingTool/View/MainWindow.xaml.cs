@@ -48,17 +48,18 @@ namespace View
             DataWriter dw = new DataWriter();
             DataStructure dm = new DataStructure();
             StlExportTestDM testDM = new StlExportTestDM();
+            testDM.FillDatamodel(dm);
             
             // Requirements to save the file
             if (SaveDlg.ShowDialog() == true & SaveDlg.Filter == "ASCII STL File")
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
-                dw.AsAsciiFile(SaveDlg.FileName, testDM.FillDatamodel(dm));
+                dw.AsAsciiFile(SaveDlg.FileName, dm);
             }
             else // If the user wants to save the DataStructure as a binary STL File
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
-                dw.AsBinaryFile(SaveDlg.FileName, testDM.FillDatamodel(dm));
+                dw.AsBinaryFile(SaveDlg.FileName, dm);
             }
         }
 
