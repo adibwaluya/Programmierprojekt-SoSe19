@@ -25,7 +25,7 @@ namespace importSTL
             
         }
 
-        private void ReadBinaryFile(string stlPath)
+        public void ReadBinaryFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
@@ -33,17 +33,61 @@ namespace importSTL
 
             byte[] binaryParts = File.ReadAllBytes(stlPath);
 
-            int nr = BitConverter.ToInt32(binaryParts, 81); // Number of triangles
+            DataModel.Normal normal = null;
+            int byteIdx = 0;
 
+            int nr = BitConverter.ToInt32(binaryParts, 81);
+            byteIdx = 84;
 
-            for (int i = 0; i < nr; i++)
+            for (int i = 0; i < binaryParts.Length; i++)
             {
                 int start = 50 * i + 81 + 4;
-                DataModel.Normal n = new DataModel.Normal(BitConverter.ToSingle(binaryParts, start), BitConverter.ToSingle(binaryParts, start + 4), BitConverter.ToSingle(binaryParts, start + 8));
+
+
+
+                DataModel.Point n = new DataModel.Point(BitConverter.ToSingle(binaryParts, start), BitConverter.ToSingle(binaryParts, start + 4), BitConverter.ToSingle(binaryParts, start + 8));
+                normal = new DataModel.Normal(n.X, n.Y, n.Z);
+                byteIdx = start + 12;
+
+                int point1 = start + 12;
+                DataModel.Point v1 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point1), BitConverter.ToSingle(binaryParts, point1 + 4), BitConverter.ToSingle(binaryParts, point1 + 8));
+                byteIdx = point1 + 12;
+
+                int point2 = point1 + 12;
+                DataModel.Point v2 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point2), BitConverter.ToSingle(binaryParts, point2 + 4), BitConverter.ToSingle(binaryParts, point2 + 8));
+                byteIdx = point2 + 12;
+
+                int point3 = point2 + 12;
+                DataModel.Point v3 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point3), BitConverter.ToSingle(binaryParts, point3 + 4), BitConverter.ToSingle(binaryParts, point3 + 8));
+                byteIdx = point3 + 12;
+
+
+                int p1 = dm.points.AddOrGetPoint(v1);
+                int p2 = dm.points.AddOrGetPoint(v2);
+                int p3 = dm.points.AddOrGetPoint(v3);
+
+                DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
+                DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
+                DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
+
+                int ei1 = dm.edges.AddOrGetEdge(e1);
+                int ei2 = dm.edges.AddOrGetEdge(e2);
+                int ei3 = dm.edges.AddOrGetEdge(e3);
+
+                dm.AddFace(ei1, ei2, ei3, normal);
+
+                byteIdx = 134;
+
+
 
             }
 
-            
+            int abc = BitConverter.ToUInt16(binaryParts, 133);
+            byteIdx = 0;
+
+            Thread.CurrentThread.CurrentCulture = ci;
+
+
         }
 
 
