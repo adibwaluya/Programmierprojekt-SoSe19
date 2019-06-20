@@ -54,7 +54,7 @@ namespace View
             #endregion
 
             // Requirements to save the file
-            if (saveDlg.ShowDialog() == true & saveDlg.Filter == "ASCII STL File (*.stl)")
+            if (saveDlg.ShowDialog() == true) //& saveDlg.Filter == "ASCII STL File (*.stl)")
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
                 dw.AsAsciiFile(saveDlg.FileName, dm);
