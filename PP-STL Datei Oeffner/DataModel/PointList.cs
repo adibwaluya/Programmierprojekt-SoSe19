@@ -28,7 +28,7 @@ namespace DataModel
 
         public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            return m_int2pt.GetEnumerator();
         }
 
         /* User defines a point by giving an ID to this methode as parameter */

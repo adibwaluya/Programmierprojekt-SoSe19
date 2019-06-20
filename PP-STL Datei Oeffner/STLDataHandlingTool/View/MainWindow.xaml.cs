@@ -45,12 +45,14 @@ namespace View
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
 
+            #region Test Site
             // Instantiate data writer to access its methods
+            StlExportTestDM testDM = new StlExportTestDM();
             DataWriter dw = new DataWriter();
             DataStructure dm = new DataStructure();
-            StlExportTestDM testDM = new StlExportTestDM();
             testDM.FillDatamodel(dm);
-            
+            #endregion
+
             // Requirements to save the file
             if (saveDlg.ShowDialog() == true & saveDlg.Filter == "ASCII STL File (*.stl)")
             {

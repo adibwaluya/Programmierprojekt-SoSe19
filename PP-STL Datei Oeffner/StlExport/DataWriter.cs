@@ -19,7 +19,7 @@ namespace StlExport
     {
         // Collect all coordinates from PointList in test environment (from View)
         //DataStructure dm = new DataStructure();
-        StlExportTestDM testDM = new StlExportTestDM();
+        DataStructure testDM = new DataStructure();
 
         // Indentation as strings
         readonly string indent = String.Join("    ", new String[4]);
