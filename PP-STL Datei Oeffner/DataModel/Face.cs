@@ -73,7 +73,7 @@ namespace DataModel
         public DataStructure Datamodel { get; set; }
 
         // For STL Export
-        public Normal normFromFace(Face p)
+        public Normal NormFromFace(Face p)
         {
             return new Normal()
             {

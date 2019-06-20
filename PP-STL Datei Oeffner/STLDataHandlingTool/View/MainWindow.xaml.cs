@@ -42,7 +42,8 @@ namespace View
                 // Set the filter so the user will know which format of STL will be saved
                 Filter = "ASCII STL File (*.stl)|* ASCII.stl|Binary STL File (*.stl)|* Bin.stl",
                 // Set the initial directory of the saved file to My Documents
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                DefaultExt = "stl"
             };
 
             #region Test Site
@@ -83,7 +84,15 @@ namespace View
             if (openDlg.ShowDialog() == true)
             {
                 // Connect to STL Import dummy
+                StlExportTestDM testDM = new StlExportTestDM();
+                DataStructure dm = new DataStructure();
+                testDM.FillDatamodel(dm);
             }
+        }
+
+        private void ErrorHandle_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

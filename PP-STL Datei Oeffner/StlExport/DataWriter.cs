@@ -80,7 +80,7 @@ namespace StlExport
                 {
                     //All normal and points as e-sign exponent format
                     Face newFace = dataStructure.faces.Int2Faces[i];
-                    Normal norm = newFace.normFromFace(dataStructure.faces.Int2Faces[i]);
+                    Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
 
                     string nXasE = norm.X.ToString("E"); // Normals can also be {0; 0; 0}
                     string nYasE = norm.Y.ToString("E");
@@ -149,7 +149,7 @@ namespace StlExport
                     {
                         //All normal and points as e-sign exponent format
                         Face newFace = dataStructure.faces.Int2Faces[i];
-                        Normal norm = newFace.normFromFace(dataStructure.faces.Int2Faces[i]);
+                        Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
 
                         string nXasE = norm.X.ToString("E"); // Normals can also be {0; 0; 0}
                         string nYasE = norm.Y.ToString("E");
