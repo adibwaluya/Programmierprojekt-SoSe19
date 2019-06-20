@@ -31,7 +31,7 @@ namespace StlExportDataModel
             dm.AddFace(0, 1, 2, norm2);
         }
 
-        public List<Point> ListOfPoints;
+        public List<Point> ListOfPoints = new List<Point>();
 
         //public void ListCoordinates()
         //{
@@ -42,7 +42,7 @@ namespace StlExportDataModel
         //}
 
         // Collect all point-normal from Normal
-        public List<Normal> ListOfNormals;
+        public List<Normal> ListOfNormals = new List<Normal>();
 
 
         //public void ListNormal()
