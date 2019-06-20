@@ -102,6 +102,10 @@
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\StlExport\StlExport.csproj">
+      <Project>{5695ae7e-91eb-4f8b-8fba-ff7e8a3adf67}</Project>
+      <Name>StlExport</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

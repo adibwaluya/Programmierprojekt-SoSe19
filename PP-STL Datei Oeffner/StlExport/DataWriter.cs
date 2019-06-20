@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
-using View;
+using StlExportDataModel;
 
 namespace StlExport
 {
@@ -18,7 +18,7 @@ namespace StlExport
     {
         // Collect all coordinates from PointList in test environment (from View)
         DataModel.DataStructure dm = new DataModel.DataStructure();
-        View.ExportTest_DataModel testDM = new ExportTest_DataModel();
+        StlExportDataModel.StlExportTestDM testDM = new StlExportTestDM();
 
         // Indentation as strings
         readonly string indent = String.Join("    ", new String[4]);
