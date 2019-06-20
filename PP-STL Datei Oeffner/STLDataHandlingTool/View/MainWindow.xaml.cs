@@ -49,7 +49,7 @@ namespace View
             DataStructure dm = new DataStructure();
             StlExportTestDM testDM = new StlExportTestDM();
             
-            // Requirement to save the file
+            // Requirements to save the file
             if (SaveDlg.ShowDialog() == true & SaveDlg.Filter == "ASCII STL File")
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter

@@ -93,47 +93,62 @@ namespace StlExport
         {
             using (var txtWriter = new BinaryWriter(System.IO.File.OpenWrite(File), Encoding.ASCII))
             {
-                // Encode the header of the binary file as ASCII and set the buffer to 80 bytes
-                string HeaderAsString = File;
-                byte[] Header = new byte[80];
-                Encoding.ASCII.GetBytes(HeaderAsString, 0, HeaderAsString.Length, Header, 0);
-                txtWriter.Write(Header);
+                try
+                {
+                    // Setting the culture info to make sure the exponents are the same
+                    CultureInfo current = new CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentCulture = current;
+                    Thread.CurrentThread.CurrentUICulture = current;
 
-                // UINT32 – Number of triangles
-                txtWriter.Write((testDM.ListOfPoints.Count / 3)); // A triangle consists of 3 points
+                    // Encode the header of the binary file as ASCII and set the buffer to 80 bytes
+                    string HeaderAsString = File;
+                    byte[] Header = new byte[80];
+                    Encoding.ASCII.GetBytes(HeaderAsString, 0, HeaderAsString.Length, Header, 0);
+                    txtWriter.Write(Header);
 
-                // foreach triangle
-                // REAL32[3] – Normal vector
-                // REAL32[3] – Vertex 1
-                // REAL32[3] – Vertex 2
-                // REAL32[3] – Vertex 3
-                // UINT16 – Attribute byte count
+                    // UINT32 – Number of triangles
+                    txtWriter.Write((testDM.ListOfPoints.Count / 3)); // A triangle consists of 3 points
+
+                    // foreach triangle
+                    for (int i = 0; i < testDM.ListOfPoints.Count; i = i + 3)
+                    {
+                        //All normal and points as e-sign exponent format
+                        string nXasE = testDM.ListOfNormals[i].X.ToString("E");
+                        string nYasE = testDM.ListOfNormals[i].Y.ToString("E");
+                        string nZasE = testDM.ListOfNormals[i].Z.ToString("E");
+
+                        string iXasE = testDM.ListOfPoints[i].X.ToString("E"); // for i
+                        string iYasE = testDM.ListOfPoints[i].Y.ToString("E");
+                        string iZasE = testDM.ListOfPoints[i].Z.ToString("E");
+
+                        string i1XasE = testDM.ListOfPoints[i + 1].X.ToString("E"); // for i + 1
+                        string i1YasE = testDM.ListOfPoints[i + 1].Y.ToString("E");
+                        string i1ZasE = testDM.ListOfPoints[i + 1].Z.ToString("E");
+
+                        string i2XasE = testDM.ListOfPoints[i + 2].X.ToString("E"); // for i + 2
+                        string i2YasE = testDM.ListOfPoints[i + 2].Y.ToString("E");
+                        string i2ZasE = testDM.ListOfPoints[i + 2].Z.ToString("E");
+
+                        // Write the body of binary STL Data
+
+                        // REAL32[3] – Normal vector
+                        txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
+                        // REAL32[3] – Vertex 1
+                        txtWriter.Write($"{iXasE} {iYasE} {iZasE} ");
+                        // REAL32[3] – Vertex 2
+                        txtWriter.Write($"{i1XasE} {i1YasE} {i1ZasE} ");
+                        // REAL32[3] – Vertex 3
+                        txtWriter.Write($"{i2XasE} {i2YasE} {i2ZasE} ");
+                        // UINT16 – Attribute byte count = normally 0
+                        txtWriter.Write(0);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
-
-            //using (StreamWriter txtWriter = new StreamWriter(File))
-            //{
-            //    try
-            //    {
-            //        // Binary file starts here
-            //        // Header
-            //        txtWriter.WriteLine(File); //TODO: Change header to file's name?
-
-            //        BitConverter.DoubleToInt64Bits(ListOfPoints.Count);
-            //        // Total number of triangles
-            //        txtWriter.WriteLine();
-
-            //        //TODO: finish binary files
-
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e);
-            //        throw;
-            //    }
-            //}
-            
         }
-
-
     }
 }
