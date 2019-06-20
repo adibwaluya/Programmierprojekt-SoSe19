@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DataModel;
 using Microsoft.Win32;
 using StlExport;
+using StlExportDataModel;
 
 
 namespace View
@@ -45,17 +46,19 @@ namespace View
 
             // Instantiate data writer to access its methods
             DataWriter dw = new DataWriter();
-
+            DataStructure dm = new DataStructure();
+            StlExportTestDM testDM = new StlExportTestDM();
+            
             // Requirement to save the file
             if (SaveDlg.ShowDialog() == true & SaveDlg.Filter == "ASCII STL File")
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
-                dw.AsAsciiFile(SaveDlg.FileName, new DataStructure());
+                dw.AsAsciiFile(SaveDlg.FileName, testDM.FillDatamodel(dm));
             }
-            else
+            else // If the user wants to save the DataStructure as a binary STL File
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
-                dw.AsBinaryFile(SaveDlg.FileName, new DataStructure());
+                dw.AsBinaryFile(SaveDlg.FileName, testDM.FillDatamodel(dm));
             }
         }
     }
