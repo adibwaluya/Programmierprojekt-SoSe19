@@ -139,7 +139,7 @@ namespace StlExport
                     txtWriter.Write(Header);
 
                     // UINT32 – Number of triangles
-                    txtWriter.Write(((testDM.points.m_int2pt.Count) / 3)); // A triangle consists of 3 points
+                    txtWriter.Write(((dataStructure.points.int2pts.Count) / 3)); // A triangle consists of 3 points
 
                     // foreach triangle
                     for (int i = 0; i < testDM.points.m_int2pt.Count; i = i + 3)
