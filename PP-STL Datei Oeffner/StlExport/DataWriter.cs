@@ -18,7 +18,7 @@ namespace StlExport
     public class DataWriter
     {
         // Collect all coordinates from PointList in test environment (from View)
-        DataStructure dm = new DataStructure();
+        //DataStructure dm = new DataStructure();
         StlExportTestDM testDM = new StlExportTestDM();
 
         // Indentation as strings
@@ -33,7 +33,7 @@ namespace StlExport
             try
             {
                 // Add file name and location to StreamWriter
-                txtWriter = new StreamWriter(File);
+                txtWriter = new StreamWriter(File, false);
 
                 // Starting to write the data from here
                 // Write an opening line of ASCII STL Data
