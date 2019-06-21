@@ -42,7 +42,7 @@ namespace View
             Box3.Text = "#" + ClrPcker_Error.SelectedColor.Value.R.ToString() + ClrPcker_Error.SelectedColor.Value.G.ToString() + ClrPcker_Error.SelectedColor.Value.B.ToString();
         }
 
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveColor_Button_Click(object sender, RoutedEventArgs e)
         {
             Box1.Text = "#" + ClrPcker_Body1.SelectedColor.Value.R.ToString() + ClrPcker_Body1.SelectedColor.Value.G.ToString() + ClrPcker_Body1.SelectedColor.Value.B.ToString();
             Box2.Text = "#" + ClrPcker_Body2.SelectedColor.Value.R.ToString() + ClrPcker_Body2.SelectedColor.Value.G.ToString() + ClrPcker_Body2.SelectedColor.Value.B.ToString();
@@ -51,6 +51,11 @@ namespace View
             Color body1Color = ClrPcker_Body1.SelectedColor.Value;
             Color body2Color = ClrPcker_Body2.SelectedColor.Value;
             Color errorColor = ClrPcker_Error.SelectedColor.Value;
+        }
+
+        private void SaveTolerance_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string setTolerance = Tolerance_Box.Text;
         }
     }
 }

@@ -10,7 +10,7 @@
 
     <Border Margin="10">
         <StackPanel>
-            <!-- Top Bar -->
+            <!-- Top Bar starts here -->
             <Grid Height="35">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -29,14 +29,14 @@
                 <Button Click="ErrorHandle_OnClick" Grid.Column="2" Margin="5 0 5 0" Content="Handle Error" Background="Gray"/>
                 <Button Grid.Column="3" Margin="5 0 5 0" Content="Undo" Background="Gray" Height="35" VerticalAlignment="Bottom"/>
                 <Button Grid.Column="4" Margin="5 0 5 0" Content="Redo" Background="Gray"/>
-                <Button Click="Settings_OnClick" Grid.Column="4" Margin="5 0 5 0" Content="Settings" Background="Gray"/>
+                <Button Click="Settings_OnClick" Grid.Column="5" Margin="5 0 5 0" Content="Settings" Background="Gray"/>
                 <Button Grid.Column="8" Content="Help"  Background="Gray"/>
             </Grid>
-            <!-- Ende von Top Bar -->
+            <!-- Top Bar ends here -->
 
             <Grid Background="Black" Height="2"/>
 
-            <!-- Anzeiger und Tools zum Modell -->
+            <!-- Information -->
             <Grid Height="650" Margin="0 2 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="837*"/>
@@ -44,14 +44,14 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1" Background="LightGray">
-                    <TextBlock Text="Informationen" FontWeight="Bold" FontSize="15" Margin="5 0 0 0"/>
-                    <ComboBox Margin="5 0 5 0" SelectedIndex="0" Background="White">
-                        <ComboBoxItem>Anzahl Punkte</ComboBoxItem>
-                        <ComboBoxItem>Anzahl Fläche</ComboBoxItem>
+                    <TextBlock Text="Informations" FontWeight="Bold" FontSize="15" Margin="5 0 0 0"/>
+                    <ComboBox x:Name="Information_Boxes" Margin="5 0 5 0" SelectedIndex="0" Background="White">
+                        <ComboBoxItem x:Name="TotalPoints_Box">Total Points</ComboBoxItem>
+                        <ComboBoxItem x:Name="TotalFaces_Box">Total Faces</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
             </Grid>
-            <!-- Ende von Anzeiger und Tools -->
+            <!-- Information ends here -->
 
         </StackPanel>
     </Border>

@@ -14,19 +14,21 @@
                     <Label x:Name="Body1_Label" Content="Color for the first body           :" HorizontalAlignment="Left" Margin="36,43,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Body2_Label" Content="Color for all other bodies        :" HorizontalAlignment="Left" Margin="36,74,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Error_Label" Content="Color for error                         :" HorizontalAlignment="Left" Margin="36,105,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="Box1" HorizontalAlignment="Left" Height="22" Margin="221,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71"/>
-                    <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="22" Margin="221,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71"/>
-                    <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="22" Margin="221,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71"/>
+                    <TextBox x:Name="Box1" HorizontalAlignment="Left" Height="22" Margin="221,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
+                    <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="22" Margin="221,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
+                    <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="22" Margin="221,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
                     <xctk:ColorPicker Name="ClrPcker_Body1" SelectedColorChanged="ClrPcker_Body1_SelectedColorChanged" Margin="297,47,81,170"></xctk:ColorPicker>
                     <xctk:ColorPicker x:Name="ClrPcker_Body2" SelectedColorChanged="ClrPcker_Body2_SelectedColorChanged" Margin="297,78,81,139"/>
                     <xctk:ColorPicker x:Name="ClrPcker_Error" SelectedColorChanged="ClrPcker_Error_SelectedColorChanged" Margin="297,109,81,108"/>
-                    <Button x:Name="Save_Button" Content="Confirm" HorizontalAlignment="Left" Margin="407,190,0,0" VerticalAlignment="Top" Width="93" Height="24" Click="Save_Button_Click"/>
+                    <Button x:Name="SaveColor_Button" Content="Confirm" HorizontalAlignment="Left" Margin="397,184,0,0" VerticalAlignment="Top" Width="118" Height="34" Click="SaveColor_Button_Click"/>
                 </Grid>
 
             </TabItem>
             <TabItem x:Name="Tolerance_Tab" Header="Tolerance" Height="22" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
-
+                    <Label Content="Tolerance for errors           :                            mm" HorizontalAlignment="Left" Margin="43,87,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="Tolerance_Box" HorizontalAlignment="Left" Height="23" Margin="202,90,0,0" TextWrapping="Wrap" Text="0.10" VerticalAlignment="Top" TextAlignment="Right" Width="73"/>
+                    <Button x:Name="SaveTolerance_Button" Content="Confirm" HorizontalAlignment="Left" Margin="397,184,0,0" VerticalAlignment="Top" Width="118" Height="34" Click="SaveTolerance_Button_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
