@@ -30,11 +30,6 @@ namespace View
             InitializeComponent();
         }
 
-        //private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
-        //{
-        //    TextBox.Text = "#" + ClrPcker_Background.SelectedColor.R.ToString() + ClrPcker_Background.SelectedColor.G.ToString() + ClrPcker_Background.SelectedColor.B.ToString();
-        //}
-
         #region ClickEvent
         // Save file
         private void Save_OnClick(object sender, RoutedEventArgs e)
@@ -106,5 +101,10 @@ namespace View
             setWindow.ShowDialog();
         }
         #endregion
+
+        public void colorBody1()
+        {
+            Color colBody1 = new Color();
+        }
     }
 }

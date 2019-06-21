@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf;
+using View;
+using DataModel;
 
 namespace View
 {
@@ -38,6 +40,17 @@ namespace View
         private void ClrPcker_Error_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> routedPropertyChangedEventArgs)
         {
             Box3.Text = "#" + ClrPcker_Error.SelectedColor.Value.R.ToString() + ClrPcker_Error.SelectedColor.Value.G.ToString() + ClrPcker_Error.SelectedColor.Value.B.ToString();
+        }
+
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Box1.Text = "#" + ClrPcker_Body1.SelectedColor.Value.R.ToString() + ClrPcker_Body1.SelectedColor.Value.G.ToString() + ClrPcker_Body1.SelectedColor.Value.B.ToString();
+            Box2.Text = "#" + ClrPcker_Body2.SelectedColor.Value.R.ToString() + ClrPcker_Body2.SelectedColor.Value.G.ToString() + ClrPcker_Body2.SelectedColor.Value.B.ToString();
+            Box3.Text = "#" + ClrPcker_Error.SelectedColor.Value.R.ToString() + ClrPcker_Error.SelectedColor.Value.G.ToString() + ClrPcker_Error.SelectedColor.Value.B.ToString();
+
+            Color body1Color = ClrPcker_Body1.SelectedColor.Value;
+            Color body2Color = ClrPcker_Body2.SelectedColor.Value;
+            Color errorColor = ClrPcker_Error.SelectedColor.Value;
         }
     }
 }
