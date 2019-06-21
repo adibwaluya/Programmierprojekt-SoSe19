@@ -36,6 +36,7 @@ namespace View
         //}
 
         #region ClickEvent
+        // Save file
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
             // Set the button as a save file dialog when clicked
@@ -62,14 +63,17 @@ namespace View
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
                 dw.AsAsciiFile(saveDlg.FileName, dm);
+                MessageBox.Show("File saved as an ASCII STL File.");
             }
             else // If the user wants to save the DataStructure as a binary STL File (FilterIndex == 2)
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
                 dw.AsBinaryFile(saveDlg.FileName, dm);
+                MessageBox.Show("File saved as a binary STL File.");
             }
         }
 
+        // Open file
         private void Open_OnClick(object sender, RoutedEventArgs e)
         {
             // Set the button as an open file dialog when clicked
