@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 namespace DataModel
 {
@@ -10,21 +7,7 @@ namespace DataModel
     {
         public PointList points = new PointList(); //List of Points
         public EdgeList edges = new EdgeList(); //List of Edges
-        public FaceList faces = new FaceList(); //List of Faces
-
-        // Singleton --> MK: Implemented to have an access to FaceList, while developing my component. 
-        private static DataStructure _dataStructure; 
-        public static DataStructure DataStructureInstance 
-        {
-            get
-            {
-                if (_dataStructure != null) return _dataStructure;
-                _dataStructure = new DataStructure(); 
-
-                return _dataStructure;
-            }
-            set => _dataStructure = value; // Setter is only need for creating a test-datamodel
-        }
+        private FaceList faces = new FaceList(); //List of Faces
 
         /* User adds Point by giving its coordinates */
         public int AddPoint(double x, double y, double z)
@@ -53,122 +36,28 @@ namespace DataModel
             return faces.AddOrGetFace(f);
         }
 
-        /// <summary>
-        /// Gets the maximum x-coordinate value from the datamodel.
-        /// </summary>
-        /// <returns>maxValueX</returns>
-        public double GetMaxValueX()
-        {
-            var maxValueX = double.NegativeInfinity;
-
-            for (var i = 0; i < points.m_int2pt.Count; i++)
-            {
-                if (points.GetPoint(i).X > maxValueX)
-                {
-                    maxValueX = points.GetPoint(i).X;
-                }
-            }
-            return maxValueX;
-        }
+        public static int VerticesCount; // (modelDataPoints (vertices + normals) ) - (number of normals)
 
         /// <summary>
-        /// Gets the maximum y-coordinate value from the datamodel.
+        /// Used to get the the data points and normals, which are stored in the DataStructure.
         /// </summary>
-        /// <returns>maxValueY</returns>
-        public double GetMaxValueY()
+        /// <returns>A List of Point3D (double X, double Y, double Z). </returns>
+        public  List<Point3D> GetDataPointsList3D()
         {
-            var maxValueY = double.NegativeInfinity;
+            var modelDataPoints = new List<Point3D>();
 
-            for (var i = 0; i < points.m_int2pt.Count; i++)
+            for(var i = 0; i < faces.m_int2Face.Count; i++)
             {
-                if (points.GetPoint(i).Y > maxValueY)
+                for (var j = 0; j < 3; j++)
                 {
-                    maxValueY = points.GetPoint(i).Y;
+                    modelDataPoints.Add(new Point3D(faces.m_int2Face[i].Points[j].X, faces.m_int2Face[i].Points[j].Y, faces.m_int2Face[i].Points[j].Z)); // Adding the vertices
                 }
+                modelDataPoints.Add(new Point3D(faces.m_int2Face[i].N.X, faces.m_int2Face[i].N.Y, faces.m_int2Face[i].N.Z)); // Adding the normal vector
             }
-            return maxValueY;
-        }
 
-        /// <summary>
-        /// Gets the maximum z-coordinate value from the datamodel.
-        /// </summary>
-        /// <returns>maxValueX</returns>
-        public double GetMaxValueZ()
-        {
-            var maxValueZ = double.NegativeInfinity;
+            VerticesCount = modelDataPoints.Count - (modelDataPoints.Count / 4);
 
-            for (var i = 0; i < points.m_int2pt.Count; i++)
-            {
-                if (points.GetPoint(i).Y > maxValueZ)
-                {
-                    maxValueZ = points.GetPoint(i).Y;
-                }
-            }
-            return maxValueZ;
-        }
-
-        /// <summary>
-        /// Gets the minimum x-coordinate value from the datamodel.
-        /// </summary>
-        /// <returns>minValueX</returns>
-        public double GetMinValueX()
-        {
-            var minValueX = double.PositiveInfinity;
-
-            for (var i = 0; i < points.m_int2pt.Count; i++)
-            {
-                if (points.GetPoint(i).X < minValueX)
-                {
-                    minValueX = points.GetPoint(i).X;
-                }
-            }
-            return minValueX;
-        }
-
-        /// <summary>
-        /// Gets the minimum y-coordinate value from the datamodel.
-        /// </summary>
-        /// <returns>minValueY</returns>
-        public double GetMinValueY()
-        {
-            var minValueY = double.PositiveInfinity;
-
-            for (var i = 0; i < points.m_int2pt.Count; i++)
-            {
-                if (points.GetPoint(i).Y < minValueY)
-                {
-                    minValueY = points.GetPoint(i).X;
-                }
-            }
-            return minValueY;
-        }
-
-        /// <summary>
-        /// Gets the minimum z-coordinate value from the datamodel.
-        /// </summary>
-        /// <returns>minValueZ</returns>
-        public double GetMinValueZ()
-        {
-            var minValueZ = double.PositiveInfinity;
-
-            for (var i = 0; i < points.m_int2pt.Count; i++)
-            {
-                if (points.GetPoint(i).Y < minValueZ)
-                {
-                    minValueZ = points.GetPoint(i).X;
-                }
-            }
-            return minValueZ;
-        }
-
-
-        public delegate void DataStructureCreatedEventHandler(object sender, EventArgs e);
-
-        public event DataStructureCreatedEventHandler DataStructureCreated;
-
-        protected virtual void OnDataStructureCreated()
-        {
-            DataStructureCreated?.Invoke(this, EventArgs.Empty);
+            return modelDataPoints;
         }
     }
 }

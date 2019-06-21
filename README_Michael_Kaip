@@ -1,0 +1,33 @@
+Ort: Das Projekt OpenGlUserControl ist die DLL, die ich entwickelt habe. Es  befindet sich in 
+
+PP-STL Datei Oeffner => STLDataHandlingTool => OpenGlUserControl
+
+Dazu gehört ein Testprojekt mit dem Name OpenGlUserControlTest, welches als Startprojekt eingestellt werden muss.
+
+NuGet-Packages und Verweise:
+
+- OpenTK.3.0.1 fuer OpenGlUserControl
+- OpenTK.GLControl.3.0.1 fuer OpenGlUserControl und OpenGlUserControlTest
+
+
+Anmerkungen:
+
+- Wie heute bereits per E-Mail mitgeteilt, läuft mein Prototyp bis dato noch nicht. Das liegt daran, dass ich die falsche Umsetzungsidee hatte und es aufgrund dessen, dass nur sehr wenige Quellen fuer OpenTK verfügbar sind (Literatur und andere Tutorials beziehen sich, soweit mir bekannt ist, fast ausschliesslich auf die Programmiersprache C++) und viele Beschreibungen diesbezüglich lassen sich in C# daher nur mit viel Aufwand umsetzen.
+
+
+
+
+- Ich habe einen neuen Lösungsansatz entwickelt und diesen bereits angefangen umzusetzen ( siehe Klasse Vertex in OpenGlUserControl):
+
+Die Idee ist, Structs von Punkten, Farben und Normalen zu erstellen und diese in einen sog. VertexArray zu speichern. Und zwar nicht wie bisher alle Punkte, sondern nur die, welche auch im Datenmodell gespeichert sind.
+
+
+Darüber hinaus möchte ich sog IndexBuffer (ElementBufferArrays) fuer Punkte, Flächen, Kanten und Körper implementieren, welche nur noch die Indexe auf die tatsächlichen Punkte, Flächen und Kanten enthalten. Diese ElementBuffer dienen dann dazu, das Objekt zu rendern bzw. zu zeichnen. Und zwar mit der Funktion DrawElements (statt bisher DrawArrays).
+
+
+Dadurch sollte es dann auch (zumindest technisch!)  möglich sein, Kanten zu zeichnen, nämlich genau dann wenn Fehler gefunden werden und diese farblich markiert werden sollen (und auch nur dort und bei Bedarf). Ausserdem sollte es dann möglich sein, ganze Teilkörper und einzelne Punkte auszuwählen, um bspw. die Geometrie zu vermessen, oder Teilkörper anders einzufärben, zu verschieben, zu drehen, etc...
+
+
+Ich denke, die einzige Chance zu erfahren ob das funktioniert ist, es auszuprobieren. Es tut mir leid, dass ich meine Lösungsidee noch nicht umsetzen konnte. Aber darauf bin ich erst heute in tiefer Verzweiflung und nach sehr vielem lesen und recherchieren gestossen...
+
+

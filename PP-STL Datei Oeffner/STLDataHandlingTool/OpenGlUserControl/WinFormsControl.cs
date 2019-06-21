@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Text;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
+using DataModel;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using DataModel;
+using Point = System.Drawing.Point;
 
 namespace OpenGlUserControl
 {
@@ -13,21 +14,20 @@ namespace OpenGlUserControl
         private GLControl _glControl;
         private Vector3d[] _vertexBuffer;
         private int _vertexBufferObject;
-        //private uint[] _defaultColor = new uint[3];
 
         // Singleton
-        private static WinFormsControl _instance1;
+        private static WinFormsControl _winFormsControlInstance;
         public static WinFormsControl Instance1
         {
             get
             {
-                if (_instance1 != null) return _instance1;
-                _instance1 = new WinFormsControl
+                if (_winFormsControlInstance != null) return _winFormsControlInstance;
+                _winFormsControlInstance = new WinFormsControl
                 {
                     Dock = DockStyle.Fill
                 };
 
-                return _instance1;
+                return _winFormsControlInstance;
             }
         }
 
@@ -46,140 +46,213 @@ namespace OpenGlUserControl
                 VSync = true
             };
 
-
             // Adding the glControl to the panel inside WinFormsControl
             WinformsControlPanel.Controls.Add(_glControl);
 
-            _glControl.Paint += _glControl_Paint;
+            // Event Handlers
             _glControl.Resize += _glControl_Resize;
-
-            GL.ClearColor(Color.DarkGray);
-            GL.Enable(EnableCap.DepthTest);
-
+ 
         }
 
-        private void _glControl_Paint(object sender, PaintEventArgs e) 
-        {
-            Render();
-        }
-
+        public float ViewAngle = MathHelper.PiOver4; // 45 degree (in radian)
+        public float DistanceToNearClipPlane = 1.0f;
+        public float DistanceToFarClipPlane = 10.0f;
         private void _glControl_Resize(object sender, EventArgs e) 
         {
+            
+            /***********************
+             * Setting the viewport
+             ***********************/
             GL.Viewport(Point.Empty, _glControl.Size);
             GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            var perspectiveProjection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 
-                _glControl.Width*1.0f / _glControl.Height, 1.0f, 10.0f);
+
+            /******************************************************************************
+             * Makes sure, that only pixels get drawn, which are not hided by other pixels.
+             ******************************************************************************/
+            GL.Enable(cap: EnableCap.DepthTest);  
+
+            /*************************************************************************************************
+             * Creating a perspective projection matrix, to transform the camera space into the raster space.
+             *************************************************************************************************/
+            var perspectiveProjection = Matrix4.CreatePerspectiveFieldOfView(ViewAngle, 
+                _glControl.Width*1.0f / _glControl.Height, DistanceToNearClipPlane, DistanceToFarClipPlane);
             GL.LoadMatrix(ref perspectiveProjection);
             GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
         }
 
-        private void Render()
+        public Vector3 CameraLocation = new Vector3(5f, 5f, 5f);
+        public Vector3 LookingAt = new Vector3(0f, 0f, 0f); // Looks at the center of the coordinate system
+        public Vector3 CameraUpside = new Vector3(0f, 1f, 0f);
+
+        private void Render(ColorRGB backgroundColor, ColorRGB foregroundColor)
         {
             _glControl.MakeCurrent();
+
+            GL.ClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, 0f);
+            GL.ClearDepth(1);
+
+            /***********************************************************************************************
+             * Resetting the depth and the color buffer in order to clean it up, before rendering new stuff.
+             ***********************************************************************************************/
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            GL.Translate(0.0,0.0,-10.0);// Translates the origin of the Matrix. The bigger z, the smaller the object.
+            /**************************************************
+             * Translating the origin of the coordinate system
+             **************************************************/
+            GL.Translate(0.0,0.0,-10.0);
 
-            Matrix4 lookAt = Matrix4.LookAt(5, 5, 5, 0, 0, 0, 0, 1, 0);
+            /************************
+             * Setup for the camera
+             ************************/
+            Matrix4 lookAt = Matrix4.LookAt(CameraLocation,LookingAt, CameraUpside);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref lookAt);
-            //GL.MultMatrix(scalar); // Multiplies the current Matrix with a given scalar
 
-            GL.Scale(1.0,1.0,1.0); // Scaling
-
-            GetDataFromDataModel(); // Getting the Data from DataModel and loading them into the _vertexBuffer
 
             _vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
-            GL.BufferData<Vector3d>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * _vertexBuffer.Length),
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Vector3d.SizeInBytes * DataStructure.VerticesCount),
                 _vertexBuffer, BufferUsageHint.StaticDraw); // DynamicDraw is another option!!!!
 
             GL.EnableClientState(ArrayCap.VertexArray);
-            //GL.EnableClientState(ArrayCap.NormalArray);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
             GL.VertexPointer(3, VertexPointerType.Double, Vector3d.SizeInBytes, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
 
-            GL.Color4(Color.FromArgb(209, 241, 241));
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertexBuffer.Length);
+            //GL.EnableClientState(ArrayCap.NormalArray);
+            //GL.NormalPointer(NormalPointerType.Double, Vector3d.SizeInBytes,Vector3d.SizeInBytes);
+
+            GL.Color3(foregroundColor.R, foregroundColor.G, foregroundColor.B);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, DataStructure.VerticesCount);
 
             _glControl.SwapBuffers();
         }
 
-        /// <summary>
-        /// Gets the Data from Datamodel and assigns them to _vertexBuffer (Member of this class!)
-        /// </summary>
-        private void GetDataFromDataModel()
+        
+
+        public void DrawModel(List<Point3D> dataPoints, ColorRGB backgroundColor, ColorRGB foregroundColor)
         {
-            if (DataStructure.DataStructureInstance == null) return;
+            InitializeVertexBuffer(dataPoints, foregroundColor);
 
-            _vertexBuffer = new Vector3d[DataStructure.DataStructureInstance.points.m_int2pt.Count];
+            Render(backgroundColor, foregroundColor);
+        }
 
-            var maxValueX = DataStructure.DataStructureInstance.GetMaxValueX();
-            var maxValueY = DataStructure.DataStructureInstance.GetMaxValueY();
-            var maxValueZ = DataStructure.DataStructureInstance.GetMaxValueZ();
+        /// <summary>
+        /// Used for initializing the VertexBuffer, which stores the data to be rendered in the GPU.
+        /// </summary>
+        /// <param name="dataPoints">List of Point3D (double X, double Y double Z). Data points to be rendered.</param>
+        /// <param name="foregroundColor">The defined foreground color.</param>
+        private void InitializeVertexBuffer(List<Point3D> dataPoints, ColorRGB foregroundColor)
+        {
 
-            var minValueX = DataStructure.DataStructureInstance.GetMinValueX();
-            var minValueY = DataStructure.DataStructureInstance.GetMinValueY();
-            var minValueZ = DataStructure.DataStructureInstance.GetMinValueZ();
+            if (dataPoints == null) throw new NullReferenceException();
+        
+            if (dataPoints.GetType() != typeof(List<Point3D>))
+                throw new ArgumentException("Parameter does not match the specified data type.");
 
-            for (var i = 0; i < DataStructure.DataStructureInstance.points.m_int2pt.Count; i++)
+            if (foregroundColor == null) throw new ArgumentNullException(nameof(foregroundColor));
+
+            _vertexBuffer = new Vector3d[dataPoints.Count+(dataPoints.Count-(dataPoints.Count/4 - 1))];
+
+            var min = GetBoundingBoxMinValue(dataPoints);
+            var max = GetBoundingBoxMaxValue(dataPoints);
+
+            for (var i = 0; i < dataPoints.Count; i = i+4) 
             {
-                var normalizedX = NormalizeX(DataStructure.DataStructureInstance.points.GetPoint(i).X, maxValueX,
-                    minValueX);
-                var normalizedY = NormalizeY(DataStructure.DataStructureInstance.points.GetPoint(i).Y, maxValueY,
-                    minValueY);
-                var normalizedZ = NormalizeZ(DataStructure.DataStructureInstance.points.GetPoint(i).Z, maxValueZ,
-                    minValueZ);
+                for (var j = 0; j < _vertexBuffer.Length; j = j+5)
+                {
+                    var normalizedPoint = Normalize(dataPoints[i], max, min);
+                    _vertexBuffer[j] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 1st vertex
 
-                _vertexBuffer[i] = new Vector3d(normalizedX, normalizedY, normalizedZ);
+                    normalizedPoint = Normalize(dataPoints[i+1], max, min);
+                    _vertexBuffer[j+1] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 2nd vertex
+
+                    normalizedPoint = Normalize(dataPoints[i+2], max, min);
+                    _vertexBuffer[j+2] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 3rd vertex
+
+                    _vertexBuffer[j+3] = new Vector3d(dataPoints[i+3].X, dataPoints[i+3].Y, dataPoints[i+ 3].Z); // Adding the normal vector
+                }
+            }
+
+            for (var k = 4; k < _vertexBuffer.Length; k = k+5)
+            {
+                _vertexBuffer[k] = new Vector3d(foregroundColor.R, foregroundColor.G, foregroundColor.B); // Adding the vertex color
             }
         }
 
         /// <summary>
-        /// Used to normalize the x-coordinate of any given Point within a range of -1 and 1
+        /// Used for normalizing the coordinates of the given data points within a range of -1 and 1.
         /// </summary>
-        /// <param name="pointX">The x-coordinate.</param>
-        /// <param name="maxValueX">The maxX-value of the given datamodel.</param>
-        /// <param name="minValueX">he minX-value of the given datamodel.</param>
-        /// <returns>Normalized x-coordinate of the given point.</returns>
-        private static double NormalizeX(double pointX, double maxValueX, double minValueX) 
+        /// <param name="point">Point of type Point3D</param>
+        /// <param name="max">Max. bounding box value.</param>
+        /// <param name="min">Min bounding box value</param>
+        /// <returns></returns>
+        private static Point3D Normalize(Point3D point, Point3D max, Point3D min)
         {
-            var centerX = (maxValueX - minValueX) / 2;
-            var diff = maxValueX - centerX;
+            var greatestDiff = Math.Max(Math.Max(max.X-min.X, max.Y-min.Y), max.Z-min.Z);
+            if (greatestDiff == 0.0f) greatestDiff = 1;
+            var ret = new Point3D
+            {
+                X = (point.X - 0.5 * (max.X + min.X)) / greatestDiff,
+                Y = (point.Y - 0.5 * (max.Y + min.Y)) / greatestDiff,
+                Z = (point.Z - 0.5 * (max.Z + min.Z)) / greatestDiff
+            };
 
-            return (pointX - centerX) / diff;
+            return ret;
         }
 
         /// <summary>
-        /// Used to normalize the y-coordinate of any given Point within a range of -1 and 1
+        /// Used to get the max bounding Box value from the give data points.
         /// </summary>
-        /// <param name="pointY">The y-coordinate.</param>
-        /// <param name="maxValueY">The maxY-value of the given datamodel.</param>
-        /// <param name="minValueY">he minY-value of the given datamodel.</param>
-        /// <returns>Normalized y-coordinate of the given point.</returns>
-        private static double NormalizeY(double pointY, double maxValueY, double minValueY)
+        /// <param name="dataPoints">Data points of type List Point3D.</param>
+        /// <returns>Max. bounding box value.</returns>
+        public Point3D GetBoundingBoxMaxValue(List<Point3D> dataPoints)
         {
-            var centerY = (maxValueY - minValueY) / 2;
-            var diff = maxValueY - centerY;
+            Point3D maxBoundingBoxValue = new Point3D(double.NegativeInfinity, Double.NegativeInfinity, Double.NegativeInfinity);
 
-            return (pointY - centerY) / diff;
+            foreach (var point in dataPoints)
+            {
+                if (point.X > maxBoundingBoxValue.X)
+                {
+                    maxBoundingBoxValue.X = point.X;
+                }
+                if (point.Y > maxBoundingBoxValue.Y)
+                {
+                    maxBoundingBoxValue.Y = point.Y;
+                }
+                if (point.Z > maxBoundingBoxValue.Z)
+                {
+                    maxBoundingBoxValue.Z = point.Z;
+                }
+            }
+            return maxBoundingBoxValue;
         }
 
         /// <summary>
-        /// Used to normalize the z-coordinate of any given Point within a range of -1 and 1
+        /// Used to get the min bounding Box value from the give data points.
         /// </summary>
-        /// <param name="pointZ">The y-coordinate.</param>
-        /// <param name="maxValueZ">The maxZ-value of the given datamodel.</param>
-        /// <param name="minValueZ">he minZ-value of the given datamodel.</param>
-        /// <returns>Normalized z-coordinate of the given point.</returns>
-        private static double NormalizeZ(double pointZ, double maxValueZ, double minValueZ)
+        /// <param name="dataPoints">Data points of type List Point3D.</param>
+        /// <returns>Min. bounding box value.</returns>
+        public Point3D GetBoundingBoxMinValue(List<Point3D> dataPoints)
         {
-            var centerZ = (maxValueZ - minValueZ) / 2;
-            var diff = maxValueZ - centerZ;
+            Point3D minBoundingBoxValue = new Point3D(double.PositiveInfinity, Double.PositiveInfinity, Double.PositiveInfinity);
 
-            return (pointZ - centerZ) / diff;
+            foreach (var point in dataPoints)
+            {
+                if (point.X < minBoundingBoxValue.X)
+                {
+                    minBoundingBoxValue.X = point.X;
+                }
+                if (point.Y < minBoundingBoxValue.Y)
+                {
+                    minBoundingBoxValue.Y = point.Y;
+                }
+                if (point.Z < minBoundingBoxValue.Z)
+                {
+                    minBoundingBoxValue.Z = point.Z;
+                }
+            }
+            return minBoundingBoxValue;
         }
-
     }
 }
