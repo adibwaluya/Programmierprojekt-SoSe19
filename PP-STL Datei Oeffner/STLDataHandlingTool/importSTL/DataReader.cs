@@ -31,58 +31,69 @@ namespace importSTL
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            byte[] binaryParts = File.ReadAllBytes(stlPath);
+            byte[] binaryParts = File.ReadAllBytes(stlPath); // Opens the STL Binary file 
 
             DataModel.Normal normal = null;
             int byteIdx = 0;
 
-            int nr = BitConverter.ToInt32(binaryParts, 81);
+            int nr = BitConverter.ToInt32(binaryParts, 81); // Indicating the Number of Triangles
             byteIdx = 84;
 
+            // The process starts here
             for (int i = 0; i < binaryParts.Length; i++)
             {
                 int start = 50 * i + 81 + 4;
 
+                try
+                {
+                    // Showing face normal
+                    DataModel.Point n = new DataModel.Point(BitConverter.ToSingle(binaryParts, start), BitConverter.ToSingle(binaryParts, start + 4), BitConverter.ToSingle(binaryParts, start + 8));
+                    normal = new DataModel.Normal(n.X, n.Y, n.Z);
+                    byteIdx = start + 12;
 
+                    // Vertex 1
+                    int point1 = start + 12;
+                    DataModel.Point v1 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point1), BitConverter.ToSingle(binaryParts, point1 + 4), BitConverter.ToSingle(binaryParts, point1 + 8));
+                    byteIdx = point1 + 12;
 
-                DataModel.Point n = new DataModel.Point(BitConverter.ToSingle(binaryParts, start), BitConverter.ToSingle(binaryParts, start + 4), BitConverter.ToSingle(binaryParts, start + 8));
-                normal = new DataModel.Normal(n.X, n.Y, n.Z);
-                byteIdx = start + 12;
+                    // Vertex 2
+                    int point2 = point1 + 12;
+                    DataModel.Point v2 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point2), BitConverter.ToSingle(binaryParts, point2 + 4), BitConverter.ToSingle(binaryParts, point2 + 8));
+                    byteIdx = point2 + 12;
 
-                int point1 = start + 12;
-                DataModel.Point v1 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point1), BitConverter.ToSingle(binaryParts, point1 + 4), BitConverter.ToSingle(binaryParts, point1 + 8));
-                byteIdx = point1 + 12;
+                    // Vertex 3
+                    int point3 = point2 + 12;
+                    DataModel.Point v3 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point3), BitConverter.ToSingle(binaryParts, point3 + 4), BitConverter.ToSingle(binaryParts, point3 + 8));
+                    byteIdx = point3 + 12;
 
-                int point2 = point1 + 12;
-                DataModel.Point v2 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point2), BitConverter.ToSingle(binaryParts, point2 + 4), BitConverter.ToSingle(binaryParts, point2 + 8));
-                byteIdx = point2 + 12;
+                    //Punkte in pointlist, face erzeugen
+                    int p1 = dm.points.AddOrGetPoint(v1);
+                    int p2 = dm.points.AddOrGetPoint(v2);
+                    int p3 = dm.points.AddOrGetPoint(v3);
 
-                int point3 = point2 + 12;
-                DataModel.Point v3 = new DataModel.Point(BitConverter.ToSingle(binaryParts, point3), BitConverter.ToSingle(binaryParts, point3 + 4), BitConverter.ToSingle(binaryParts, point3 + 8));
-                byteIdx = point3 + 12;
+                    DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
+                    DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
+                    DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
 
+                    int ei1 = dm.edges.AddOrGetEdge(e1);
+                    int ei2 = dm.edges.AddOrGetEdge(e2);
+                    int ei3 = dm.edges.AddOrGetEdge(e3);
 
-                int p1 = dm.points.AddOrGetPoint(v1);
-                int p2 = dm.points.AddOrGetPoint(v2);
-                int p3 = dm.points.AddOrGetPoint(v3);
+                    dm.AddFace(ei1, ei2, ei3, normal);
 
-                DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
-                DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
-                DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
+                    byteIdx = 134;
+                }
 
-                int ei1 = dm.edges.AddOrGetEdge(e1);
-                int ei2 = dm.edges.AddOrGetEdge(e2);
-                int ei3 = dm.edges.AddOrGetEdge(e3);
-
-                dm.AddFace(ei1, ei2, ei3, normal);
-
-                byteIdx = 134;
-
+                catch
+                {
+                    processError = true;
+                    break;
+                }
 
 
             }
 
-            int abc = BitConverter.ToUInt16(binaryParts, 133);
+            int abc = BitConverter.ToUInt16(binaryParts, 133); // Attribute byte count
             byteIdx = 0;
 
             Thread.CurrentThread.CurrentCulture = ci;
@@ -104,13 +115,13 @@ namespace importSTL
 
         }
 
-        public void ReadASCIIFile(string stlPath) // !As Array of Datastructur or rather a void methode(?)
+        public void ReadASCIIFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            string[] lines = File.ReadAllLines(stlPath); // Opens the STL file and read all lines of the file
+            string[] lines = File.ReadAllLines(stlPath); // Opens the STL ASCII file and read all lines of the file
 
             // defining all the components for the data structure
             DataModel.Normal normal = null;
@@ -124,59 +135,69 @@ namespace importSTL
                 string[] parts = line.Split(' '); // each word in ASCII file structure will be represented as part
                 if (parts.Length == 0) continue;
 
-                switch (parts[0])
+                try
                 {
-                    case "facet":
-                        // invalid if the line 'facet' doesn't consist of 5 parts (words)
-                        if (parts.Length != 5)
-                        {
-                            processError = true;
-                        }
-                        // if it's valid, normal will be added
-                        DataModel.Point n = FromStrings(parts[2], parts[3], parts[4]);
-                        normal = new DataModel.Normal(n.X, n.Y, n.Z);
-                        idxPoint = 0;
-                        break;
-                    case "vertex":
-                        // invalid if the line 'vertex' doesn't consist of 4 parts (words)
-                        if (parts.Length != 4)
-                        {
-                            processError = true;
-                        }
-                        // invalid if it's out of range
-                        if (idxPoint > 2 || idxPoint == -1)
-                        {
-                            processError = true;
-                        }
-                        //if it's valid, points will be registered from the first vertex and continues until the 3rd vertex
-                        points[idxPoint++] = FromStrings(parts[1], parts[2], parts[3]);
-                        break;
+                    switch (parts[0])
+                    {
+                        case "facet":
+                            // invalid if the line 'facet' doesn't consist of 5 parts (words)
+                            if (parts.Length != 5)
+                            {
+                                processError = true;
+                            }
+                            // if it's valid, normal will be added
+                            DataModel.Point n = FromStrings(parts[2], parts[3], parts[4]);
+                            normal = new DataModel.Normal(n.X, n.Y, n.Z);
+                            idxPoint = 0;
+                            break;
+                        case "vertex":
+                            // invalid if the line 'vertex' doesn't consist of 4 parts (words)
+                            if (parts.Length != 4)
+                            {
+                                processError = true;
+                            }
+                            // invalid if it's out of range
+                            if (idxPoint > 2 || idxPoint == -1)
+                            {
+                                processError = true;
+                            }
+                            //if it's valid, points will be registered from the first vertex and continues until the 3rd vertex
+                            points[idxPoint++] = FromStrings(parts[1], parts[2], parts[3]);
+                            break;
 
-                    case "endfacet":
-                        if (idxPoint != 3)
-                        { }
+                        case "endfacet":
+                            if (idxPoint != 3)
+                            { }
 
-                        //Punkte in pointlist, face erzeugen
-                        int p1 = dm.points.AddOrGetPoint(points[0]);
-                        int p2 = dm.points.AddOrGetPoint(points[1]);
-                        int p3 = dm.points.AddOrGetPoint(points[2]);
-                        
-                        DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
-                        DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
-                        DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
+                            //Punkte in pointlist, face erzeugen
+                            int p1 = dm.points.AddOrGetPoint(points[0]);
+                            int p2 = dm.points.AddOrGetPoint(points[1]);
+                            int p3 = dm.points.AddOrGetPoint(points[2]);
 
-                        int ei1 = dm.edges.AddOrGetEdge(e1);
-                        int ei2 = dm.edges.AddOrGetEdge(e2);
-                        int ei3 = dm.edges.AddOrGetEdge(e3);
+                            DataModel.Edge e1 = new DataModel.Edge(p1, p2, dm);
+                            DataModel.Edge e2 = new DataModel.Edge(p1, p3, dm);
+                            DataModel.Edge e3 = new DataModel.Edge(p2, p3, dm);
 
-                        dm.AddFace(ei1, ei2, ei3, normal);
-                        idxPoint = -1;
-                        break;
+                            int ei1 = dm.edges.AddOrGetEdge(e1);
+                            int ei2 = dm.edges.AddOrGetEdge(e2);
+                            int ei3 = dm.edges.AddOrGetEdge(e3);
 
-                    default:
-                        //no information(?)
-                        break;
+                            dm.AddFace(ei1, ei2, ei3, normal);
+                            idxPoint = -1;
+                            break;
+
+                        default:
+                            //no information(?)
+                            break;
+                    }
                 }
+
+                catch
+                {
+                    processError = true;
+                    break;
+                }
+
             }
 
             Thread.CurrentThread.CurrentCulture = ci;

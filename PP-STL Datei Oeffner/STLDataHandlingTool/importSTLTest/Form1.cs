@@ -33,8 +33,9 @@ namespace importSTLTest
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 importSTL.DataReader read = new importSTL.DataReader();
-                read.ReadASCIIFile(openFile.FileName);
                 read.ReadBinaryFile(openFile.FileName);
+                read.ReadASCIIFile(openFile.FileName);
+                
             }
         }
     }
