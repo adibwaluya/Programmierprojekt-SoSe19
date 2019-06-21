@@ -7,7 +7,7 @@ namespace DataModel
     {
         public PointList points = new PointList(); //List of Points
         public EdgeList edges = new EdgeList(); //List of Edges
-        private FaceList faces = new FaceList(); //List of Faces
+        public FaceList faces = new FaceList(); //List of Faces
 
         /* User adds Point by giving its coordinates */
         public int AddPoint(double x, double y, double z)

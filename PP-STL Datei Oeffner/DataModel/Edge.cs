@@ -11,20 +11,20 @@ namespace DataModel
         /// <summary>
         /// potentiallyFaulty, faulty and FaceIDs and ring. Implemented by Maximilian
         /// </summary>
-        private bool _ring;
+        private bool _cycle;
         private bool _potentiallyFaulty;
         private bool _faulty;
         public IList<int> FaceIDs = new List<int>();
 
-        public bool ring
+        public bool cycle
         {
             get
             {
-                return _ring;
+                return _cycle;
             }
             set
             {
-                _ring = value;
+                _cycle = value;
             }
         }
         public bool potentiallyFaulty
@@ -52,7 +52,7 @@ namespace DataModel
             {
                 _faulty = value;
                 _potentiallyFaulty = false;
-                _ring = false;
+                _cycle = false;
             }
         }
 

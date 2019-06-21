@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataModel;
-using ErrorHandlingDataModel;
 
 namespace ErrorHandling
 {
@@ -16,17 +15,36 @@ namespace ErrorHandling
             {
                 AdvancedErrorFinding(dm);
             }
-            // Restliche potentiell falsche Kanten werden als falsch markiert
-            for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
+            else
             {
-                if (dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty)
+                // Restliche potentiell falsche Kanten werden als falsch markiert
+                for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
                 {
-                    dm.edges.GetEdge(currentEdgeNumber).faulty = true;
+                    if (dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty)
+                    {
+                        dm.edges.GetEdge(currentEdgeNumber).faulty = true;
+                    }
                 }
             }
         }
-
+        /// <summary>
+        /// Für jede potentiell fehlerhafte Kante wird festgestellt, ob sie fehlerhaft oder korrekt ist.
+        /// </summary>
+        /// <param name="dm">
+        /// Instanz des Datenmodells
+        /// </param>
         private void AdvancedErrorFinding(DataStructure dm)
+        {
+            List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
+
+            // Richtung der Edges, die potentiell falsch sind wird ermittelt und Edges mit gleicher Richtung in eine Liste eingeordnet
+            FormVectorsOfEdges(dm, vectorList);
+
+            // Es wird ein eindimensionaler, zyklischer Pfad aus parallelen Vektoren gebildet.
+            FormCycle(dm, vectorList);
+        }
+
+        private void FormVectorsOfEdges(DataStructure dm, List<VectorOfEdge> vectorList)
         {
             Edge currentEdge;
             Point point1;
@@ -34,10 +52,8 @@ namespace ErrorHandling
             double currentVectorX;
             double currentVectorY;
             double currentVectorZ;
-            List<VectorOfEdge> vectorList = new List<VectorOfEdge>();
             bool noObjectYet;
 
-            // Richtung der Edges, die potentiell falsch sind ermitteln und Edges mit gleicher Richtung in eine Liste einordnen
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
@@ -49,12 +65,12 @@ namespace ErrorHandling
                     currentVectorX = point1.X - point2.X;
                     currentVectorY = point1.Y - point2.Y;
 
-                    if (currentVectorX == 0 && currentVectorY != 0)             // Sonderfall wenn Vektor paralell zur yz-Ebene liegt
+                    if (currentVectorX == 0 && currentVectorY != 0)             // Sonderfall, wenn Vektor paralell zur yz-Ebene liegt
                     {
                         currentVectorZ = (point1.Z - point2.Z) / (currentVectorY);
 
                     }
-                    else if (currentVectorX == 0 && currentVectorY == 0)        // Sonderfall wenn Vektor paralell zur z-Achse liegt
+                    else if (currentVectorX == 0 && currentVectorY == 0)        // Sonderfall, wenn Vektor paralell zur z-Achse liegt
                     {
                         currentVectorZ = 1;
                     }
@@ -84,11 +100,14 @@ namespace ErrorHandling
                 }
             }
 
-            // Es wird ein eindimensionaler Ring aus parallelen Vektoren gebildet.
+        }
 
+        private void FormCycle(DataStructure dm, List<VectorOfEdge> vectorList)
+        {
+            Edge currentEdge;
             Point startPoint;
             Point currentEndPoint;
-            bool noPotentiallyFaultyEdgesLeft = false;
+            bool noPotentiallyFaultyEdgesLeft;
             bool newStartPointNeeded = true;
             bool foundMatchingEdge = false;
 
@@ -97,8 +116,9 @@ namespace ErrorHandling
                 // falls die nächste foreach Schleife nie durchlaufen wird (was eigentlich nicht passieren kann) warum bauche ich die nächsten drei Zeilen pls halp
                 startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
                 currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P2;
-                currentEdge = dm.edges.GetEdge(0);
                 //
+                noPotentiallyFaultyEdgesLeft = false;
+
                 while (!noPotentiallyFaultyEdgesLeft)       // Am Ende werden alle potentiell falschen Kanten als richtig oder falsch eingeordnet sein.
                 {
                     foundMatchingEdge = false;
@@ -115,47 +135,51 @@ namespace ErrorHandling
                             {
                                 startPoint = currentEdge.P1;
                                 currentEndPoint = currentEdge.P2;
-                                currentEdge.ring = true;
+                                currentEdge.cycle = true;
                                 newStartPointNeeded = false;
                                 foundMatchingEdge = true;
                                 break;
                             }
                         }
-
-                        // Wenn die momentane Kante an den Endpunkt passt und noch nicht im Ring ist wird sie hinzugefügt und der andere Punkt der Kante stellt den neuen Endpunkt dar.
-                        if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false && !noPotentiallyFaultyEdgesLeft)
+                        else
                         {
-                            currentEdge.ring = true;
+                            continue;
+                        }
+
+                        // Wenn die momentane Kante an den Endpunkt passt und noch nicht im Pfad ist wird sie hinzugefügt und der andere Punkt der Kante stellt den neuen Endpunkt dar.
+                        if (currentEndPoint == currentEdge.P1 && currentEdge.cycle == false)
+                        {
+                            currentEdge.cycle = true;
                             currentEndPoint = currentEdge.P2;
                             foundMatchingEdge = true;
                             break;
                         }
-                        else if (currentEndPoint == currentEdge.P2 && currentEdge.ring == false && !noPotentiallyFaultyEdgesLeft)
+                        else if (currentEndPoint == currentEdge.P2 && currentEdge.cycle == false)
                         {
-                            currentEdge.ring = true;
+                            currentEdge.cycle = true;
                             currentEndPoint = currentEdge.P1;
                             foundMatchingEdge = true;
                             break;
                         }
                     }
-                    // Wenn der Ring geschlossen werden konnte, werden die Kanten des Ringes als nicht fehlerhaft markiert.
-                    if (currentEndPoint == startPoint)
+                    // Wenn der Pfad geschlossen werden konnte, werden die Kanten des Pfades als nicht fehlerhaft markiert.
+                    if (currentEndPoint == startPoint && !noPotentiallyFaultyEdgesLeft)
                     {
                         foreach (int edgeID in vector.edgeIDList)
                         {
-                            if (dm.edges.GetEdge(edgeID).ring)
+                            if (dm.edges.GetEdge(edgeID).cycle)
                             {
                                 dm.edges.GetEdge(edgeID).faulty = false;
                             }
                         }
                         newStartPointNeeded = true;
                     }
-                    // Wenn hingegen keine weitere passende Kante gefunden werden konnte, werden die Kanten des Ringes als fehlerhaft markiert.
-                    else if (!foundMatchingEdge)
+                    // Wenn hingegen keine weitere passende Kante gefunden werden konnte, werden die Kanten des Pfades als fehlerhaft markiert.
+                    else if (!foundMatchingEdge && !noPotentiallyFaultyEdgesLeft)
                     {
                         foreach (int edgeID in vector.edgeIDList)
                         {
-                            if (dm.edges.GetEdge(edgeID).ring)
+                            if (dm.edges.GetEdge(edgeID).cycle)
                             {
                                 dm.edges.GetEdge(edgeID).faulty = true;
                             }
@@ -165,6 +189,7 @@ namespace ErrorHandling
                 }
             }
         }
+
 
         /// <summary>
         /// Einzellne Kanten werden als falsch erkannt. Kanten mit mehreren Flächen werden als korrekt erkannt. Kanten mit nur einer Fläche sind entweder falsch oder Sonderfälle (=potentiell falsch).
