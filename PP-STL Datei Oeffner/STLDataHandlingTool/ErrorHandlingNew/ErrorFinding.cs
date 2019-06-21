@@ -10,19 +10,6 @@ namespace ErrorHandling
 {
     public class ErrorFinding
     {
-        public int edgeListLength;
-        // Test
-
-        //Face face1 = dm.faces.GetFace(0);
-        //List<Edge> listOfEdges = new List<Edge>();
-        //listOfEdges = face1.Edges;
-        //Edge currentEdge = listOfEdges[0];
-        //Console.WriteLine(currentEdge.P1.Z);
-        //int FaceOfEdge = currentEdge.FaceIDs[0];
-        //Console.WriteLine(FaceOfEdge);
-        //Console.WriteLine(currentEdge.FaceIDs.Count);
-
-
         public void FindError(DataStructure dm)
         {
             if (SimpleErrorFinding(dm) > 2)
@@ -46,7 +33,7 @@ namespace ErrorHandling
 
         private void AdvancedErrorFinding(DataStructure dm)
         {
-            Edge current_Edge;
+            Edge currentEdge;
             Point point1;
             Point point2;
             double currentVectorX;
@@ -58,12 +45,12 @@ namespace ErrorHandling
             // Richtung der Edges, die potentiell falsch sind ermitteln und Edges mit gleicher Richtung in eine Liste einordnen
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
-                current_Edge = dm.edges.GetEdge(currentEdgeNumber);
-                if (current_Edge.potentiallyFaulty)
+                currentEdge = dm.edges.GetEdge(currentEdgeNumber);
+                if (currentEdge.potentiallyFaulty)
                 {
                     noObjectYet = true;
-                    point1 = current_Edge.P1;
-                    point2 = current_Edge.P2;
+                    point1 = currentEdge.P1;
+                    point2 = currentEdge.P2;
                     currentVectorX = point1.X - point2.X;
                     currentVectorY = point1.Y - point2.Y;
 
@@ -104,7 +91,6 @@ namespace ErrorHandling
             // Ring bilden
             Point startPoint;
             Point currentEndPoint;
-            Edge currentEdge;
             bool noPotentiallyFaultyEdgesLeft = false;
             bool newStartPoint = true;
 
@@ -182,6 +168,15 @@ namespace ErrorHandling
             }
         }
 
+        /// <summary>
+        /// Einzellne Kanten werden als falsch erkannt. Kanten mit mehreren Flächen werden als korrekt erkannt. Kanten mit nur einer Fläche sind entweder falsch oder Sonderfälle (=potentiell falsch).
+        /// </summary>
+        /// <param name="dm">
+        /// Instanz des Datenmodells
+        /// </param>
+        /// <returns>
+        /// Anzahl der potentiell falschen Kanten
+        /// </returns>
         private int SimpleErrorFinding(DataStructure dm)
         {
             Edge currentEdge;
@@ -191,29 +186,22 @@ namespace ErrorHandling
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
-
-                numberOfFaces = currentEdge.FaceIDs.Count;      // Anzahl der angrenzenden Flächen wird gezählt
-
-                edgeListLength = currentEdgeNumber + 1;
+                numberOfFaces = currentEdge.FaceIDs.Count;          // Anzahl der angrenzenden Flächen
 
                 if (numberOfFaces == 0)
                 {
-                    Console.WriteLine("Faulty");
                     currentEdge.faulty = true;
                 }
                 else if (numberOfFaces == 1)
                 {
-                    Console.WriteLine("potentiallyFaulty");
                     currentEdge.potentiallyFaulty = true;
                     potentiallyFaultyCounter++;
                 }
                 else
                 {
-                    Console.WriteLine("not Faulty");
                     currentEdge.faulty = false;
                 }
             }
-
             return potentiallyFaultyCounter;
         }
     }

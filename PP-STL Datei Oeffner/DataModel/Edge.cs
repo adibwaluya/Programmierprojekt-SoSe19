@@ -11,47 +11,50 @@ namespace DataModel
         /// <summary>
         /// potentiallyFaulty, faulty and FaceIDs and ring. Implemented by Maximilian
         /// </summary>
-        public bool ring;
-        public bool potentiallyFaulty;
-        public bool faulty;
+        private bool _ring;
+        private bool _potentiallyFaulty;
+        private bool _faulty;
         public IList<int> FaceIDs = new List<int>();
 
-        //public bool ring
-        //{
-        //    get
-        //    {
-        //        return _ring;
-        //    }
-        //    set
-        //    {
-        //        _ring = value;
-        //    }
-        //}
-        //public bool potentiallyFaulty
-        //{
-        //    get
-        //    {
-        //        return _potentiallyFaulty;
-        //    }
-        //    set
-        //    {
-        //        _potentiallyFaulty = value;
-        //        _faulty = false;
-        //    }
-        //}
-        //public bool faulty
-        //{
-        //    get
-        //    {
-        //        return _faulty;
-        //    }
-        //    set
-        //    {
-        //        _faulty = value;
-        //        _potentiallyFaulty = false;
-        //        _ring = false;
-        //    }
-        //}
+        public bool ring
+        {
+            get
+            {
+                return _ring;
+            }
+            set
+            {
+                _ring = value;
+            }
+        }
+        public bool potentiallyFaulty
+        {
+            get
+            {
+                return _potentiallyFaulty;
+            }
+            set
+            {
+                _potentiallyFaulty = value;
+                if (value)
+                {
+                    _faulty = false;
+                }
+            }
+        }
+        public bool faulty
+        {
+            get
+            {
+                return _faulty;
+            }
+            set
+            {
+                _faulty = value;
+                _potentiallyFaulty = false;
+                _ring = false;
+            }
+        }
 
 
         public Edge(int startPoint, int endPoint, DataStructure model)
@@ -64,7 +67,7 @@ namespace DataModel
         private DataStructure model;
         public int StartPoint { get; set; }
         public int EndPoint { get; set; }
-        
+
         public Point P1
         {
             get

@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
-        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Settings" Height="300" Width="550">
     <Grid>
@@ -14,12 +13,6 @@
                     <Label x:Name="Body1_Label" Content="Color for the first body           :" HorizontalAlignment="Left" Margin="36,43,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Body2_Label" Content="Color for all other bodies        :" HorizontalAlignment="Left" Margin="36,74,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Error_Label" Content="Color for error                         :" HorizontalAlignment="Left" Margin="36,105,0,0" VerticalAlignment="Top"/>
-                    <TextBox Name="Box1" HorizontalAlignment="Left" Height="20" Margin="222,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.409,0.13"/>
-                    <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="20" Margin="222,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.409,0.13"/>
-                    <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="20" Margin="222,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.409,0.13"/>
-                    <toolkit:ColorPicker Name="ClrPcker_Body1" SelectedColorChanged="ClrPcker_Body1_SelectedColorChanged" Margin="294,48,108,171"/>
-                    <toolkit:ColorPicker x:Name="ClrPcker_Body2" SelectedColorChanged="ClrPcker_Body2_SelectedColorChanged" Margin="294,80,108,139"/>
-                    <toolkit:ColorPicker x:Name="ClrPcker_Error" SelectedColorChanged="ClrPcker_Error_SelectedColorChanged" Margin="294,109,108,110"/>
                 </Grid>
 
             </TabItem>

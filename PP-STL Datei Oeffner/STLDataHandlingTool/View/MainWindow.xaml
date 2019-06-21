@@ -53,13 +53,11 @@
             </Grid>
             <!-- Ende von Anzeiger und Tools -->
 
-            <!-- Popup Windows -->
-            <!--<Popup x:Name="ToolsPopup" Width="600" Height="700" Placement="Absolute">
-                <TextBox>
-                    <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged">
-                    </xctk:ColorPicker>
-                </TextBox>
-            </Popup>-->
+            <!-- Popup Windows
+            <Popup x:Name="ToolsPopup" Width="600" Height="700" Placement="Absolute">
+                <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged">
+                </xctk:ColorPicker>
+            </Popup> -->
         </StackPanel>
     </Border>
 
