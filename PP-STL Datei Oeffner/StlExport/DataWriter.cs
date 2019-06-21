@@ -143,9 +143,11 @@ namespace StlExport
                     txtWriter.Write(Header);
 
                     // UINT32 – Number of triangles
-                    txtWriter.Write(((dataStructure.points.int2pts.Count) / 3)); // A triangle consists of 3 points
+                    uint totalTriangles = ((UInt32) dataStructure.points.int2pts.Count / 3); // A triangle consists of 3 points
+                    txtWriter.Write(totalTriangles.ToString("E"));
 
                     // foreach triangle
+                    // for - loop is used to get a better iteration over the points
                     for (int i = 0; i < dataStructure.points.int2pts.Count; i = i + 3)
                     {
                         //All normal and points as e-sign exponent format
@@ -169,7 +171,7 @@ namespace StlExport
                         string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E2");
 
                         //Write the body of binary STL Data
-                        byte[] Body = new byte[50]; //TODO: buffer still too small
+                        byte[] Body = new byte[200];
                         // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
                         string noo = $"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ";
                         Encoding.ASCII.GetBytes(noo, 0, noo.Length, Body, 0);
