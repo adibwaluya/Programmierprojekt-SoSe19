@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="800">
     <Grid Background="RosyBrown">
+        <Label Content="OpenGl will be placed here" HorizontalAlignment="Left" Height="139" Margin="210,297,0,0" VerticalAlignment="Top" Width="369" FontSize="30"/>
 
     </Grid>
 </UserControl>

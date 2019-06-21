@@ -90,25 +90,37 @@ namespace View
             }
         }
 
+        // Error handling
         private void ErrorHandle_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
+        // Setting
         private void Settings_OnClick(object sender, RoutedEventArgs e)
         {
+            // Open new window
             SettingsWindow setWindow = new SettingsWindow();
             setWindow.ShowDialog();
         }
-        #endregion
 
-        public void colorBody1()
+        // Undo
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
-            Color colBody1 = new Color();
+            throw new NotImplementedException();
         }
 
+        // Redo
+        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        // Information will come out if the data model is already filled
         private void Information_Boxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // The related information will be printed on the text box, according to which info the user wants on the drop down list
             if (Information_Boxes.SelectedIndex == 0 && new DataStructure().points.int2pts.Count != 0) // To prevent Null Exception
             {
                 Info_Box.Text = "The number of points in the data is " + new DataStructure().points.int2pts.Count;
@@ -118,5 +130,6 @@ namespace View
                 Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.Int2Faces.Count;
             }
         }
+
     }
 }

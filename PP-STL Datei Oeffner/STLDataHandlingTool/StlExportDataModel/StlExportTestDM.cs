@@ -9,6 +9,7 @@ namespace StlExportDataModel
 {
     public class StlExportTestDM
     {
+        // Filling the data model with test points and everything using the structure of Data Structure (BRep)
         public void FillDatamodel(DataStructure dm)
         {
             dm.AddPoint(11, 22, 33);

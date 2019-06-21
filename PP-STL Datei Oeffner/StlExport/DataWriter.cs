@@ -43,39 +43,9 @@ namespace StlExport
                 CultureInfo current = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentCulture = current;
                 Thread.CurrentThread.CurrentUICulture = current;
-
-                //foreach (var dictionaries in dataStructure.points.m_int2pt)
-                //{
-                //    Point pPlus1 = dataStructure.points.GetPoint(dictionaries.Key + 1);
-                //    Point pPlus2 = dataStructure.points.GetPoint(dictionaries.Key + 2);
-
-                //    string normX = dictionaries.Value.X.ToString("E");
-                //    string normY = dictionaries.Value.Y.ToString("E");
-                //    string normZ = dictionaries.Value.Z.ToString("E");
-
-                //    string iXasE = dictionaries.Value.X.ToString("E"); // for i
-                //    string iYasE = dictionaries.Value.Y.ToString("E");
-                //    string iZasE = dictionaries.Value.Z.ToString("E");
-
-                //    string i1XasE = pPlus1.X.ToString("E"); // for i + 1
-                //    string i1YasE = pPlus1.Y.ToString("E");
-                //    string i1ZasE = pPlus1.Z.ToString("E");
-
-                //    string i2XasE = pPlus2.X.ToString("E"); // for i + 2
-                //    string i2YasE = pPlus2.Y.ToString("E");
-                //    string i2ZasE = pPlus2.Z.ToString("E");
-
-
-                //    //Write the body of ASCII STL Data
-                //    txtWriter.WriteLine($"facet normal {normX} {normY} {normZ}");
-                //    txtWriter.WriteLine(indent + "outer loop");
-                //    txtWriter.WriteLine($"{indent2} vertex {iXasE} {iYasE} {iZasE}");       //coordinates point1
-                //    txtWriter.WriteLine($"{indent2} vertex {i1XasE} {i1YasE} {i1ZasE}");    //coordinates point2
-                //    txtWriter.WriteLine($"{indent2} vertex {i2XasE} {i2YasE} {i2ZasE}");    //coordinates point3
-                //    txtWriter.WriteLine(indent + "endloop");
-                //    txtWriter.WriteLine("endfacet");
-                //}
-
+            
+                // Write the body of the STL data
+                // with for - loop to iterate every three points
                 for (int i = 0; i < dataStructure.points.int2pts.Count; i = i + 3)
                 {
                     //All normal and points as e-sign exponent format
@@ -184,19 +154,8 @@ namespace StlExport
                         string i2ZasE = i2Z.ToString("E2");
 
                         //Write the body of binary STL Data
-                        // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
+                        // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3 and attribute (0)
                         txtWriter.Write($"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ");
-
-                        //// REAL32[3] – Normal vector
-                        //txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
-                        //// REAL32[3] – Vertex 1
-                        //txtWriter.Write($"{iXasE} {iYasE} {iZasE} ");
-                        //// REAL32[3] – Vertex 2
-                        //txtWriter.Write($"{i1XasE} {i1YasE} {i1ZasE} ");
-                        //// REAL32[3] – Vertex 3
-                        //txtWriter.Write($"{i2XasE} {i2YasE} {i2ZasE} ");
-                        //// UINT16 – Attribute byte count = normally 0
-                        //txtWriter.Write(0);
                     }
                 }
                 catch (Exception e)
