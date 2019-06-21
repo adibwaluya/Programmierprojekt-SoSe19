@@ -106,5 +106,18 @@ namespace View
         {
             Color colBody1 = new Color();
         }
+
+        private void Information_Boxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Information_Boxes.SelectedIndex == 0)
+            {
+                Info_Box.Text = "The number of points in the data is " + new DataStructure().points.int2pts.Count;
+            }
+            else if (Information_Boxes.SelectedIndex == 1)
+            {
+                Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.Int2Faces.Count;
+            }
+
+        }
     }
 }

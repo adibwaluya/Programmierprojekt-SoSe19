@@ -45,10 +45,13 @@
 
                 <StackPanel Grid.Column="1" Background="LightGray">
                     <TextBlock Text="Informations" FontWeight="Bold" FontSize="15" Margin="5 0 0 0"/>
-                    <ComboBox x:Name="Information_Boxes" Margin="5 0 5 0" SelectedIndex="0" Background="White">
+                    <ComboBox x:Name="Information_Boxes" Margin="5 0 5 0" SelectedIndex="0" Background="White" SelectionChanged="Information_Boxes_SelectionChanged">
                         <ComboBoxItem x:Name="TotalPoints_Box">Total Points</ComboBoxItem>
                         <ComboBoxItem x:Name="TotalFaces_Box">Total Faces</ComboBoxItem>
                     </ComboBox>
+
+                    <TextBox x:Name="Info_Box" Height="298" TextWrapping="Wrap" Text="" Margin="10 30 10 0" IsReadOnly="True"/>
+
                 </StackPanel>
             </Grid>
             <!-- Information ends here -->
