@@ -5,14 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="Settings" Height="400" Width="650">
+        Title="Settings" Height="300" Width="550">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="369" VerticalAlignment="Top" Width="642">
+        <TabControl HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="542">
             <TabItem x:Name="Color_Tab" Header="Colors">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="Body1_Label" Content="Color for the first body           :" HorizontalAlignment="Left" Margin="36,43,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="Body2_Label" Content="Color for all other bodies        :" HorizontalAlignment="Left" Margin="36,74,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="Error_Label" Content="Color for error                         :" HorizontalAlignment="Left" Margin="36,105,0,0" VerticalAlignment="Top"/>
+                </Grid>
+
             </TabItem>
             <TabItem x:Name="Tolerance_Tab" Header="Tolerance" Height="22" VerticalAlignment="Top">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
         </TabControl>
 

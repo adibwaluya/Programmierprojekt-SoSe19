@@ -99,6 +99,12 @@ namespace View
         {
             throw new NotImplementedException();
         }
+
+        private void Settings_OnClick(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow setWindow = new SettingsWindow();
+            setWindow.ShowDialog();
+        }
         #endregion
     }
 }
