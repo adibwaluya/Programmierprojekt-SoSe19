@@ -16,6 +16,44 @@ namespace DataModel
         public bool faulty;
         public IList<int> FaceIDs = new List<int>();
 
+        //public bool ring
+        //{
+        //    get
+        //    {
+        //        return _ring;
+        //    }
+        //    set
+        //    {
+        //        _ring = value;
+        //    }
+        //}
+        //public bool potentiallyFaulty
+        //{
+        //    get
+        //    {
+        //        return _potentiallyFaulty;
+        //    }
+        //    set
+        //    {
+        //        _potentiallyFaulty = value;
+        //        _faulty = false;
+        //    }
+        //}
+        //public bool faulty
+        //{
+        //    get
+        //    {
+        //        return _faulty;
+        //    }
+        //    set
+        //    {
+        //        _faulty = value;
+        //        _potentiallyFaulty = false;
+        //        _ring = false;
+        //    }
+        //}
+
+
         public Edge(int startPoint, int endPoint, DataStructure model)
         {
             StartPoint = startPoint;
