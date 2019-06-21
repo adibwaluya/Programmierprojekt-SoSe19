@@ -152,39 +152,39 @@ namespace StlExport
                         Face newFace = dataStructure.faces.Int2Faces[i];
                         Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
 
-                        string nXasE = norm.X.ToString("E"); // Normals can also be {0; 0; 0}
-                        string nYasE = norm.Y.ToString("E");
-                        string nZasE = norm.Z.ToString("E");
+                        string nXasE = norm.X.ToString("E2"); // Normals can also be {0; 0; 0}
+                        string nYasE = norm.Y.ToString("E2");
+                        string nZasE = norm.Z.ToString("E2");
 
-                        string iXasE = dataStructure.points.int2pts[i].X.ToString("E"); // for i
-                        string iYasE = dataStructure.points.int2pts[i].Y.ToString("E");
-                        string iZasE = dataStructure.points.int2pts[i].Z.ToString("E");
+                        string iXasE = dataStructure.points.int2pts[i].X.ToString("E2"); // for i
+                        string iYasE = dataStructure.points.int2pts[i].Y.ToString("E2");
+                        string iZasE = dataStructure.points.int2pts[i].Z.ToString("E2");
 
-                        string i1XasE = dataStructure.points.int2pts[i + 1].X.ToString("E"); // for i + 1
-                        string i1YasE = dataStructure.points.int2pts[i + 1].Y.ToString("E");
-                        string i1ZasE = dataStructure.points.int2pts[i + 1].Z.ToString("E");
+                        string i1XasE = dataStructure.points.int2pts[i + 1].X.ToString("E2"); // for i + 1
+                        string i1YasE = dataStructure.points.int2pts[i + 1].Y.ToString("E2");
+                        string i1ZasE = dataStructure.points.int2pts[i + 1].Z.ToString("E2");
 
-                        string i2XasE = dataStructure.points.int2pts[i + 2].X.ToString("E"); // for i + 2
-                        string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E");
-                        string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E");
+                        string i2XasE = dataStructure.points.int2pts[i + 2].X.ToString("E2"); // for i + 2
+                        string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E2");
+                        string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E2");
 
                         //Write the body of binary STL Data
-                        byte[] Body = new byte[12];
+                        byte[] Body = new byte[50]; //TODO: buffer still too small
                         // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
                         string noo = $"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ";
                         Encoding.ASCII.GetBytes(noo, 0, noo.Length, Body, 0);
                         txtWriter.Write(Body);
 
-                        // REAL32[3] – Normal vector
-                        txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
-                        // REAL32[3] – Vertex 1
-                        txtWriter.Write($"{iXasE} {iYasE} {iZasE} ");
-                        // REAL32[3] – Vertex 2
-                        txtWriter.Write($"{i1XasE} {i1YasE} {i1ZasE} ");
-                        // REAL32[3] – Vertex 3
-                        txtWriter.Write($"{i2XasE} {i2YasE} {i2ZasE} ");
-                        // UINT16 – Attribute byte count = normally 0
-                        txtWriter.Write(0);
+                        //// REAL32[3] – Normal vector
+                        //txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
+                        //// REAL32[3] – Vertex 1
+                        //txtWriter.Write($"{iXasE} {iYasE} {iZasE} ");
+                        //// REAL32[3] – Vertex 2
+                        //txtWriter.Write($"{i1XasE} {i1YasE} {i1ZasE} ");
+                        //// REAL32[3] – Vertex 3
+                        //txtWriter.Write($"{i2XasE} {i2YasE} {i2ZasE} ");
+                        //// UINT16 – Attribute byte count = normally 0
+                        //txtWriter.Write(0);
                     }
                 }
                 catch (Exception e)
