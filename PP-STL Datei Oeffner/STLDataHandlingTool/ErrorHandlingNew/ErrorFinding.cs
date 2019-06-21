@@ -165,27 +165,26 @@ namespace ErrorHandling
                     // Wenn der Pfad geschlossen werden konnte, werden die Kanten des Pfades als nicht fehlerhaft markiert.
                     if (currentEndPoint == startPoint && !noPotentiallyFaultyEdgesLeft)
                     {
-                        foreach (int edgeID in vector.edgeIDList)
-                        {
-                            if (dm.edges.GetEdge(edgeID).cycle)
-                            {
-                                dm.edges.GetEdge(edgeID).faulty = false;
-                            }
-                        }
+                        SetCycleEdges(dm, vector, false);
                         newStartPointNeeded = true;
                     }
                     // Wenn hingegen keine weitere passende Kante gefunden werden konnte, werden die Kanten des Pfades als fehlerhaft markiert.
                     else if (!foundMatchingEdge && !noPotentiallyFaultyEdgesLeft)
                     {
-                        foreach (int edgeID in vector.edgeIDList)
-                        {
-                            if (dm.edges.GetEdge(edgeID).cycle)
-                            {
-                                dm.edges.GetEdge(edgeID).faulty = true;
-                            }
-                        }
+                        SetCycleEdges(dm, vector, true);
                         newStartPointNeeded = true;
                     }
+                }
+            }
+        }
+
+        private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, bool trueOrFalse)
+        {
+            foreach (int edgeID in vec.edgeIDList)
+            {
+                if (dm.edges.GetEdge(edgeID).cycle)
+                {
+                    dm.edges.GetEdge(edgeID).faulty = trueOrFalse;
                 }
             }
         }
@@ -205,7 +204,7 @@ namespace ErrorHandling
             Edge currentEdge;
             int numberOfFaces;
             int potentiallyFaultyCounter = 0;
-
+            //
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
