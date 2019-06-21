@@ -154,28 +154,37 @@ namespace StlExport
                         Face newFace = dataStructure.faces.Int2Faces[i];
                         Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
 
-                        string nXasE = norm.X.ToString("E2"); // Normals can also be {0; 0; 0}
-                        string nYasE = norm.Y.ToString("E2");
-                        string nZasE = norm.Z.ToString("E2");
+                        uint nX = (UInt32) norm.X;               // Normals can also be {0; 0; 0}
+                        uint nY = (UInt32)norm.Y;
+                        uint nZ = (UInt32)norm.Z;
+                        string nXasE = nX.ToString("E2");
+                        string nYasE = nY.ToString("E2");
+                        string nZasE = nZ.ToString("E2");
 
-                        string iXasE = dataStructure.points.int2pts[i].X.ToString("E2"); // for i
-                        string iYasE = dataStructure.points.int2pts[i].Y.ToString("E2");
-                        string iZasE = dataStructure.points.int2pts[i].Z.ToString("E2");
+                        uint iX = (UInt32)dataStructure.points.int2pts[i].X; // for i
+                        uint iY = (UInt32)dataStructure.points.int2pts[i].Y;
+                        uint iZ = (UInt32)dataStructure.points.int2pts[i].Z;
+                        string iXasE = iX.ToString("E2");
+                        string iYasE = iY.ToString("E2");
+                        string iZasE = iZ.ToString("E2");
 
-                        string i1XasE = dataStructure.points.int2pts[i + 1].X.ToString("E2"); // for i + 1
-                        string i1YasE = dataStructure.points.int2pts[i + 1].Y.ToString("E2");
-                        string i1ZasE = dataStructure.points.int2pts[i + 1].Z.ToString("E2");
+                        uint i1X = (UInt32)dataStructure.points.int2pts[i + 1].X; // for i + 1
+                        uint i1Y = (UInt32)dataStructure.points.int2pts[i + 1].Y;
+                        uint i1Z = (UInt32)dataStructure.points.int2pts[i + 1].Z;
+                        string i1XasE = i1X.ToString("E2");
+                        string i1YasE = i1Y.ToString("E2");
+                        string i1ZasE = i1Z.ToString("E2");
 
-                        string i2XasE = dataStructure.points.int2pts[i + 2].X.ToString("E2"); // for i + 2
-                        string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E2");
-                        string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E2");
+                        uint i2X = (UInt32)dataStructure.points.int2pts[i + 2].X;
+                        uint i2Y = (UInt32)dataStructure.points.int2pts[i + 2].Y;
+                        uint i2Z = (UInt32)dataStructure.points.int2pts[i + 2].Z;
+                        string i2XasE = i2X.ToString("E2"); // for i + 2
+                        string i2YasE = i2Y.ToString("E2");
+                        string i2ZasE = i2Z.ToString("E2");
 
                         //Write the body of binary STL Data
-                        byte[] Body = new byte[200];
                         // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
-                        string noo = $"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ";
-                        Encoding.ASCII.GetBytes(noo, 0, noo.Length, Body, 0);
-                        txtWriter.Write(Body);
+                        txtWriter.Write("{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ");
 
                         //// REAL32[3] – Normal vector
                         //txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
