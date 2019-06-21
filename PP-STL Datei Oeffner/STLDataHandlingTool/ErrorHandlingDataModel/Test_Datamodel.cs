@@ -57,6 +57,7 @@ namespace ErrorHandlingDataModel
 
 
 
+
             //dm.AddPoint(4.175997e-15, -5.000000e+00, 0.000000e+00);
             //dm.AddPoint(2.886751e+00, -5.551115e-16, 7.931284e+00);
             //dm.AddPoint(-3.478977e-16, 5.000000e+00, 0.000000e+00);
@@ -75,6 +76,19 @@ namespace ErrorHandlingDataModel
 
 
 
+
+
+
+
+            //dm.AddPoint(10, 123, 123);
+            //dm.AddPoint(342, 234, 123);
+            //dm.AddPoint(123, 32, 233);
+
+            //dm.AddEdge(0, 1);
+            //dm.AddEdge(1, 2);
+            //dm.AddEdge(2, 0);
+
+            //dm.AddFace(0, 1, 2, new Normal(3, 0, 5));
         }
     }
 }

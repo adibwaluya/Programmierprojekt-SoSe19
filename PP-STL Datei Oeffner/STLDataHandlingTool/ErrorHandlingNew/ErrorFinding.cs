@@ -16,17 +16,12 @@ namespace ErrorHandling
             {
                 AdvancedErrorFinding(dm);
             }
-            MarkPotentiallyFaultyEdgesAsFaulty(dm);
-        }
-
-        private void MarkPotentiallyFaultyEdgesAsFaulty(DataStructure dm)
-        {
+            // Restliche potentiell falsche Kanten werden als falsch markiert
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 if (dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty)
                 {
                     dm.edges.GetEdge(currentEdgeNumber).faulty = true;
-                    dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty = false;
                 }
             }
         }
@@ -54,16 +49,16 @@ namespace ErrorHandling
                     currentVectorX = point1.X - point2.X;
                     currentVectorY = point1.Y - point2.Y;
 
-                    if ((currentVectorX == 0) && (currentVectorY != 0))             // Sonderfall wenn Vektor paralell zur yz-Ebene liegt
+                    if (currentVectorX == 0 && currentVectorY != 0)             // Sonderfall wenn Vektor paralell zur yz-Ebene liegt
                     {
                         currentVectorZ = (point1.Z - point2.Z) / (currentVectorY);
 
                     }
-                    else if ((currentVectorX == 0) && (currentVectorY == 0))        // Sonderfall wenn Vektor paralell zur z-Achse liegt
+                    else if (currentVectorX == 0 && currentVectorY == 0)        // Sonderfall wenn Vektor paralell zur z-Achse liegt
                     {
                         currentVectorZ = 1;
                     }
-                    else                                                            // Standardfall. currentVectorY und currentVectorZ geben an, wo der Wert auf der y und z-Achse bei x=1 liegt.
+                    else                                                        // Standardfall. currentVectorY und currentVectorZ geben an, wo der Wert auf der y und z-Achse bei x=1 liegt.
                     {
                         currentVectorY = currentVectorY / currentVectorX;
                         currentVectorZ = (point1.Z - point2.Z) / currentVectorX;
@@ -88,21 +83,25 @@ namespace ErrorHandling
                     }
                 }
             }
-            // Ring bilden
+
+            // Es wird ein eindimensionaler Ring aus parallelen Vektoren gebildet.
+
             Point startPoint;
             Point currentEndPoint;
             bool noPotentiallyFaultyEdgesLeft = false;
-            bool newStartPoint = true;
+            bool newStartPointNeeded = true;
+            bool foundMatchingEdge = false;
 
             foreach (VectorOfEdge vector in vectorList)
             {
-                // falls die nächste foreach Schleife nie durchlaufen wird (was eigentlich nicht passieren kann)
+                // falls die nächste foreach Schleife nie durchlaufen wird (was eigentlich nicht passieren kann) warum bauche ich die nächsten drei Zeilen pls halp
                 startPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P1;
                 currentEndPoint = dm.edges.GetEdge(vector.edgeIDList[0]).P2;
                 currentEdge = dm.edges.GetEdge(0);
                 //
-                while (!noPotentiallyFaultyEdgesLeft)
+                while (!noPotentiallyFaultyEdgesLeft)       // Am Ende werden alle potentiell falschen Kanten als richtig oder falsch eingeordnet sein.
                 {
+                    foundMatchingEdge = false;
                     noPotentiallyFaultyEdgesLeft = true;
                     foreach (int edgeID in vector.edgeIDList)
                     {
@@ -110,59 +109,59 @@ namespace ErrorHandling
 
                         if (currentEdge.potentiallyFaulty)
                         {
-                            if (newStartPoint)
+                            noPotentiallyFaultyEdgesLeft = false;
+
+                            if (newStartPointNeeded)
                             {
                                 startPoint = currentEdge.P1;
                                 currentEndPoint = currentEdge.P2;
-                                newStartPoint = false;
+                                currentEdge.ring = true;
+                                newStartPointNeeded = false;
+                                foundMatchingEdge = true;
+                                break;
                             }
-                            noPotentiallyFaultyEdgesLeft = false;
                         }
 
-                        if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false)
+                        // Wenn die momentane Kante an den Endpunkt passt und noch nicht im Ring ist wird sie hinzugefügt und der andere Punkt der Kante stellt den neuen Endpunkt dar.
+                        if (currentEndPoint == currentEdge.P1 && currentEdge.ring == false && !noPotentiallyFaultyEdgesLeft)
                         {
                             currentEdge.ring = true;
                             currentEndPoint = currentEdge.P2;
+                            foundMatchingEdge = true;
                             break;
                         }
-                        else if (currentEndPoint == currentEdge.P2 && currentEdge.ring == false)
+                        else if (currentEndPoint == currentEdge.P2 && currentEdge.ring == false && !noPotentiallyFaultyEdgesLeft)
                         {
                             currentEdge.ring = true;
                             currentEndPoint = currentEdge.P1;
+                            foundMatchingEdge = true;
                             break;
                         }
                     }
+                    // Wenn der Ring geschlossen werden konnte, werden die Kanten des Ringes als nicht fehlerhaft markiert.
                     if (currentEndPoint == startPoint)
                     {
-                        MarkRingEdges(dm, "notFaulty", vector.edgeIDList);
-                        newStartPoint = true;
+                        foreach (int edgeID in vector.edgeIDList)
+                        {
+                            if (dm.edges.GetEdge(edgeID).ring)
+                            {
+                                dm.edges.GetEdge(edgeID).faulty = false;
+                            }
+                        }
+                        newStartPointNeeded = true;
                     }
-                    // was, wenn keine weitere passende Edge gefunden wird?
-                    else if (currentEdge.ring == false)
+                    // Wenn hingegen keine weitere passende Kante gefunden werden konnte, werden die Kanten des Ringes als fehlerhaft markiert.
+                    else if (!foundMatchingEdge)
                     {
-                        MarkRingEdges(dm, "faulty", vector.edgeIDList);
-                        newStartPoint = true;
+                        foreach (int edgeID in vector.edgeIDList)
+                        {
+                            if (dm.edges.GetEdge(edgeID).ring)
+                            {
+                                dm.edges.GetEdge(edgeID).faulty = true;
+                            }
+                        }
+                        newStartPointNeeded = true;
                     }
-                }
-            }
-        }
-
-        private void MarkRingEdges(DataStructure dm, string state, List<int> list)
-        {
-            Edge currentEdge;
-
-            foreach (int edgeID in list)
-            {
-                currentEdge = dm.edges.GetEdge(edgeID);
-                currentEdge.ring = false;
-                currentEdge.potentiallyFaulty = false;
-                if (state == "faulty")
-                {
-                    currentEdge.faulty = true;
-                }
-                else if (state == "notFaulty")
-                {
-                    currentEdge.faulty = false;
                 }
             }
         }
