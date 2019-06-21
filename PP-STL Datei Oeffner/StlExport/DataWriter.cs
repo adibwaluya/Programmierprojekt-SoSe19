@@ -140,15 +140,15 @@ namespace StlExport
                     string HeaderAsString = File;
                     byte[] Header = new byte[80];
                     Encoding.ASCII.GetBytes(HeaderAsString, 0, HeaderAsString.Length, Header, 0);
-                    txtWriter.Write($"{Header} ");
+                    txtWriter.Write(Header + " ");
 
                     // UINT32 – Number of triangles
-                    uint totalTriangles = ((UInt32) dataStructure.points.int2pts.Count / 3); // A triangle consists of 3 points
+                    uint totalTriangles = (((UInt32) dataStructure.points.int2pts.Count) / 3); // A triangle consists of 3 points
                     txtWriter.Write(totalTriangles.ToString("E") + " ");
 
                     // foreach triangle
                     // for - loop is used to get a better iteration over the points
-                    for (int i = 0; i < dataStructure.points.int2pts.Count; i = i + 3)
+                    for (int i = 0; i <= dataStructure.points.int2pts.Count; i = i + 3)
                     {
                         //All normal and points as e-sign exponent format
                         Face newFace = dataStructure.faces.Int2Faces[i];
@@ -157,6 +157,7 @@ namespace StlExport
                         uint nX = (UInt32) norm.X;               // Normals can also be {0; 0; 0}
                         uint nY = (UInt32)norm.Y;
                         uint nZ = (UInt32)norm.Z;
+
                         string nXasE = nX.ToString("E2");
                         string nYasE = nY.ToString("E2");
                         string nZasE = nZ.ToString("E2");
@@ -184,7 +185,7 @@ namespace StlExport
 
                         //Write the body of binary STL Data
                         // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
-                        txtWriter.Write($"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 \n");
+                        txtWriter.Write($"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ");
 
                         //// REAL32[3] – Normal vector
                         //txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
