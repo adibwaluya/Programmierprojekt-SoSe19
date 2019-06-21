@@ -54,25 +54,25 @@ namespace ErrorHandling
                     currentVectorX = point1.X - point2.X;
                     currentVectorY = point1.Y - point2.Y;
 
-                    if (currentVectorX == 0 && currentVectorY != 0)
+                    if ((currentVectorX == 0) && (currentVectorY != 0))             // Sonderfall wenn Vektor paralell zur yz-Ebene liegt
                     {
                         currentVectorZ = (point1.Z - point2.Z) / (currentVectorY);
 
                     }
-                    else if (currentVectorX == 0 && currentVectorY == 0)
+                    else if ((currentVectorX == 0) && (currentVectorY == 0))        // Sonderfall wenn Vektor paralell zur z-Achse liegt
                     {
                         currentVectorZ = 1;
                     }
-                    else
+                    else                                                            // Standardfall. currentVectorY und currentVectorZ geben an, wo der Wert auf der y und z-Achse bei x=1 liegt.
                     {
-                        currentVectorY = currentVectorY / (currentVectorX);     // Die X Position ist immer 1 und wird daher nicht angegeben
-                        currentVectorZ = (point1.Z - point2.Z) / (currentVectorX);
+                        currentVectorY = currentVectorY / currentVectorX;
+                        currentVectorZ = (point1.Z - point2.Z) / currentVectorX;
                     }
 
-                    // Edge, die in gleiche Richtung zeigt bereits vorhanden?
-                    foreach (VectorOfEdge vector in vectorList)    // Wir laufen durch alle Eintragungen in der Liste durch
+                    // Wenn bereits eine Edge mit dem gleichen Vektor gefunden wurde, wird die aktuelle Edge in der Liste hinzugefügt. Wenn nicht, wird ein neues Objekt mit den Vektoren erzeugt.
+                    foreach (VectorOfEdge vector in vectorList)
                     {
-                        if (vector.vectorY == currentVectorY && vector.vectorZ == currentVectorZ)   // Wenn ein Vektor mit der gleichen Richtung vorhanden ist
+                        if (vector.vectorY == currentVectorY && vector.vectorZ == currentVectorZ)
                         {
                             vector.edgeIDList.Add(currentEdgeNumber);
                             noObjectYet = false;
@@ -144,7 +144,6 @@ namespace ErrorHandling
                         newStartPoint = true;
                     }
                 }
-                Console.WriteLine();
             }
         }
 
