@@ -109,15 +109,14 @@ namespace View
 
         private void Information_Boxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Information_Boxes.SelectedIndex == 0)
+            if (Information_Boxes.SelectedIndex == 0 && new DataStructure().points.int2pts.Count != 0) // To prevent Null Exception
             {
                 Info_Box.Text = "The number of points in the data is " + new DataStructure().points.int2pts.Count;
             }
-            else if (Information_Boxes.SelectedIndex == 1)
+            else if (Information_Boxes.SelectedIndex == 1 && new DataStructure().faces.Int2Faces.Count != 0) // To prevent Null Exception
             {
                 Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.Int2Faces.Count;
             }
-
         }
     }
 }

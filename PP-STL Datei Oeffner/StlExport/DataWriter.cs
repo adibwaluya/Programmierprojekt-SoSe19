@@ -168,9 +168,12 @@ namespace StlExport
                         string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E");
                         string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E");
 
-                        //TODO: Write the body of binary STL Data
-                        //byte[] Body = new byte[3];
-                        //Encoding.ASCII.GetBytes(nX)
+                        //Write the body of binary STL Data
+                        byte[] Body = new byte[12];
+                        // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
+                        string noo = $"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ";
+                        Encoding.ASCII.GetBytes(noo, 0, noo.Length, Body, 0);
+                        txtWriter.Write(Body);
 
                         // REAL32[3] – Normal vector
                         txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
