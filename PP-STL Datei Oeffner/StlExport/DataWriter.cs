@@ -22,8 +22,8 @@ namespace StlExport
         DataStructure testDM = new DataStructure();
 
         // Indentation as strings
-        readonly string indent = String.Join("    ", new String[4]);
-        readonly string indent2 = String.Join("    ", new String[8]);
+        public string indent = String.Join("    ", new String[4]);
+        public string indent2 = String.Join("    ", new String[8]);
 
         // Compile as one STL File
         // This one is as ASCII file

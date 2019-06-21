@@ -24,12 +24,12 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <Button Click="Open_OnClick" Grid.Column="0" Margin="0 0 5 0" Content="Open" Background="Gray"/>
+                <Button Click="Open_OnClick" Grid.Column="0" Margin="0 0 5 0" Content="Open" Background="Gray" Height="35" VerticalAlignment="Top"/>
                 <Button Click="Save_OnClick" Grid.Column="1" Margin="5 0 5 0" Content="Save" Background="Gray"/>
                 <Button Click="ErrorHandle_OnClick" Grid.Column="2" Margin="5 0 5 0" Content="Handle Error" Background="Gray"/>
                 <Button Grid.Column="3" Margin="5 0 5 0" Content="Undo" Background="Gray" Height="35" VerticalAlignment="Bottom"/>
                 <Button Grid.Column="4" Margin="5 0 5 0" Content="Redo" Background="Gray"/>
-                <Button Click="Settings_OnClick" Grid.Column="5" Margin="5 0 5 0" Content="Settings" Background="Gray"/>
+                <Button Click="Settings_OnClick" Grid.Column="5" Margin="5 0 5 0" Content="Settings" Background="Gray" Height="35" VerticalAlignment="Top"/>
                 <Button Grid.Column="8" Content="Help"  Background="Gray"/>
             </Grid>
             <!-- Top Bar ends here -->
