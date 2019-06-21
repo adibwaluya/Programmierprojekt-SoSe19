@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PP_MockUpGUI.Properties
+namespace importSTLTest.Properties
 {
 
 

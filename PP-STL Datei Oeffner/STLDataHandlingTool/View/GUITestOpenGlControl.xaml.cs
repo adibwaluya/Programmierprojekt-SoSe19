@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PP_MockUpGUI
+namespace View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for GUITestOpenGlControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class GUITestOpenGlControl : UserControl
     {
-        public MainWindow()
+        public GUITestOpenGlControl()
         {
             InitializeComponent();
         }
-
     }
 }

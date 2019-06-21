@@ -11,7 +11,6 @@ namespace ErrorHandling
     {
         private IList<int> NextFaces = new List<int>();
         
-
         public void FindBodies(DataStructure dm)    // Geht alle Flächen durch. Gehört die aktuelle Fläche noch nicht zu einem Körper wird "DefineBody" verwendet.
         {
             int bodyNumber = 1;
@@ -26,11 +25,10 @@ namespace ErrorHandling
             }
         }
 
-        private void LabelFaces(DataStructure dm, Edge edge, int bodyID)    // Fläche wird Nummer von Körper zugeordnet und angrenzende Flächen werden in die Liste eingefügt
+        private void AddNeighborFacesToNextFaces(Edge edge)    // Fläche wird Nummer von Körper zugeordnet und angrenzende Flächen werden in die Liste eingefügt
         {
             foreach (int faceNumber in edge.FaceIDs)
             {
-                dm.faces.GetFace(faceNumber).bodyID = bodyID;
                 NextFaces.Add(faceNumber);
             }
         }
@@ -44,16 +42,14 @@ namespace ErrorHandling
             {
                 currentFace = dm.faces.GetFace(NextFaces[i]);
 
-                if (currentFace.bodyID != 0)    // Wenn die aktuelle Fläche bereits markiert wurde wird zur nächsten Fläche gegangen
+                if (currentFace.bodyID == 0)    // Wenn die aktuelle Fläche bereits markiert wurde wird zur nächsten Fläche gegangen
                 {
-                    continue;
+                    AddNeighborFacesToNextFaces(dm.edges.GetEdge(currentFace.FirstEdge));
+                    AddNeighborFacesToNextFaces(dm.edges.GetEdge(currentFace.SecondEdge));
+                    AddNeighborFacesToNextFaces(dm.edges.GetEdge(currentFace.ThirdEdge));
+                    currentFace.bodyID = bodyID;
                 }
-
-                LabelFaces(dm, dm.edges.GetEdge(currentFace.FirstEdge), bodyID);
-                LabelFaces(dm, dm.edges.GetEdge(currentFace.SecondEdge), bodyID);
-                LabelFaces(dm, dm.edges.GetEdge(currentFace.ThirdEdge), bodyID);
             }
-
             NextFaces.Clear();
         }
     }
