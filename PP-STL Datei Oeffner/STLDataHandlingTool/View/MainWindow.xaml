@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Click="Open_OnClick" Grid.Column="0" Margin="0 0 5 0" Content="Open" Background="Gray" Height="35" VerticalAlignment="Top"/>
                 <Button Click="Save_OnClick" Grid.Column="1" Margin="5 0 5 0" Content="Save" Background="Gray"/>
                 <Button Click="ErrorHandle_OnClick" Grid.Column="2" Margin="5 0 5 0" Content="Handle Error" Background="Gray"/>
@@ -43,7 +43,7 @@
                     <ColumnDefinition Width="335*"/>
                 </Grid.ColumnDefinitions>
 
-                
+                <local:GUITestOpenGlControl Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827"/>
 
                 <StackPanel Grid.Column="1" Background="LightGray">
                     <TextBlock Text="Informations" FontWeight="Bold" FontSize="15" Margin="5 0 0 0"/>
@@ -56,6 +56,7 @@
 
                 </StackPanel>
             </Grid>
+
             <!-- Information ends here -->
 
         </StackPanel>
