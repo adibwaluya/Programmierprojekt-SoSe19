@@ -126,6 +126,7 @@ namespace StlExport
         // This one is as binary file
         public void AsBinaryFile(string File, DataStructure dataStructure)
         {
+            // Create new BinaryWriter
             using (var txtWriter = new BinaryWriter(System.IO.File.OpenWrite(File), Encoding.ASCII))
             {
                 try

@@ -41,12 +41,20 @@ namespace StlExportDataModel
             dm.AddEdge(3, 0);
             dm.AddEdge(3, 1);
 
-            Normal norm1 = new Normal(1, 1, 1);
-            Normal norm2 = new Normal(1, 2, 3);
+            Normal norm1 = new Normal(0, 1, 1);
+            Normal norm2 = new Normal(1, 0, 0);
+            Normal norm3 = new Normal(1, 1, 1);
+            Normal norm4 = new Normal(1, 1, 0);
+            Normal norm5 = new Normal(1, 1, 1);
+            Normal norm6 = new Normal(1, 0, 0);
 
 
             dm.AddFace(3, 1, 2, norm1);
             dm.AddFace(0, 1, 2, norm2);
+            dm.AddFace(3, 1, 2, norm3);
+            dm.AddFace(0, 1, 2, norm4);
+            dm.AddFace(3, 1, 2, norm5);
+            dm.AddFace(0, 1, 2, norm6);
         }
     }
 }

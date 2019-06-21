@@ -34,16 +34,17 @@ namespace View
         //{
         //    TextBox.Text = "#" + ClrPcker_Background.SelectedColor.R.ToString() + ClrPcker_Background.SelectedColor.G.ToString() + ClrPcker_Background.SelectedColor.B.ToString();
         //}
+
+        #region ClickEvent
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
             // Set the button as a save file dialog when clicked
             SaveFileDialog saveDlg = new SaveFileDialog
             {
                 // Set the filter so the user will know which format of STL will be saved
-                Filter = "ASCII STL File (*.stl)|* ASCII.stl|Binary STL File (*.stl)|* Bin.stl",
+                Filter = "ASCII STL File (*.stl)|*.stl|Binary STL File (*.stl)|*.stl",
                 // Set the initial directory of the saved file to My Documents
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                DefaultExt = "stl"
             };
 
             #region Test Site
@@ -55,14 +56,14 @@ namespace View
             #endregion
 
             // Requirements to save the file
-            bool reqA = saveDlg.ShowDialog() == true;
-            bool reqB = saveDlg.Filter == "ASCII STL File (*.stl)|* ASCII.stl";
-            if (reqA)
+            bool reqA = saveDlg.ShowDialog() == true;   // To open the Save Dialog
+            bool reqB = saveDlg.FilterIndex == 1;       // If the user wants to save the file as an ASCII STL File
+            if (reqA && reqB)
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
                 dw.AsAsciiFile(saveDlg.FileName, dm);
             }
-            else // If the user wants to save the DataStructure as a binary STL File
+            else // If the user wants to save the DataStructure as a binary STL File (FilterIndex == 2)
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
                 dw.AsBinaryFile(saveDlg.FileName, dm);
@@ -94,5 +95,6 @@ namespace View
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }
