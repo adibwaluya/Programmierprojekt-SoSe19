@@ -1,4 +1,18 @@
-Adib Ghassani Waluya:
+Adib Ghassani Waluya (567271):
+
+Ort:
+In diesem Projekt habe ich 2 DLLs erstellt:
+1. DataModel befindet sich in team1\PP-STL Datei Oeffner\DataModel
+2. importSTL befindet sich in team1\PP-STL Datei Oeffner\STLDataHandlingTool\importSTL
+--> Für importSTL habe ich eine Testklasse "importSTLTest" als StartProjekt erstellt, die in team1\PP-STL Datei Oeffner\STLDataHandlingTool\importSTL
+    gefunden werden kann
+
+Anmerkungen:
+- Die Methode für ReadASCIIFile und ReadBinaryFile können bisher noch nicht gleichzeitig implementiert werden. Das heißt, wenn bspw. ReadASCIIFile
+  Methode getestet wird, dann muss die ReadBinaryFile Methode als Kommentare eingestellt werden.  
+
+- Bei der TestKlasse importSTLTest sieht es auch ähnlich aus. Wenn bspw. eine ASCII Datei importiert wird, dann muss die Methode "ReadASCIIFile"
+  in der If-Schleife implementiert werden (read.ReadASCIIFile(openFile.FileName)).  
 
 
 
