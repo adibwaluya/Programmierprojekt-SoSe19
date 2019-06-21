@@ -1,0 +1,20 @@
+﻿<Window x:Class="View.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="Settings" Height="400" Width="650">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="369" VerticalAlignment="Top" Width="642">
+            <TabItem x:Name="Color_Tab" Header="Colors">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="Tolerance_Tab" Header="Tolerance" Height="22" VerticalAlignment="Top">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
