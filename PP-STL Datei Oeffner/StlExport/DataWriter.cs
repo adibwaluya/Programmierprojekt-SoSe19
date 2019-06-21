@@ -184,7 +184,7 @@ namespace StlExport
 
                         //Write the body of binary STL Data
                         // REAL32[3] four times - normal, vertex 1, vertex 2, vertex 3
-                        txtWriter.Write("{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ");
+                        txtWriter.Write($"{nXasE} {nYasE} {nZasE} {iXasE} {iYasE} {iZasE} {i1XasE} {i1YasE} {i1ZasE} {i2XasE} {i2YasE} {i2ZasE} 0 ");
 
                         //// REAL32[3] – Normal vector
                         //txtWriter.Write($"{nXasE} {nYasE} {nZasE} ");
