@@ -20,9 +20,9 @@ namespace ErrorHandling
                 // Restliche potentiell falsche Kanten werden als falsch markiert
                 for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
                 {
-                    if (dm.edges.GetEdge(currentEdgeNumber).potentiallyFaulty)
+                    if (dm.edges.GetEdge(currentEdgeNumber).CurrentCondition == Edge.Condition.PotentiallyFaulty)
                     {
-                        dm.edges.GetEdge(currentEdgeNumber).faulty = true;
+                        dm.edges.GetEdge(currentEdgeNumber).CurrentCondition = Edge.Condition.Faulty;
                     }
                 }
             }
@@ -57,7 +57,7 @@ namespace ErrorHandling
             for (int currentEdgeNumber = 0; dm.edges.GetEdge(currentEdgeNumber) != null; currentEdgeNumber++)
             {
                 currentEdge = dm.edges.GetEdge(currentEdgeNumber);
-                if (currentEdge.potentiallyFaulty)
+                if (currentEdge.CurrentCondition == Edge.Condition.PotentiallyFaulty)
                 {
                     noObjectYet = true;
                     point1 = currentEdge.P1;
@@ -127,7 +127,7 @@ namespace ErrorHandling
                     {
                         currentEdge = dm.edges.GetEdge(edgeID);
 
-                        if (currentEdge.potentiallyFaulty)
+                        if (currentEdge.CurrentCondition == Edge.Condition.PotentiallyFaulty)
                         {
                             noPotentiallyFaultyEdgesLeft = false;
 
@@ -165,26 +165,26 @@ namespace ErrorHandling
                     // Wenn der Pfad geschlossen werden konnte, werden die Kanten des Pfades als nicht fehlerhaft markiert.
                     if (currentEndPoint == startPoint && !noPotentiallyFaultyEdgesLeft)
                     {
-                        SetCycleEdges(dm, vector, false);
+                        SetCycleEdges(dm, vector, Edge.Condition.NotFaulty);
                         newStartPointNeeded = true;
                     }
                     // Wenn hingegen keine weitere passende Kante gefunden werden konnte, werden die Kanten des Pfades als fehlerhaft markiert.
                     else if (!foundMatchingEdge && !noPotentiallyFaultyEdgesLeft)
                     {
-                        SetCycleEdges(dm, vector, true);
+                        SetCycleEdges(dm, vector, Edge.Condition.Faulty);
                         newStartPointNeeded = true;
                     }
                 }
             }
         }
 
-        private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, bool trueOrFalse)
+        private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, Edge.Condition condition)
         {
             foreach (int edgeID in vec.edgeIDList)
             {
                 if (dm.edges.GetEdge(edgeID).cycle)
                 {
-                    dm.edges.GetEdge(edgeID).faulty = trueOrFalse;
+                    dm.edges.GetEdge(edgeID).CurrentCondition = condition;
                 }
             }
         }
@@ -212,16 +212,16 @@ namespace ErrorHandling
 
                 if (numberOfFaces == 0)
                 {
-                    currentEdge.faulty = true;
+                    currentEdge.CurrentCondition = Edge.Condition.Faulty;
                 }
                 else if (numberOfFaces == 1)
                 {
-                    currentEdge.potentiallyFaulty = true;
+                    currentEdge.CurrentCondition = Edge.Condition.PotentiallyFaulty;
                     potentiallyFaultyCounter++;
                 }
                 else
                 {
-                    currentEdge.faulty = false;
+                    currentEdge.CurrentCondition = Edge.Condition.NotFaulty;
                 }
             }
             return potentiallyFaultyCounter;

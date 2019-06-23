@@ -9,12 +9,29 @@ namespace DataModel
     public class Edge
     {
         /// <summary>
-        /// potentiallyFaulty, faulty and FaceIDs and ring. Implemented by Maximilian
+        /// FaceIDs List, Condition enum and cycle bool Implemented by Maximilian
         /// </summary>
-        private bool _cycle;
-        private bool _potentiallyFaulty;
-        private bool _faulty;
-        public IList<int> FaceIDs = new List<int>();
+        private bool _cycle;                            // important for advanced error finding
+        public IList<int> FaceIDs = new List<int>();    // list of faceIDs of faces the edge belongs to
+
+        public enum Condition { Faulty, PotentiallyFaulty, NotFaulty }; // condition of the edge
+        private Condition _condition;
+
+        public Condition CurrentCondition
+        {
+            get
+            {
+                return _condition;
+            }
+            set
+            {
+                _condition = value;
+                if (value == Condition.Faulty || value == Condition.NotFaulty)
+                {
+                    _cycle = false;
+                }
+            }
+        }
 
         public bool cycle
         {
@@ -25,34 +42,6 @@ namespace DataModel
             set
             {
                 _cycle = value;
-            }
-        }
-        public bool potentiallyFaulty
-        {
-            get
-            {
-                return _potentiallyFaulty;
-            }
-            set
-            {
-                _potentiallyFaulty = value;
-                if (value)
-                {
-                    _faulty = false;
-                }
-            }
-        }
-        public bool faulty
-        {
-            get
-            {
-                return _faulty;
-            }
-            set
-            {
-                _faulty = value;
-                _potentiallyFaulty = false;
-                _cycle = false;
             }
         }
 

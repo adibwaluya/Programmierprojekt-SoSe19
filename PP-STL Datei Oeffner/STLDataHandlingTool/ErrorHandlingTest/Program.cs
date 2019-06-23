@@ -35,7 +35,7 @@ namespace ErrorHandlingTest
 
             for (int i = 0; dm.edges.GetEdge(i) != null; i++)
             {
-                Console.WriteLine(dm.edges.GetEdge(i).faulty);
+                Console.WriteLine(dm.edges.GetEdge(i).CurrentCondition);
             }
 
             Console.ReadLine();
