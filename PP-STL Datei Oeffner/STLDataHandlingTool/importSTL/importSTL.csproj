@@ -58,6 +58,10 @@
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ErrorHandlingNew\ErrorHandling.csproj">
+      <Project>{b592228c-e663-4df1-8ed9-49c447cf6451}</Project>
+      <Name>ErrorHandling</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
