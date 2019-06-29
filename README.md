@@ -1,3 +1,0 @@
-# STL-Datei
-
-## README
