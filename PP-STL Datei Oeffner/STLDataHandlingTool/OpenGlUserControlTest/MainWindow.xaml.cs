@@ -101,12 +101,9 @@ namespace OpenGlUserControlTest
             var p36 = new Point(1.000000e+01, 1.000000e+01, 1.000000e+01);
             addFace(p34, p35, p36, new Normal(0.000000e+00, 1.000000e+00, -0.000000e+00), dataStructure);
 
-            var bc = ColorRGB.CreateBackgroundColor(192f, 192f, 192f);
-            var fc = ColorRGB.CreateForegroundColor(201f, 12f, 12);
-            var userSettings = new UserSettings(bc, fc);
 
-            var dataPoints = dataStructure.GetDataPointsList3D();
-            WinFormsControl.DrawModel(dataPoints, userSettings.BackgroundColor, userSettings.ForegroundColor);
+            var modelData = WinFormsControl.GetModelDataForRendering(dataStructure);
+            WinFormsControl.DrawModel(modelData);
         }
     }
 }

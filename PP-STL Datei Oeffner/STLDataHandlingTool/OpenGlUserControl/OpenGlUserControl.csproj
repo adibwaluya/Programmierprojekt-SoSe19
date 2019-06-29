@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Normal.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="WinFormsControl.cs">
       <SubType>UserControl</SubType>
@@ -74,8 +75,6 @@
       <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bla\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 
 namespace DataModel
@@ -7,7 +8,7 @@ namespace DataModel
     {
         public PointList points = new PointList(); //List of Points
         public EdgeList edges = new EdgeList(); //List of Edges
-        private FaceList faces = new FaceList(); //List of Faces
+        public FaceList faces = new FaceList(); //List of Faces
 
         /* User adds Point by giving its coordinates */
         public int AddPoint(double x, double y, double z)
@@ -34,30 +35,6 @@ namespace DataModel
             edges.GetEdge(e3).FaceIDs.Add(faces.AddOrGetFace(f));
 
             return faces.AddOrGetFace(f);
-        }
-
-        public static int VerticesCount; // (modelDataPoints (vertices + normals) ) - (number of normals)
-
-        /// <summary>
-        /// Used to get the the data points and normals, which are stored in the DataStructure.
-        /// </summary>
-        /// <returns>A List of Point3D (double X, double Y, double Z). </returns>
-        public  List<Point3D> GetDataPointsList3D()
-        {
-            var modelDataPoints = new List<Point3D>();
-
-            for(var i = 0; i < faces.m_int2Face.Count; i++)
-            {
-                for (var j = 0; j < 3; j++)
-                {
-                    modelDataPoints.Add(new Point3D(faces.m_int2Face[i].Points[j].X, faces.m_int2Face[i].Points[j].Y, faces.m_int2Face[i].Points[j].Z)); // Adding the vertices
-                }
-                modelDataPoints.Add(new Point3D(faces.m_int2Face[i].N.X, faces.m_int2Face[i].N.Y, faces.m_int2Face[i].N.Z)); // Adding the normal vector
-            }
-
-            VerticesCount = modelDataPoints.Count - (modelDataPoints.Count / 4);
-
-            return modelDataPoints;
         }
     }
 }
