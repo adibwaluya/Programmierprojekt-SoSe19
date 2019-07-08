@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
+using System.Xml.Schema;
 using DataModel;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -294,7 +296,7 @@ namespace OpenGlUserControl
         {
             var vertices = GetVertices(ds);
             var normalVectors = GetNormals(ds);
-            var faceList = GetFaceList(ds);
+            var faceList = GetFaceList(vertices, ds);
             var edgeList = GetEdgeList(ds);
 
 
@@ -327,19 +329,19 @@ namespace OpenGlUserControl
             return normalVectors;
         }
 
-        // Contains the indices of vertices for each face (3 per face)
-        private static uint[] GetFaceList(DataStructure ds)
+        private static uint[] GetFaceList(Vertex[] vertices, DataStructure ds)
         {
-            var faceList = new uint[(ds.faces.m_int2Face.Count * 3)];
+            var faceList = new uint[(ds.faces.m_int2Face.Count * 3)]; // Contains the point indices of each face
 
-            for(var i = 0; i < (ds.faces.m_int2Face.Count * 3); i = i+3)
+            foreach (var face in ds.faces.m_int2Face) // For each element in m_int2face "DO"
             {
-                foreach (var face in ds.faces.m_int2Face)
-                {
-                    faceList[i] = (uint)face.Value.Points.IndexOf(face.Value.Points[0]);
-                    faceList[i + 1] = (uint)face.Value.Points.IndexOf(face.Value.Points[1]);
-                    faceList[i + 2] = (uint)face.Value.Points.IndexOf(face.Value.Points[2]);
-                }
+                var tmpPointsList = new DataModel.Point[3]; // Get the points of the face and save them back temporarily
+                face.Value.Points.CopyTo(tmpPointsList);
+
+                // Take each element from tmpPointsList and compare it with each element in the vertices array. 
+
+
+                // If the equal element has been found, store the index of this element into the faceList
             }
 
             return faceList;
