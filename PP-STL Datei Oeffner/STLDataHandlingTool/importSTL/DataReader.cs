@@ -18,6 +18,8 @@ namespace importSTL
         private enum FileType { NONE, BINARY, ASCII };
         private bool processError;
 
+        ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
+
         // Convert bytes to double
         private static double ConvertByteToDouble(byte[] b)
         {
