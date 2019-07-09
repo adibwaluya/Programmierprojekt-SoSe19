@@ -23,6 +23,7 @@ namespace ErrorHandling
                     if (dm.edges.GetEdge(currentEdgeNumber).CurrentCondition == Edge.Condition.PotentiallyFaulty)
                     {
                         dm.edges.GetEdge(currentEdgeNumber).CurrentCondition = Edge.Condition.Faulty;
+                        dm.FaultyEdges.Add(currentEdgeNumber);
                     }
                 }
             }
@@ -185,6 +186,10 @@ namespace ErrorHandling
                 if (dm.edges.GetEdge(edgeID).cycle)
                 {
                     dm.edges.GetEdge(edgeID).CurrentCondition = condition;
+                    if (condition == Edge.Condition.Faulty)
+                    {
+                        dm.FaultyEdges.Add(edgeID);
+                    }
                 }
             }
         }
@@ -213,6 +218,7 @@ namespace ErrorHandling
                 if (numberOfFaces == 0)
                 {
                     currentEdge.CurrentCondition = Edge.Condition.Faulty;
+                    dm.FaultyEdges.Add(currentEdgeNumber);
                 }
                 else if (numberOfFaces == 1)
                 {
