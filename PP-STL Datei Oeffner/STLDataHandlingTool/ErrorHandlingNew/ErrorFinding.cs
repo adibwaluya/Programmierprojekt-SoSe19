@@ -90,7 +90,7 @@ namespace ErrorHandling
                     // Wenn bereits eine Edge mit dem gleichen Vektor gefunden wurde, wird die aktuelle Edge in der Liste hinzugefügt. Wenn nicht, wird ein neues Objekt mit den Vektoren erzeugt.
                     foreach (VectorOfEdge vector in vectorList)
                     {
-                        if (vector.vectorY == currentVectorY && vector.vectorZ == currentVectorZ)
+                        if (ApproximatelyEqual(vector.vectorY, vector.vectorZ, currentVectorY, currentVectorZ))
                         {
                             vector.edgeIDList.Add(currentEdgeNumber);
                             noObjectYet = false;
@@ -185,9 +185,17 @@ namespace ErrorHandling
             }
         }
 
-        private void ApproximatelyEqual(double value1, double value2)
+        private bool ApproximatelyEqual(double y1, double z1, double y2, double z2)
         {
-
+            tolerance = (y1 + z1) / 100;
+            if (Math.Abs(y1-y2)<=tolerance && Math.Abs(z1 - z2) <= tolerance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, Edge.Condition condition)
