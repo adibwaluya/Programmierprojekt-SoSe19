@@ -27,6 +27,15 @@ namespace importSTL
             
         }
 
+        private FileType GetFileType(string stlPath)
+        {
+            FileType stlFileType = FileType.NONE;
+
+            // Work in Progress
+
+            return stlFileType;
+        }
+
         public void ReadBinaryFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
