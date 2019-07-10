@@ -9,6 +9,12 @@ namespace ErrorHandling
 {
     public class ErrorFinding
     {
+        private double tolerance = 0.1;
+        public double Tolerance
+        {
+            get { return tolerance; }
+            set { tolerance = value; }
+        }
         public void FindError(DataStructure dm)
         {
             if (SimpleErrorFinding(dm) > 2)
@@ -177,6 +183,11 @@ namespace ErrorHandling
                     }
                 }
             }
+        }
+
+        private void ApproximatelyEqual(double value1, double value2)
+        {
+
         }
 
         private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, Edge.Condition condition)
