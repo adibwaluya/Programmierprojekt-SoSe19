@@ -16,9 +16,6 @@ namespace DataModel
         /* User adds or gets edge if an 'edge' variable is given */
         public int AddOrGetEdge(Edge p)
         {
-            //The following synthax are for STL Export
-            m_int2edge[m_idx] = p;
-            m_idx++;
 
             /* If an edge's already registered in dictionary and contains an ID */
             if (m_edge2int.ContainsKey(p))

@@ -13,10 +13,6 @@ namespace DataModel
         /* User adds or gets point if a 'point' variable is given */
         public int AddOrGetPoint(Point p)
         {
-            // the following two are for STL Export
-            m_int2pt[m_idx] = p;
-            m_idx++;
-
             /* If a point's already registered in dictionary and contains an ID */
             if (m_pt2int.ContainsKey(p))
                 return m_pt2int[p];
