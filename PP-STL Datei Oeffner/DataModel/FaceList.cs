@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace DataModel
 {
-    public class FaceList
+    public class FaceList : IEnumerable
     {
         private int m_idx = 0; // Starting index
         public Dictionary<int, Face> m_int2Face = new Dictionary<int, Face>(); // register face if ID is given
         public Dictionary<Face, int> m_Face2int = new Dictionary<Face, int>(); // register face if face is given
 
-        // The following two fields are for STL Export
-        private int idx = 0;
-        public Dictionary<int, Face> Int2Faces = new Dictionary<int, Face>();
-
         /* User adds or gets face if a 'face' variable is given */
         public int AddOrGetFace(Face p)
         {
-            // the following two are for STL Export
-            Int2Faces[idx] = p;
-            idx++;
 
             /* If a face's already registered in dictionary and contains an ID */
             if (m_Face2int.ContainsKey(p))
@@ -31,6 +25,11 @@ namespace DataModel
             m_int2Face[m_idx] = p;
             m_Face2int[p] = m_idx;
             return m_idx++;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return m_int2Face.GetEnumerator();
         }
 
         /* User defines a face by giving an ID to this methode as parameter */

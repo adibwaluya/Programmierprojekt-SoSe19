@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace DataModel
 {
-    public class EdgeList
+    public class EdgeList : IEnumerable
     {
         private int m_idx = 0; // Starting index
         public Dictionary<int, Edge> m_int2edge = new Dictionary<int, Edge>(); // register edge if ID is given
@@ -15,6 +16,7 @@ namespace DataModel
         /* User adds or gets edge if an 'edge' variable is given */
         public int AddOrGetEdge(Edge p)
         {
+
             /* If an edge's already registered in dictionary and contains an ID */
             if (m_edge2int.ContainsKey(p))
                 return m_edge2int[p];
@@ -23,6 +25,11 @@ namespace DataModel
             m_int2edge[m_idx] = p;
             m_edge2int[p] = m_idx;
             return m_idx++;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return m_int2edge.GetEnumerator();
         }
 
         /* User defines an edge by giving an ID to this methode as parameter */
