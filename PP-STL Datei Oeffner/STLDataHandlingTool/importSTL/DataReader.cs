@@ -31,7 +31,30 @@ namespace importSTL
         {
             FileType stlFileType = FileType.NONE;
 
-            // Work in Progress
+            if (File.Exists(stlPath))
+            {
+                int lineCount = 0;
+                lineCount = File.ReadLines(stlPath).Count();
+
+                string firstLine = File.ReadLines(stlPath).First();
+
+                string endLine = File.ReadLines(stlPath).Skip(lineCount - 1).Take(1).First() +
+                                 File.ReadLines(stlPath).Skip(lineCount - 2).Take(1).First();
+
+                if((firstLine.IndexOf("solid") != -1) & (endLine.IndexOf("endsolid") != -1))
+                {
+                    stlFileType = FileType.ASCII;
+                }
+                else
+                {
+                    stlFileType = FileType.BINARY;
+                }
+            }
+
+            else
+            {
+                stlFileType = FileType.NONE;
+            }
 
             return stlFileType;
         }
