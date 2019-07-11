@@ -11,12 +11,11 @@ namespace OpenGlUserControl
 {
     public struct Vertex
     {
-        public Vector3d Point; 
-        public Vector4 Color;
+        public Vector3d Point { get; set; }
+        public Vector4 Color { get; set; }
 
         // If a new property is added, it has to be changed only once and will be reflected everywhere else
         public static int SizeInBytes => Vector3d.SizeInBytes + Vector4.SizeInBytes; 
-        // expression body (only getter!)
 
         public Vertex(Vector3d point, Vector4 color)
         {

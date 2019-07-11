@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,22 @@ namespace DataModel
         public int FirstEdge { get; set; }
         public int SecondEdge { get; set; }
         public int ThirdEdge { get; set; }
+
+        public int[] iEdges
+        {
+            get
+            {
+                Dictionary<Point, int> mm_pts = new Dictionary<Point, int>();
+                foreach (var item in Edges)
+                {
+                    mm_pts[item.P1] = item.StartPoint;
+                    mm_pts[item.P2] = item.EndPoint;
+                }
+
+                return mm_pts.Values.ToArray();
+            }
+        }
+
         public List<Edge> Edges
         {
             get
@@ -52,6 +69,8 @@ namespace DataModel
         {
             get
             {
+                
+
                 HashSet<Point> mm_set = new HashSet<Point>();
                 foreach(var item in Edges)
                 {

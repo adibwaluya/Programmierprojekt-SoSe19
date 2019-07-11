@@ -33,7 +33,7 @@
             BorderBrush="#FF1B2DE4" FontWeight="Bold"
             BorderThickness="3" ClickMode="Press" 
             Click="CreateAndShowModel_Click"/>
-        
+
         <!--Winforms UserControl-->
         <WindowsFormsHost
             HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -42,5 +42,6 @@
             Background="Green">
             <wf:WinFormsControl x:Name="WinFormsControl"/>
         </WindowsFormsHost>
+        <Button Content="Button" HorizontalAlignment="Left" Height="60" Margin="1032,105,0,-144" Grid.Row="5" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
     </Grid>
 </Window>

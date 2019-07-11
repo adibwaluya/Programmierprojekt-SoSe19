@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using DataModel;
+using OpenTK;
 using Point = DataModel.Point;
 
 namespace OpenGlUserControlTest
@@ -102,8 +104,14 @@ namespace OpenGlUserControlTest
             addFace(p34, p35, p36, new Normal(0.000000e+00, 1.000000e+00, -0.000000e+00), dataStructure);
 
 
-            var modelData = WinFormsControl.GetModelDataForRendering(dataStructure);
-            WinFormsControl.DrawModel(modelData);
+            WinFormsControl.DrawModel(dataStructure, backgroundColor:Color.Blue, foregroundColor:Color.LightGray);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            WinFormsControl.CameraLocation = 50 * Vector3.UnitX;
+            WinFormsControl.CameraLocation = 50 * Vector3.UnitY;
+            WinFormsControl.CameraLocation = 50 * Vector3.UnitZ;
         }
     }
 }
