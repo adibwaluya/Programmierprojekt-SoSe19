@@ -14,9 +14,9 @@
                     <Label x:Name="Body1_Label" Content="Color for the first body           :" HorizontalAlignment="Left" Margin="36,43,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Body2_Label" Content="Color for all other bodies        :" HorizontalAlignment="Left" Margin="36,74,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Error_Label" Content="Color for error                         :" HorizontalAlignment="Left" Margin="36,105,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="Box1" HorizontalAlignment="Left" Height="22" Margin="221,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
-                    <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="22" Margin="221,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
-                    <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="22" Margin="221,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
+                    <TextBox x:Name="Box1" HorizontalAlignment="Left" Height="22" Margin="221,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="" IsReadOnly="True"/>
+                    <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="22" Margin="221,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="" IsReadOnly="True"/>
+                    <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="22" Margin="221,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="" IsReadOnly="True"/>
                     <xctk:ColorPicker Name="ClrPcker_Body1" SelectedColorChanged="ClrPcker_Body1_SelectedColorChanged" Margin="297,47,81,170"></xctk:ColorPicker>
                     <xctk:ColorPicker x:Name="ClrPcker_Body2" SelectedColorChanged="ClrPcker_Body2_SelectedColorChanged" Margin="297,78,81,139"/>
                     <xctk:ColorPicker x:Name="ClrPcker_Error" SelectedColorChanged="ClrPcker_Error_SelectedColorChanged" Margin="297,109,81,108"/>
