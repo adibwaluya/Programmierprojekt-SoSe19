@@ -10,3 +10,6 @@ Debug/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 !**/packages/repositories.config
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+.DS_Store
