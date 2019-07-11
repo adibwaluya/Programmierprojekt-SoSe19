@@ -20,23 +20,69 @@ namespace importSTL
 
         ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
 
-        // Convert bytes to double
-        private static double ConvertByteToDouble(byte[] b)
+        //TODO: Comments
+        public DataModel.DataStructure ReadFile()
         {
-            return BitConverter.ToDouble(b, 0);
-            
+            DataModel.DataStructure dm;
+            FileType stlFileType = GetFileType(path);
+
+            if(stlFileType == FileType.ASCII)
+            {
+                dm = ReadASCIIFile(path);
+            }
+            else if(stlFileType == FileType.BINARY)
+            {
+                dm = ReadBinaryFile(path);
+            }
+            else
+            {
+                dm = null;
+            }
+
+            return dm;
         }
 
+        // TODO: Comments
         private FileType GetFileType(string stlPath)
         {
             FileType stlFileType = FileType.NONE;
 
-            // Work in Progress
+            if (File.Exists(stlPath))
+            {
+                int lineCount = 0;
+
+                lineCount = File.ReadLines(stlPath).Count();
+                string firstLine = File.ReadLines(stlPath).First();
+                string endLine = File.ReadLines(stlPath).Skip(lineCount - 1).Take(1).First() + 
+                                 File.ReadLines(stlPath).Skip(lineCount - 2).Take(1).First();
+
+                if((firstLine.IndexOf("solid") != -1 ) & (endLine.IndexOf("endsolid") != -1))
+                {
+                    stlFileType = FileType.ASCII;
+                }
+                else
+                {
+                    stlFileType = FileType.BINARY;
+                }
+
+            }
+
+            else
+            {
+                stlFileType = FileType.NONE;
+            }
 
             return stlFileType;
         }
 
-        public void ReadBinaryFile(string stlPath)
+        // Convert bytes to double
+        private static double ConvertByteToDouble(byte[] b)
+        {
+            return BitConverter.ToDouble(b, 0);
+
+        }
+
+        private DataModel.DataStructure ReadBinaryFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
@@ -109,8 +155,7 @@ namespace importSTL
             byteIdx = 0;
 
             Thread.CurrentThread.CurrentCulture = ci;
-
-
+            return dm;
         }
 
 
@@ -127,7 +172,7 @@ namespace importSTL
 
         }
 
-        public void ReadASCIIFile(string stlPath)
+        private DataModel.DataStructure ReadASCIIFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
@@ -213,6 +258,7 @@ namespace importSTL
             }
 
             Thread.CurrentThread.CurrentCulture = ci;
+            return dm;
         }
 
     }
