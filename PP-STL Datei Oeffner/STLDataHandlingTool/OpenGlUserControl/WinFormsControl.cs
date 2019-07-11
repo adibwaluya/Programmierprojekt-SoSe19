@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Windows.Media.Media3D;
 using DataModel;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -12,9 +11,9 @@ namespace OpenGlUserControl
 {
     public partial class WinFormsControl : UserControl
     {
-        private GLControl _glControl;
 
-        // Singleton
+        #region Generating the winformsControl (Singleton!)
+
         private static WinFormsControl _winFormsControlInstance;
         public static WinFormsControl Instance1
         {
@@ -36,7 +35,11 @@ namespace OpenGlUserControl
             InitializeComponent();
         }
 
+        #endregion
 
+        #region Generating the glControl within winformsControl
+
+        private GLControl _glControl;
         private void WinFormsControl_Load(object sender, EventArgs e)
         {
             _glControl = new GLControl()
@@ -52,6 +55,10 @@ namespace OpenGlUserControl
             _glControl.Resize += _glControl_Resize;
  
         }
+
+        #endregion
+
+        #region Eventhandlers
 
         public float ViewAngle = MathHelper.PiOver4; // 45 degree (in radian)
         public float DistanceToNearClipPlane = 1.0f;
@@ -73,6 +80,9 @@ namespace OpenGlUserControl
             GL.LoadIdentity();
         }
 
+        #endregion
+
+        #region Test (!!!) Method for changing the camera location
 
         public Vector3 CameraLocation
         {
@@ -115,17 +125,37 @@ namespace OpenGlUserControl
  
             return camToWorld; 
         }
-    private void Render()
+
+        #endregion
+
+        #region Rendering
+
+        /// <summary>
+        /// Draws the 3D-Model on the screen.
+        /// </summary>
+        /// <param name="ds">An object of type DataStructure.</param>
+        /// <param name="backgroundColor">The background color of type Color, which is used for rendering.</param>
+        /// <param name="foregroundColor">he foreground color of type Color, which is used for rendering</param>
+        public void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
+        {
+            if (ds == null) throw new ArgumentNullException(nameof(ds));
+
+            GetModelDataForRendering_And_InitializeBuffers(ds, foregroundColor);
+            BackColor = backgroundColor;
+            Render();
+        }
+
+        private void Render()
         {
             _glControl.MakeCurrent();
 
-            GL.ClearColor(this.BackColor);
+            GL.ClearColor(BackColor);
 
             //Resetting the depth and the color buffer in order to clean it up, before rendering new stuff.
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             // Translating the origin of the coordinate system
-            GL.Translate(0.0,0.0,0.0);
+            GL.Translate(0.0,0.0,50.0);
 
             // Camera setup
             //Matrix4 lookAt = Matrix4.LookAt(CameraLocation, LookingAt, CameraUpside);
@@ -157,127 +187,57 @@ namespace OpenGlUserControl
             _glControl.SwapBuffers();
         }
 
-        /// <summary>
-        /// Draws the 3D-Model on the screen.
-        /// </summary>
-        /// <param name="ds">An object of type DataStructure.</param>
-        /// <param name="backgroundColor">The background color of type Color, which is used for rendering.</param>
-        /// <param name="foregroundColor">he foreground color of type Color, which is used for rendering</param>
-        public void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
-        {
-            if (ds == null) throw new ArgumentNullException(nameof(ds));
+        #endregion
 
-            GetModelDataForRendering_And_InitializeBuffers(ds, foregroundColor);
-            BackColor = backgroundColor;
-            Render();
-        }
+        #region Bounding Box Calculations (not used at the moment!)
 
-        //private void InitializeBuffers(Tuple<Vertex[], Normal[], uint[], uint[]> dataPoints)
+        //public Point3D GetBoundingBoxMaxValue(List<Point3D> dataPoints)
         //{
-        //    InitializeVertexBuffer(dataPoints.Item1);
-        //    InitializeNormalBuffer(dataPoints.Item2);
-        //    InitializeFaceIndexArray(dataPoints.Item3);
-        //    InitializeEdgeIndexArray(dataPoints.Item4);
+        //    Point3D maxBoundingBoxValue = new Point3D(double.NegativeInfinity, Double.NegativeInfinity, Double.NegativeInfinity);
 
-        //    #region bounding box calculations
-
-        //    var min = GetBoundingBoxMinValue(dataPoints);
-        //    var max = GetBoundingBoxMaxValue(dataPoints);
-
-        //    for (var i = 0; i < dataPoints.Count; i = i + 4)
+        //    foreach (var point in dataPoints)
         //    {
-        //        for (var j = 0; j < VertexBuffer.Length; j = j + 5)
+        //        if (point.X > maxBoundingBoxValue.X)
         //        {
-        //            var normalizedPoint = Normalize(dataPoints[i], max, min);
-        //            VertexBuffer[j] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 1st vertex
-
-        //            normalizedPoint = Normalize(dataPoints[i + 1], max, min);
-        //            VertexBuffer[j + 1] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 2nd vertex
-
-        //            normalizedPoint = Normalize(dataPoints[i + 2], max, min);
-        //            VertexBuffer[j + 2] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 3rd vertex
-
-        //            VertexBuffer[j + 3] = new Vector3d(dataPoints[i + 3].X, dataPoints[i + 3].Y, dataPoints[i + 3].Z); // Adding the normal vector
+        //            maxBoundingBoxValue.X = point.X;
+        //        }
+        //        if (point.Y > maxBoundingBoxValue.Y)
+        //        {
+        //            maxBoundingBoxValue.Y = point.Y;
+        //        }
+        //        if (point.Z > maxBoundingBoxValue.Z)
+        //        {
+        //            maxBoundingBoxValue.Z = point.Z;
         //        }
         //    }
-        //    #endregion
+        //    return maxBoundingBoxValue;
         //}
 
+        //public Point3D GetBoundingBoxMinValue(List<Point3D> dataPoints)
+        //{
+        //    Point3D minBoundingBoxValue = new Point3D(double.PositiveInfinity, Double.PositiveInfinity, Double.PositiveInfinity);
 
-        /// <summary>
-        /// Used for normalizing the coordinates of the given data points within a range of -1 and 1.
-        /// </summary>
-        /// <param name="point">Point of type Point3D</param>
-        /// <param name="max">Max. bounding box value.</param>
-        /// <param name="min">Min bounding box value</param>
-        /// <returns></returns>
-        private static Point3D Normalize(Point3D point, Point3D max, Point3D min)
-        {
-            var greatestDiff = Math.Max(Math.Max(max.X-min.X, max.Y-min.Y), max.Z-min.Z);
-            if (greatestDiff == 0.0f) greatestDiff = 1;
-            var ret = new Point3D
-            {
-                X = (point.X - 0.5 * (max.X + min.X)) / greatestDiff,
-                Y = (point.Y - 0.5 * (max.Y + min.Y)) / greatestDiff,
-                Z = (point.Z - 0.5 * (max.Z + min.Z)) / greatestDiff
-            };
+        //    foreach (var point in dataPoints)
+        //    {
+        //        if (point.X < minBoundingBoxValue.X)
+        //        {
+        //            minBoundingBoxValue.X = point.X;
+        //        }
+        //        if (point.Y < minBoundingBoxValue.Y)
+        //        {
+        //            minBoundingBoxValue.Y = point.Y;
+        //        }
+        //        if (point.Z < minBoundingBoxValue.Z)
+        //        {
+        //            minBoundingBoxValue.Z = point.Z;
+        //        }
+        //    }
+        //    return minBoundingBoxValue;
+        //}
 
-            return ret;
-        }
+        #endregion
 
-        /// <summary>
-        /// Used to get the max bounding Box value from the give data points.
-        /// </summary>
-        /// <param name="dataPoints">Data points of type List Point3D.</param>
-        /// <returns>Max. bounding box value.</returns>
-        public Point3D GetBoundingBoxMaxValue(List<Point3D> dataPoints)
-        {
-            Point3D maxBoundingBoxValue = new Point3D(double.NegativeInfinity, Double.NegativeInfinity, Double.NegativeInfinity);
-
-            foreach (var point in dataPoints)
-            {
-                if (point.X > maxBoundingBoxValue.X)
-                {
-                    maxBoundingBoxValue.X = point.X;
-                }
-                if (point.Y > maxBoundingBoxValue.Y)
-                {
-                    maxBoundingBoxValue.Y = point.Y;
-                }
-                if (point.Z > maxBoundingBoxValue.Z)
-                {
-                    maxBoundingBoxValue.Z = point.Z;
-                }
-            }
-            return maxBoundingBoxValue;
-        }
-
-        /// <summary>
-        /// Used to get the min bounding Box value from the give data points.
-        /// </summary>
-        /// <param name="dataPoints">Data points of type List Point3D.</param>
-        /// <returns>Min. bounding box value.</returns>
-        public Point3D GetBoundingBoxMinValue(List<Point3D> dataPoints)
-        {
-            Point3D minBoundingBoxValue = new Point3D(double.PositiveInfinity, Double.PositiveInfinity, Double.PositiveInfinity);
-
-            foreach (var point in dataPoints)
-            {
-                if (point.X < minBoundingBoxValue.X)
-                {
-                    minBoundingBoxValue.X = point.X;
-                }
-                if (point.Y < minBoundingBoxValue.Y)
-                {
-                    minBoundingBoxValue.Y = point.Y;
-                }
-                if (point.Z < minBoundingBoxValue.Z)
-                {
-                    minBoundingBoxValue.Z = point.Z;
-                }
-            }
-            return minBoundingBoxValue;
-        }
+        #region Data Buffers Declarations
 
         public Vertex[] VertexBuffer;
         public Normal[] NormalBuffer;
@@ -285,8 +245,12 @@ namespace OpenGlUserControl
         public uint[] EdgeIndexBuffer;
         private Vector3 _cameraLocation = new Vector3(5f, 5f, 5f);
 
+        #endregion
 
-        // Used to get the data from data structure, needed to render the model in OpenGL. Buffers for Rendering are going to initialized accordingly.
+        #region Getting the model data for rendering: Vertices, normals and the indices by which the edges and faces are determined
+
+        // Used to get the data from data structure, needed to render the model in OpenGL.
+        // Buffers for Rendering are going to initialized accordingly.
         private void GetModelDataForRendering_And_InitializeBuffers(DataStructure ds, Color foregroundColor)
         {
             VertexBuffer = GetVertices(ds, foregroundColor); 
@@ -359,5 +323,7 @@ namespace OpenGlUserControl
 
             return tmpEdgeList.ToArray();
         }
+
+        #endregion
     }
 }
