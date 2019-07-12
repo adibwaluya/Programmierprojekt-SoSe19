@@ -20,6 +20,14 @@ namespace importSTL
 
         ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
 
+        public DataReader(string stlPath = "")
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            path = stlPath;
+            processError = false;
+        }
+
         //TODO: Comments
         public DataModel.DataStructure ReadFile()
         {

@@ -12,6 +12,8 @@ namespace importSTLTest
 {
     public partial class Form1 : Form
     {
+        DataModel.DataStructure dm = new DataModel.DataStructure();
+
         public Form1()
         {
             InitializeComponent();
@@ -32,9 +34,8 @@ namespace importSTLTest
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                importSTL.DataReader read = new importSTL.DataReader();
-                read.ReadBinaryFile(openFile.FileName);
-                read.ReadASCIIFile(openFile.FileName);
+                importSTL.DataReader read = new importSTL.DataReader(openFile.FileName);
+                dm = read.ReadFile();
                 
             }
         }
