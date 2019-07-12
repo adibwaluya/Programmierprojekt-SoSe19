@@ -32,16 +32,21 @@ namespace importSTL
             processError = false;
         }
 
-        //TODO: Comments
+        // The methode which will be used by the GUI
         public DataModel.DataStructure ReadFile()
         {
             DataModel.DataStructure dm;
+
+            // Searching for the file path and define the type
             FileType stlFileType = GetFileType(path);
 
+            // This loop confirms which STL file type will be read
+            // If it's the ASCII file, the ReadASCIIFile methode will be implemented
             if(stlFileType == FileType.ASCII)
             {
                 dm = ReadASCIIFile(path);
             }
+            // if it's the binary file, the ReadBinaryFile methode will be implemented
             else if(stlFileType == FileType.BINARY)
             {
                 dm = ReadBinaryFile(path);
@@ -57,21 +62,28 @@ namespace importSTL
         // TODO: Comments
         private FileType GetFileType(string stlPath)
         {
+            // The type of the file will be defined
             FileType stlFileType = FileType.NONE;
 
+            // Does the file exist?
             if (File.Exists(stlPath))
             {
                 int lineCount = 0;
-
                 lineCount = File.ReadLines(stlPath).Count();
+
+                // Reading the first line of the STL Data (Binary STL File for binary, solid... for ASCII)
                 string firstLine = File.ReadLines(stlPath).First();
+
+                // Reading the end line of STL Data
                 string endLine = File.ReadLines(stlPath).Skip(lineCount - 1).Take(1).First() + 
                                  File.ReadLines(stlPath).Skip(lineCount - 2).Take(1).First();
 
-                if((firstLine.IndexOf("solid") != -1 ) & (endLine.IndexOf("endsolid") != -1))
+                // if "solid" and "endsolid endfacet" are recognized, it'll be defined as an ASCII data
+                if ((firstLine.IndexOf("solid") != -1 ) & (endLine.IndexOf("endsolid") != -1))
                 {
                     stlFileType = FileType.ASCII;
                 }
+                // Otherwise, it's a binary data
                 else
                 {
                     stlFileType = FileType.BINARY;
