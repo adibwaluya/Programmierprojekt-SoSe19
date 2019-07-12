@@ -20,7 +20,7 @@ namespace OpenGlUserControl
 {
     public partial class WinFormsControl : UserControl
     {
-        private GLControl _glControl;
+        private static GLControl _glControl;
 
         // Singleton
         private static WinFormsControl _winFormsControlInstance;
@@ -94,11 +94,13 @@ namespace OpenGlUserControl
             }
         }
 
-        public Vector3 LookingAt = new Vector3(0f, 0f, 0f); // Looks at the center of the coordinate system
-        public Vector3 CameraUpside = new Vector3(0f, 1f, 0f);
+        public static Color BackgroundColor;
 
-        private int _vertexBufferObject;
-        private int _indexBufferObject;
+        public static Vector3 LookingAt = new Vector3(0f, 0f, 0f); // Looks at the center of the coordinate system
+        public static Vector3 CameraUpside = new Vector3(0f, 1f, 0f);
+
+        private static int _vertexBufferObject;
+        private static int _indexBufferObject;
 
         #region LookAt Method (not in use!)
 
@@ -131,11 +133,11 @@ namespace OpenGlUserControl
         #endregion
 
         // Method for rendering
-        private void Render()
+        private static void Render()
         {
             _glControl.MakeCurrent();
 
-            GL.ClearColor(BackColor);
+            GL.ClearColor(BackgroundColor);
 
             //Resetting the depth and the color buffer in order to clean it up, before rendering new stuff.
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -179,12 +181,12 @@ namespace OpenGlUserControl
         /// <param name="ds">An object of type DataStructure.</param>
         /// <param name="backgroundColor">The background color of type Color, which is used for rendering.</param>
         /// <param name="foregroundColor">he foreground color of type Color, which is used for rendering</param>
-        public static void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
+        public void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
         {
             if (ds == null) throw new ArgumentNullException(nameof(ds));
 
             GetModelDataForRendering_And_InitializeBuffers(ds, foregroundColor);
-            BackColor = backgroundColor;
+            BackgroundColor = backgroundColor;
             Render();
         }
 
@@ -269,15 +271,15 @@ namespace OpenGlUserControl
         #endregion
 
         // Buffer data members
-        public Vertex[] VertexBuffer;
-        public Normal[] NormalBuffer;
-        public uint[] FaceIndexBuffer;
-        public uint[] EdgeIndexBuffer;
-        private Vector3 _cameraLocation = new Vector3(5f, 5f, 5f);
+        public static Vertex[] VertexBuffer;
+        public static Normal[] NormalBuffer;
+        public static uint[] FaceIndexBuffer;
+        public static uint[] EdgeIndexBuffer;
+        private static Vector3 _cameraLocation = new Vector3(5f, 5f, 5f);
 
 
         // Used to get the data from data structure, needed to render the model in OpenGL. Buffers for Rendering are going to initialized accordingly.
-        private void GetModelDataForRendering_And_InitializeBuffers(DataStructure ds, Color foregroundColor)
+        private static void GetModelDataForRendering_And_InitializeBuffers(DataStructure ds, Color foregroundColor)
         {
             VertexBuffer = GetVertices(ds, foregroundColor); 
             NormalBuffer = GetNormals(ds);
