@@ -97,9 +97,6 @@ namespace importSTL
         private DataModel.DataStructure ReadBinaryFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
-            CultureInfo ci = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
-
             byte[] binaryParts = File.ReadAllBytes(stlPath); // Opens the STL Binary file 
 
             DataModel.Normal normal = null;
@@ -166,7 +163,6 @@ namespace importSTL
             int abc = BitConverter.ToUInt16(binaryParts, 133); // Attribute byte count
             byteIdx = 0;
 
-            Thread.CurrentThread.CurrentCulture = ci;
             return dm;
         }
 
@@ -187,9 +183,6 @@ namespace importSTL
         private DataModel.DataStructure ReadASCIIFile(string stlPath)
         {
             DataModel.DataStructure dm = new DataModel.DataStructure();
-            CultureInfo ci = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
-
             string[] lines = File.ReadAllLines(stlPath); // Opens the STL ASCII file and read all lines of the file
 
             // defining all the components for the data structure
@@ -225,6 +218,11 @@ namespace importSTL
                             {
                                 processError = true;
                             }
+                            // Only implemented for other variation (Inventor STL File)
+                            if(parts.Length > 4)
+                            {
+                                goto case "firstVariation";
+                            }
                             // invalid if it's out of range
                             if (idxPoint > 2 || idxPoint == -1)
                             {
@@ -233,7 +231,15 @@ namespace importSTL
                             //if it's valid, points will be registered from the first vertex and continues until the 3rd vertex
                             points[idxPoint++] = FromStrings(parts[1], parts[2], parts[3]);
                             break;
+                        case "firstVariation":
+                            if(parts.Length != 6)
+                            {
+                                Console.WriteLine("Structure for line 'vertex' not valid");
+                                processError = true;
+                            }
+                            points[idxPoint++] = FromStrings(parts[3], parts[4], parts[5]);
 
+                            break;
                         case "endfacet":
                             if (idxPoint != 3)
                             { }
@@ -269,7 +275,6 @@ namespace importSTL
 
             }
 
-            Thread.CurrentThread.CurrentCulture = ci;
             return dm;
         }
 
