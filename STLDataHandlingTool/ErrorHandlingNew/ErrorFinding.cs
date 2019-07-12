@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace ErrorHandling
         /// </summary>
         /// Instanz des Datenmodells
         /// <param name="dm"></param>
-        public void FindError(DataStructure dm)
+        public void FindError(DataStructure dm, Color edgeColor)
         {
             if (SimpleErrorFinding(dm) > 2)
             {
@@ -33,7 +34,7 @@ namespace ErrorHandling
                     }
                 }
             }
-            WinFormsControl.ShowErrors(dm.FaultyEdges);
+            WinFormsControl.ShowErrors(dm.FaultyEdges, edgeColor);
         }
         /// <summary>
         /// Für jede potentiell fehlerhafte Kante wird festgestellt, ob sie fehlerhaft oder korrekt ist.
@@ -55,8 +56,8 @@ namespace ErrorHandling
         private void FormVectorsOfEdges(DataStructure dm, List<VectorOfEdge> vectorList)
         {
             Edge currentEdge;
-            Point point1;
-            Point point2;
+            DataModel.Point point1;
+            DataModel.Point point2;
             double currentVectorX;
             double currentVectorY;
             double currentVectorZ;
@@ -113,8 +114,8 @@ namespace ErrorHandling
         private void FormCycle(DataStructure dm, List<VectorOfEdge> vectorList)
         {
             Edge currentEdge;
-            Point startPoint;
-            Point currentEndPoint;
+            DataModel.Point startPoint;
+            DataModel.Point currentEndPoint;
             bool noPotentiallyFaultyEdgesLeft;
             bool newStartPointNeeded = true;
             bool foundMatchingEdge = false;
