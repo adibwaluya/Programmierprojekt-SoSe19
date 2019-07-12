@@ -365,7 +365,7 @@ namespace OpenGlUserControl
         /// </summary>
         /// <param name="edgeIndices">The indices of points store in data structure, which describes the edges.</param>
         /// <param name="edgeColor">The color in which this edges will be drawn.</param>
-        public static void ShowErrors(List<uint> edgeIndices, Color edgeColor)
+        public static void ShowErrors(List<int> edgeIndices, Color edgeColor)
         {
             if (edgeIndices.Count % 2 != 0)
             {

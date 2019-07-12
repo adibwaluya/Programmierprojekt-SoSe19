@@ -14,7 +14,7 @@ namespace DataModel
         public EdgeList edges = new EdgeList(); //List of Edges
         public FaceList faces = new FaceList(); //List of Faces
 
-        public List<uint> FaultyEdges = new List<uint>(); // List of faulty edges implemented by Maximilian Mews. List will be handed over to OpenGlUserControl for performance reasons
+        public List<int> FaultyEdges = new List<int>(); // List of faulty edges implemented by Maximilian Mews. List will be handed over to OpenGlUserControl for performance reasons
 
         /* User adds Point by giving its coordinates */
         public int AddPoint(double x, double y, double z)
