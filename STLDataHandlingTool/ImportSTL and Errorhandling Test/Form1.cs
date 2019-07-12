@@ -56,12 +56,9 @@ namespace importSTLTest
             ErrorFinding errorFinding = new ErrorFinding();
             errorFinding.FindError(dm, new System.Drawing.Color());
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; dm.edges.GetEdge(i) != null; i++)
+            foreach(uint id in dm.FaultyEdges)
             {
-                if (dm.edges.GetEdge(i).CurrentCondition != DataModel.Edge.Condition.NotFaulty)
-                {
-                    sb.AppendLine("ID " + Convert.ToString(i) + " " + Convert.ToString(dm.edges.GetEdge(i).CurrentCondition));
-                }
+                sb.AppendLine("ID " + id + " " + Convert.ToString(dm.edges.GetEdge(Convert.ToInt32(id)).CurrentCondition));
             }
             timePassed.Stop();
             sb.AppendLine("Edges not Listed here are not faulty");
