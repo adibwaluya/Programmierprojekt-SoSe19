@@ -41,26 +41,33 @@ namespace View
 
             #region Test Site
             // Instantiate data writer to access its methods
-            StlExportTestDM testDM = new StlExportTestDM();
-            DataWriter dw = new DataWriter();
-            DataStructure dm = new DataStructure();
-            testDM.FillDatamodel(dm);
+            //StlExportTestDM testDM = new StlExportTestDM();
+            //DataWriter dw = new DataWriter();
+            //DataStructure dm = new DataStructure();
+            //testDM.FillDatamodel(dm);
             #endregion
 
             // Requirements to save the file
             bool reqA = saveDlg.ShowDialog() == true;   // To open the Save Dialog
             bool reqB = saveDlg.FilterIndex == 1;       // If the user wants to save the file as an ASCII STL File
-            if (reqA && reqB)
+            if (STLFile != null)
             {
-                // AsAsciiFile here with SaveDlg.Filename and data model as parameter
-                dw.AsAsciiFile(saveDlg.FileName, dm);
-                MessageBox.Show("File saved as an ASCII STL File.", "Successful!");
+                if (reqA && reqB)
+                {
+                    // AsAsciiFile here with SaveDlg.Filename and data model as parameter
+                    dw.AsAsciiFile(saveDlg.FileName, STLFile);
+                    MessageBox.Show("File saved as an ASCII STL File.", "Successful!");
+                }
+                else // If the user wants to save the DataStructure as a binary STL File (FilterIndex == 2)
+                {
+                    // AsBinaryFile here with SaveDlg.Filename and data model as parameter
+                    dw.AsBinaryFile(saveDlg.FileName, STLFile);
+                    MessageBox.Show("File saved as a binary STL File.", "Successful!");
+                }
             }
-            else // If the user wants to save the DataStructure as a binary STL File (FilterIndex == 2)
+            else
             {
-                // AsBinaryFile here with SaveDlg.Filename and data model as parameter
-                dw.AsBinaryFile(saveDlg.FileName, dm);
-                MessageBox.Show("File saved as a binary STL File.", "Successful!");
+                MessageBox.Show("No STL file exist. \nPlease open a valid file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
