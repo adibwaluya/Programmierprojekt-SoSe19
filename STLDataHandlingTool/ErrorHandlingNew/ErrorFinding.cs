@@ -29,11 +29,11 @@ namespace ErrorHandling
                     if (dm.edges.GetEdge(currentEdgeNumber).CurrentCondition == Edge.Condition.PotentiallyFaulty)
                     {
                         dm.edges.GetEdge(currentEdgeNumber).CurrentCondition = Edge.Condition.Faulty;
-                        dm.FaultyEdges.Add(currentEdgeNumber);
+                        dm.FaultyEdges.Add(Convert.ToUInt32(currentEdgeNumber));
                     }
                 }
             }
-            //WinFormsControl.ShowErrors();
+            WinFormsControl.ShowErrors(dm.FaultyEdges);
         }
         /// <summary>
         /// Für jede potentiell fehlerhafte Kante wird festgestellt, ob sie fehlerhaft oder korrekt ist.
@@ -208,7 +208,7 @@ namespace ErrorHandling
                     dm.edges.GetEdge(edgeID).CurrentCondition = condition;
                     if (condition == Edge.Condition.Faulty)
                     {
-                        dm.FaultyEdges.Add(edgeID);
+                        dm.FaultyEdges.Add(Convert.ToUInt32(edgeID));
                     }
                 }
             }
@@ -238,7 +238,7 @@ namespace ErrorHandling
                 if (numberOfFaces == 0)
                 {
                     currentEdge.CurrentCondition = Edge.Condition.Faulty;
-                    dm.FaultyEdges.Add(currentEdgeNumber);
+                    dm.FaultyEdges.Add(Convert.ToUInt32(currentEdgeNumber));
                 }
                 else if (numberOfFaces == 1)
                 {
