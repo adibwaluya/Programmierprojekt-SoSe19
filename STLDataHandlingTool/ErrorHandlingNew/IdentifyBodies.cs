@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿/*******************************************************************************************
+ * Copyright (c) <2019><Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya> *
+ *******************************************************************************************/
+using System.Collections.Generic;
 using DataModel;
 
 namespace ErrorHandling
