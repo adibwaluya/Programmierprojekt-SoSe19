@@ -15,8 +15,8 @@ namespace ErrorHandling
         /// <param name="dm"></param>
         public void FindError(DataStructure dm, Color edgeColor)
         {
-            if (SimpleErrorFinding(dm) > 2)
-            {
+            if (SimpleErrorFinding(dm) > 2) // Wenn mindestens 3 Kanten potentiell falsch sind, ist es möglich dass diese zusammengenommen korrekt sind,
+            {                               // sodass ein eindimensionaler, zyklischer Pfad aus parallelen Vektoren gebildet werden kann
                 AdvancedErrorFinding(dm);
             }
             else
@@ -70,6 +70,8 @@ namespace ErrorHandling
                     point2 = currentEdge.P2;
                     currentVectorX = point1.X - point2.X;
                     currentVectorY = point1.Y - point2.Y;
+
+                    // Theorie: Für die Ausrichtung eines Vektors im Raum werden nur zwei Werte benötigt. Sowie sich bei der Rotation eines Körpers im Raum aus der Rotation auf zwei Achsen die Dritte ergibt.
 
                     if (currentVectorX == 0 && currentVectorY != 0)             // Sonderfall, wenn Vektor paralell zur yz-Ebene liegt
                     {
@@ -189,7 +191,7 @@ namespace ErrorHandling
         private bool ApproximatelyEqual(double y1, double z1, double y2, double z2)
         {
             double tolerance = (y1 + z1) / 1000;
-            if (Math.Abs(y1-y2)<=tolerance && Math.Abs(z1 - z2) <= tolerance)
+            if (Math.Abs(y1 - y2) <= tolerance && Math.Abs(z1 - z2) <= tolerance)
             {
                 return true;
             }
