@@ -159,7 +159,6 @@ namespace StlExport
                 catch (Exception e)
                 {
                     MessageBox.Show("A handled exception just occurred: " + e.Message + "\nPlease try again.", "Exception During Export", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    throw;
                 }
             }
         }
