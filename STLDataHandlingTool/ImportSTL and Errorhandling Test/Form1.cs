@@ -55,8 +55,9 @@ namespace importSTLTest
 
             ErrorFinding errorFinding = new ErrorFinding();
             errorFinding.FindError(dm, new System.Drawing.Color());
+
             StringBuilder sb = new StringBuilder();
-            foreach(uint id in dm.FaultyEdges)
+            foreach(int id in dm.FaultyEdges)
             {
                 sb.AppendLine("ID " + id + " " + Convert.ToString(dm.edges.GetEdge(Convert.ToInt32(id)).CurrentCondition));
             }
