@@ -67,8 +67,10 @@ namespace View
             // Set the button as an open file dialog when clicked
             OpenFileDialog openDlg = new OpenFileDialog
             {
+                // Set the title of the pop-up window
+                Title = "Browse STL Data",
                 // Set the filter so the user can only open STL files
-                Filter = "STL File (*.stl) | *.stl",
+                Filter = "STL File (*.stl) | *.stl;*.txt",
                 // Set the initial directory of open file to My Documents
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
@@ -123,6 +125,5 @@ namespace View
                 Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.m_int2Face.Count;
             }
         }
-
     }
 }
