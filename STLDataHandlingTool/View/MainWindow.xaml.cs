@@ -47,6 +47,9 @@ namespace View
             //testDM.FillDatamodel(dm);
             #endregion
 
+            // Instantiate DataWriter to access its methods
+            DataWriter dw = new DataWriter();
+
             // Requirements to save the file
             bool reqA = saveDlg.ShowDialog() == true;   // To open the Save Dialog
             bool reqB = saveDlg.FilterIndex == 1;       // If the user wants to save the file as an ASCII STL File
