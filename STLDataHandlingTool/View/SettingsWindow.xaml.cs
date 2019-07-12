@@ -2,22 +2,8 @@
  * Copyright (c) <2019><Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya> *
  *******************************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-//using System.Drawing;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Xceed.Wpf;
-using View;
 using DataModel;
 
 namespace View
