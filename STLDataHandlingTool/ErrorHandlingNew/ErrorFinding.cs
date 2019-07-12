@@ -9,12 +9,11 @@ namespace ErrorHandling
 {
     public class ErrorFinding
     {
-        private double tolerance = 0.1;
-        public double Tolerance
-        {
-            get { return tolerance; }
-            set { tolerance = value; }
-        }
+        /// <summary>
+        /// Findet Lücken in Körpern indem Kanten im Datenmodell als fehlerhaft markiert werden, die nicht an genügend Flächen angrenzen
+        /// </summary>
+        /// Instanz des Datenmodells
+        /// <param name="dm"></param>
         public void FindError(DataStructure dm)
         {
             if (SimpleErrorFinding(dm) > 2)
@@ -187,7 +186,7 @@ namespace ErrorHandling
 
         private bool ApproximatelyEqual(double y1, double z1, double y2, double z2)
         {
-            tolerance = (y1 + z1) / 100;
+            double tolerance = (y1 + z1) / 1000;
             if (Math.Abs(y1-y2)<=tolerance && Math.Abs(z1 - z2) <= tolerance)
             {
                 return true;
