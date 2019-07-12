@@ -352,5 +352,22 @@ namespace OpenGlUserControl
 
             return tmpEdgeList.ToArray();
         }
+
+        /// <summary>
+        /// Used to Show errors found in the data model. Colors the errors in the given color.
+        /// </summary>
+        /// <param name="EdgeIndices">The indices of points store in data structure, which describes the edges.</param>
+        /// <param name="EdgeColor">The color in which this edges will be drawn.</param>
+        public void ShowErrors(uint[] EdgeIndices, Color EdgeColor)
+        {
+            if (EdgeIndices.Length % 2 != 0)
+            {
+                throw new ArgumentException("One edge is described by exactly to vertices. " +
+                                            "Therefore, please make sure that the number of indices is even.");
+            }
+
+            // Not implemented, because rendering doesn't work yet...
+
+        }
     }
 }
