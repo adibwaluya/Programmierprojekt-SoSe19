@@ -40,30 +40,30 @@ namespace StlExport
                 CultureInfo current = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentCulture = current;
                 Thread.CurrentThread.CurrentUICulture = current;
-            
+
                 // Write the body of the STL data
                 // with for - loop to iterate every three points
-                for (int i = 0; i < dataStructure.points.m_int2pt.Count; i = i + 3)
+                for (int i = 0; dataStructure.edges.GetEdge(i) != null; i++)
                 {
                     //All normal and points as e-sign exponent format
-                    Face newFace = dataStructure.faces.m_int2Face[i];
+                    Face newFace = dataStructure.faces.GetFace(i);
                     Normal norm = newFace.NormFromFace(dataStructure.faces.m_int2Face[i]);
 
                     string nXasE = norm.X.ToString("E"); // Normals can also be {0; 0; 0}
                     string nYasE = norm.Y.ToString("E");
                     string nZasE = norm.Z.ToString("E");
 
-                    string iXasE = dataStructure.points.m_int2pt[i].X.ToString("E"); // for i
-                    string iYasE = dataStructure.points.m_int2pt[i].Y.ToString("E");
-                    string iZasE = dataStructure.points.m_int2pt[i].Z.ToString("E");
+                    string iXasE = newFace.FirstPoint.X.ToString("E");
+                    string iYasE = newFace.FirstPoint.Y.ToString("E");
+                    string iZasE = newFace.FirstPoint.Z.ToString("E");
 
-                    string i1XasE = dataStructure.points.m_int2pt[i + 1].X.ToString("E"); // for i + 1
-                    string i1YasE = dataStructure.points.m_int2pt[i + 1].Y.ToString("E");
-                    string i1ZasE = dataStructure.points.m_int2pt[i + 1].Z.ToString("E");
+                    string i1XasE = newFace.SecondPoint.X.ToString("E");
+                    string i1YasE = newFace.SecondPoint.Y.ToString("E");
+                    string i1ZasE = newFace.SecondPoint.Z.ToString("E");
 
-                    string i2XasE = dataStructure.points.m_int2pt[i + 2].X.ToString("E"); // for i + 2
-                    string i2YasE = dataStructure.points.m_int2pt[i + 2].Y.ToString("E");
-                    string i2ZasE = dataStructure.points.m_int2pt[i + 2].Z.ToString("E");
+                    string i2XasE = newFace.ThirdPoint.X.ToString("E");
+                    string i2YasE = newFace.ThirdPoint.Y.ToString("E");
+                    string i2ZasE = newFace.ThirdPoint.Z.ToString("E");
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
@@ -77,7 +77,6 @@ namespace StlExport
 
                 // Finish the file
                 txtWriter.Write("endsolid");
-
             }
             catch (Exception e)
             {

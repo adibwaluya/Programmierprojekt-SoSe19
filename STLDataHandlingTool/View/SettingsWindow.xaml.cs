@@ -62,6 +62,7 @@ namespace View
             Color foregroundColor = ClrPcker_Bckgrnd.SelectedColor.Value;
 
             settings = new UserSettings(backgroundColor, foregroundColor, errorColor);
+            this.Close();
         }
         #endregion
     }

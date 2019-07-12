@@ -141,7 +141,10 @@ namespace View
                 }
                 else
                 {
-                    MessageBox.Show("No error color chosen. \nPlease choose a valid color first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Open new window
+                    SettingsWindow setWindow = new SettingsWindow();
+                    setWindow.ShowDialog();
+                    //MessageBox.Show("No error color chosen. \nPlease choose a valid color first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }
