@@ -17,7 +17,7 @@
                     <TextBox x:Name="Box1" HorizontalAlignment="Left" Height="22" Margin="221,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
                     <TextBox x:Name="Box2" HorizontalAlignment="Left" Height="22" Margin="221,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
                     <TextBox x:Name="Box3" HorizontalAlignment="Left" Height="22" Margin="221,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Text="automatic"/>
-                    <xctk:ColorPicker Name="ClrPcker_Body1" SelectedColorChanged="ClrPcker_Body1_SelectedColorChanged" Margin="297,47,81,170"></xctk:ColorPicker>
+                    <xctk:ColorPicker Name="ClrPcker_Body1" SelectedColorChanged="ClrPcker_Body1_SelectedColorChanged" Margin="297,47,81,170"/>
                     <xctk:ColorPicker x:Name="ClrPcker_Body2" SelectedColorChanged="ClrPcker_Body2_SelectedColorChanged" Margin="297,78,81,139"/>
                     <xctk:ColorPicker x:Name="ClrPcker_Error" SelectedColorChanged="ClrPcker_Error_SelectedColorChanged" Margin="297,109,81,108"/>
                     <Button x:Name="SaveColor_Button" Content="Confirm" HorizontalAlignment="Left" Margin="397,184,0,0" VerticalAlignment="Top" Width="118" Height="34" Click="SaveColor_Button_Click"/>
