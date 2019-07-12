@@ -28,6 +28,7 @@ namespace View
         }
 
         #region ClickEvent
+        #region Save
         // Save file
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
@@ -39,15 +40,6 @@ namespace View
                 // Set the initial directory of the saved file to My Documents
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             };
-
-            #region Test Site
-            // Instantiate data writer to access its methods
-            //StlExportTestDM testDM = new StlExportTestDM();
-            //DataWriter dw = new DataWriter();
-            //DataStructure dm = new DataStructure();
-            //testDM.FillDatamodel(dm);
-            #endregion
-
             // Instantiate DataWriter to access its methods
             DataWriter dw = new DataWriter();
 
@@ -74,7 +66,8 @@ namespace View
                 MessageBox.Show("No STL file exist. \nPlease open a valid file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        #endregion
+        #region Open
         // Open file
         private void Open_OnClick(object sender, RoutedEventArgs e)
         {
@@ -88,16 +81,23 @@ namespace View
                 // Set the initial directory of open file to My Documents
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
-
-            // Requirements to open the file
-            if (openDlg.ShowDialog() == true)
+            try
             {
-                // Connect to STL Import
-                importSTL.DataReader read = new importSTL.DataReader(openDlg.FileName);
-                STLFile = read.ReadFile();
+                // Requirements to open the file
+                if (openDlg.ShowDialog() == true)
+                {
+                    // Connect to STL Import
+                    importSTL.DataReader read = new importSTL.DataReader(openDlg.FileName);
+                    STLFile = read.ReadFile();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured: " + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        #endregion
+        #region ErrorHandling
         // Error Handling
         private void ErrorHandle_OnClick(object sender, RoutedEventArgs e)
         {
@@ -131,7 +131,8 @@ namespace View
                 MessageBox.Show("No STL file exist. \nPlease open a valid file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        #endregion
+        #region Setting
         // Setting
         private void Settings_OnClick(object sender, RoutedEventArgs e)
         {
@@ -139,18 +140,7 @@ namespace View
             SettingsWindow setWindow = new SettingsWindow();
             setWindow.ShowDialog();
         }
-
-        // Undo
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        // Redo
-        private void RedoButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
         #endregion
 
         // Information will come out if the data model is already filled
