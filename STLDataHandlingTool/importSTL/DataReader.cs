@@ -22,8 +22,6 @@ namespace importSTL
         private enum FileType { NONE, BINARY, ASCII };
         private bool processError;
 
-        ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
-
         public DataReader(string stlPath = "")
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
@@ -289,6 +287,9 @@ namespace importSTL
 
             return dm;
         }
+
+        ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
+        
 
     }
 }
