@@ -36,7 +36,7 @@ namespace importSTLTest
             {
                 importSTL.DataReader read = new importSTL.DataReader(openFile.FileName);
                 dm = read.ReadFile();
-                
+                Console.ReadLine();
             }
         }
     }
