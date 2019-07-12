@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*******************************************************************************************
+ * Copyright (c) <2019><Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya> *
+ *******************************************************************************************/
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using DataModel;
