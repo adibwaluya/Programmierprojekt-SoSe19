@@ -5,10 +5,5 @@ Beim Import sind Punkte entweder auf einem Punkt, oder nicht. Es gibt dort keine
 Bei der Verweiterten Fehlersuche ist eine Toleranz für die Ausrichtung der Vektoren notwendig.
 Daher gibt es dort eine festgelegte Toleranz.
 
-Prototyp:
-
-ErrorHandling 		ist der Prototyp.
-ErrorHandlingDataModel 	erzeugt eine Instanz des Datenmodells für Testzwecke.
-ErrorHandlingTest 	muss als Startprojekt festgelegt werden.
 
 Viel Spaß

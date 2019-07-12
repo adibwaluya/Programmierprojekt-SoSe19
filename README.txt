@@ -1,0 +1,1 @@
+Das Programm befindet sich im Ordner "STLHandler"
