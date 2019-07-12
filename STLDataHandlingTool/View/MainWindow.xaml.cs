@@ -3,6 +3,8 @@
  *******************************************************************************************/
 
 using System;
+using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using DataModel;
@@ -112,8 +114,26 @@ namespace View
                             SettingsWindow.settings.ErrorColor.A, SettingsWindow.settings.ErrorColor.R,
                             SettingsWindow.settings.ErrorColor.G, SettingsWindow.settings.ErrorColor.B);
 
+                        // set the timer for info box
+                        Stopwatch timePassed = new Stopwatch();
+                        timePassed.Start();
+
                         ErrorHandling.ErrorFinding error = new ErrorHandling.ErrorFinding();
                         error.FindError(STLFile, errorColor);
+
+                        // Information for the info box
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; STLFile.edges.GetEdge(i) != null; i++)
+                        {
+                            if (STLFile.edges.GetEdge(i).CurrentCondition != DataModel.Edge.Condition.NotFaulty)
+                            {
+                                sb.AppendLine("ID " + Convert.ToString(i) + " " + Convert.ToString(STLFile.edges.GetEdge(i).CurrentCondition));
+                            }
+                        }
+                        timePassed.Stop();
+                        sb.AppendLine("Edges not Listed here are not faulty");
+                        sb.AppendLine("Time Passed: " + timePassed.Elapsed);
+                        Info_Box_Error.Text = Convert.ToString(sb);
                     }
                     catch (Exception ex)
                     {

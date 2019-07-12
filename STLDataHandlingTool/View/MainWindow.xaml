@@ -66,6 +66,7 @@
                     </ComboBox>
 
                     <TextBox x:Name="Info_Box" Height="298" TextWrapping="Wrap" Text="" Margin="10 30 10 0" IsReadOnly="True"/>
+                    <TextBox x:Name="Info_Box_Error" Height="246" TextWrapping="Wrap" Text="Error Information" Margin="10 30 10 0" IsReadOnly="True"/>
 
                 </StackPanel>
             </Grid>
