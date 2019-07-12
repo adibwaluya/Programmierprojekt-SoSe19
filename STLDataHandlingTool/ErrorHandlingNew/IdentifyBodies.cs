@@ -7,6 +7,9 @@ using DataModel;
 
 namespace ErrorHandling
 {
+    /// <summary>
+    /// Gibt jeder Face eine Nummer. Jede Nummer repräsentiert die Zugehörigkeit zu einem Körper. Ein Körper ist eine zusammenhängende Struktur aus Flächen.
+    /// </summary>
     public class IdentifyBodies
     {
         private IList<int> NextFaces = new List<int>();
