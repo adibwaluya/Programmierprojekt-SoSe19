@@ -39,7 +39,7 @@ namespace importSTLTest
                 dm = read.ReadFile();
 
                 timePassed.Stop();
-                textBox1.Text = Convert.ToString("import finished - Time Passed: " + timePassed.Elapsed);
+                textBox2.Text = Convert.ToString("import finished - Time Passed: " + timePassed.Elapsed);
             }
         }
 
