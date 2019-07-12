@@ -61,7 +61,7 @@ namespace importSTLTest
             {
                 sb.AppendLine("ID " + id + " " + Convert.ToString(dm.edges.GetEdge(Convert.ToInt32(id)).CurrentCondition));
             }
-            sb.AppendLine(Convert.ToString(dm.faces.GetFace(123).bodyID));
+            //sb.AppendLine(Convert.ToString(dm.faces.GetFace(123).bodyID));
             timePassed.Stop();
             sb.AppendLine("Edges not Listed here are not faulty");
             sb.AppendLine("Time Passed: " + timePassed.Elapsed);
