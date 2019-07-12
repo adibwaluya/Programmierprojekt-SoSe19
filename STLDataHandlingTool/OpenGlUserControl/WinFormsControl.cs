@@ -369,8 +369,7 @@ namespace OpenGlUserControl
         {
             if (edgeIndices.Count % 2 != 0)
             {
-                throw new ArgumentException("One edge is described by exactly to vertices. " +
-                                            "Therefore, please make sure that the number of indices is even.");
+                //throw new ArgumentException("One edge is described by exactly to vertices. " + "Therefore, please make sure that the number of indices is even.");
             }
 
             // Not implemented, because rendering doesn't work yet...
