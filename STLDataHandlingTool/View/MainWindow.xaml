@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:OpenGlUserControl;assembly=OpenGlUserControl"
         xmlns:local="clr-namespace:View"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
@@ -44,7 +45,13 @@
                     <ColumnDefinition Width="335*"/>
                 </Grid.ColumnDefinitions>
 
-                <local:GUITestOpenGlControl Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827"/>
+                <!--<local:GUITestOpenGlControl Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827"/>-->
+                <!--Winforms UserControl-->
+                <WindowsFormsHost
+                Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827" 
+                Background="Green">
+                    <wf:WinFormsControl x:Name="WinFormsControl"/>
+                </WindowsFormsHost>
 
                 <StackPanel Grid.Column="1" Background="LightGray">
                     <TextBlock Text="Informations" FontWeight="Bold" FontSize="15" Margin="5 0 0 0"/>

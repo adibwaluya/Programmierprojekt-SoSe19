@@ -24,12 +24,9 @@ namespace importSTLTest
             OpenFileDialog openFile = new OpenFileDialog
             {
                 Title = "Browse STL Data",
-
                 CheckFileExists = true,
                 CheckPathExists = true,
-
                 Filter = "STL Files|*.stl;*.txt;"
-
             };
 
             if (openFile.ShowDialog() == DialogResult.OK)
