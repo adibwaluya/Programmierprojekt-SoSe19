@@ -44,7 +44,7 @@ namespace OpenGlUserControl
             InitializeComponent();
         }
 
-
+        // Load event handler. GLControl is going to be created.
         private void WinFormsControl_Load(object sender, EventArgs e)
         {
             _glControl = new GLControl()
@@ -84,7 +84,7 @@ namespace OpenGlUserControl
         }
 
         // Helper for moving the camera around
-        public Vector3 CameraLocation
+        public static Vector3 CameraLocation
         {
             get => _cameraLocation;
             set
@@ -101,6 +101,7 @@ namespace OpenGlUserControl
 
         private static int _vertexBufferObject;
         private static int _indexBufferObject;
+
 
         #region LookAt Method (not in use!)
 
@@ -132,6 +133,7 @@ namespace OpenGlUserControl
 
         #endregion
 
+
         // Method for rendering
         private static void Render()
         {
@@ -147,7 +149,7 @@ namespace OpenGlUserControl
 
             // Camera setup
             //Matrix4 lookAt = Matrix4.LookAt(CameraLocation, LookingAt, CameraUpside);
-            Matrix4 lookAt = LookAt(CameraLocation, LookingAt, CameraUpside);
+            var lookAt = LookAt(CameraLocation, LookingAt, CameraUpside);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref lookAt);
             //GL.LoadIdentity();
@@ -187,6 +189,7 @@ namespace OpenGlUserControl
 
             GetModelDataForRendering_And_InitializeBuffers(ds, foregroundColor);
             BackgroundColor = backgroundColor;
+
             Render();
         }
 
@@ -270,6 +273,7 @@ namespace OpenGlUserControl
 
         #endregion
 
+        
         // Buffer data members
         public static Vertex[] VertexBuffer;
         public static Normal[] NormalBuffer;
@@ -278,7 +282,8 @@ namespace OpenGlUserControl
         private static Vector3 _cameraLocation = new Vector3(5f, 5f, 5f);
 
 
-        // Used to get the data from data structure, needed to render the model in OpenGL. Buffers for Rendering are going to initialized accordingly.
+        // Used to get the data from data structure, needed to render the model in OpenGL.
+        // Buffers for Rendering are going to be initialized accordingly.
         private static void GetModelDataForRendering_And_InitializeBuffers(DataStructure ds, Color foregroundColor)
         {
             VertexBuffer = GetVertices(ds, foregroundColor); 
@@ -358,11 +363,11 @@ namespace OpenGlUserControl
         /// <summary>
         /// Used to Show errors found in the data model. Colors the errors in the given color.
         /// </summary>
-        /// <param name="EdgeIndices">The indices of points store in data structure, which describes the edges.</param>
-        /// <param name="EdgeColor">The color in which this edges will be drawn.</param>
-        public static void ShowErrors(List<uint> EdgeIndices)
+        /// <param name="edgeIndices">The indices of points store in data structure, which describes the edges.</param>
+        /// <param name="edgeColor">The color in which this edges will be drawn.</param>
+        public static void ShowErrors(List<uint> edgeIndices, Color edgeColor)
         {
-            if (EdgeIndices.Count % 2 != 0)
+            if (edgeIndices.Count % 2 != 0)
             {
                 throw new ArgumentException("One edge is described by exactly to vertices. " +
                                             "Therefore, please make sure that the number of indices is even.");
