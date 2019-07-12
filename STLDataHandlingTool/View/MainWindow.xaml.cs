@@ -19,7 +19,8 @@ namespace View
     public partial class MainWindow : Window
     {
         // Creating data structure for all components to use
-        DataStructure STLFile = new DataStructure();
+        static DataStructure STLFile = new DataStructure();
+        public DataStructure STL { get { return STLFile; } }
 
         public MainWindow()
         {
@@ -97,24 +98,32 @@ namespace View
             }
         }
 
-        // Error handling
+        // Error Handling
         private void ErrorHandle_OnClick(object sender, RoutedEventArgs e)
         {
             if (STLFile != null)
             {
-                try
+                if (SettingsWindow.settings != null)
                 {
-                    // take colors from data model
-                    UserSettings settings = null;
-                    var errorColor = System.Drawing.Color.FromArgb(
-                        settings.ErrorColor.A, settings.ErrorColor.R, settings.ErrorColor.G, settings.ErrorColor.B);
+                    try
+                    {
+                        // take colors from data model
+                        var errorColor = System.Drawing.Color.FromArgb(
+                            SettingsWindow.settings.ErrorColor.A, SettingsWindow.settings.ErrorColor.R,
+                            SettingsWindow.settings.ErrorColor.G, SettingsWindow.settings.ErrorColor.B);
 
-                    ErrorHandling.ErrorFinding error = new ErrorHandling.ErrorFinding();
-                    error.FindError(STLFile, errorColor);
+                        ErrorHandling.ErrorFinding error = new ErrorHandling.ErrorFinding();
+                        error.FindError(STLFile, errorColor);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occured: " + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("An error occured: " + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No error color chosen. \nPlease choose a valid color first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
             }
             else

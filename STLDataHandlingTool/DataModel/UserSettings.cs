@@ -9,9 +9,9 @@ namespace DataModel
 {
     public class UserSettings
     {
-        public Color BackgroundColor { get; private set; }
-        public Color ForegroundColor { get; private set; }
-        public Color ErrorColor { get; private set; }
+        public Color BackgroundColor { get; set; }
+        public Color ForegroundColor { get; set; }
+        public Color ErrorColor { get; set; }
 
         public UserSettings(Color backgroundColor, Color foregroundColor, Color errorColor)
         {

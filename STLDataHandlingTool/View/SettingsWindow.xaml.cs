@@ -28,7 +28,7 @@ namespace View
     public partial class SettingsWindow : Window
     {
 
-        UserSettings settings;
+        public static UserSettings settings;
 
         public SettingsWindow()
         {
@@ -75,15 +75,18 @@ namespace View
             Color backgroundColor = ClrPcker_Bckgrnd.SelectedColor.Value;
             Color foregroundColor = ClrPcker_Bckgrnd.SelectedColor.Value;
 
+            //MainWindow main = new MainWindow();
+            //DataStructure dm = main.STL;
+            //DataModel.UserSettings settings;
+
             settings = new UserSettings(backgroundColor, foregroundColor, errorColor);
-
-            backgroundColor.R = ClrPcker_Bckgrnd.SelectedColor.Value.R;
-            backgroundColor.G = ClrPcker_Bckgrnd.SelectedColor.Value.G;
-            backgroundColor.B = ClrPcker_Bckgrnd.SelectedColor.Value.B;
-
         }
         #endregion
         
+        private void saveColors(Color bckgrnd, Color frgrnd, Color err)
+        {
+            
+        }
 
         //private void SaveTolerance_Button_Click(object sender, RoutedEventArgs e)
         //{
