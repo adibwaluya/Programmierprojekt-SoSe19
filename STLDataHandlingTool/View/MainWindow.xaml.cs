@@ -104,8 +104,13 @@ namespace View
             {
                 try
                 {
+                    // take colors from data model
+                    UserSettings settings = null;
+                    var errorColor = System.Drawing.Color.FromArgb(
+                        settings.ErrorColor.A, settings.ErrorColor.R, settings.ErrorColor.G, settings.ErrorColor.B);
+
                     ErrorHandling.ErrorFinding error = new ErrorHandling.ErrorFinding();
-                    error.FindError(STLFile);
+                    error.FindError(STLFile, errorColor);
                 }
                 catch (Exception ex)
                 {

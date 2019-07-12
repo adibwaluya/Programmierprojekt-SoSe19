@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+//using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf;
@@ -26,11 +27,15 @@ namespace View
     /// </summary>
     public partial class SettingsWindow : Window
     {
+
+        UserSettings settings;
+
         public SettingsWindow()
         {
             InitializeComponent();
         }
 
+        #region Colors
         private void ClrPcker_Body1_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> routedPropertyChangedEventArgs)
         {
             Box1.Text = "#" + ClrPcker_Body1.SelectedColor.Value.R.ToString() + ClrPcker_Body1.SelectedColor.Value.G.ToString() + ClrPcker_Body1.SelectedColor.Value.B.ToString();
@@ -64,11 +69,20 @@ namespace View
             Box4.Text = "#" + ClrPcker_Bckgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.B.ToString();
             Box5.Text = "#" + ClrPcker_Frgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.B.ToString();
 
-
             Color body1Color = ClrPcker_Body1.SelectedColor.Value;
             Color body2Color = ClrPcker_Body2.SelectedColor.Value;
             Color errorColor = ClrPcker_Error.SelectedColor.Value;
+            Color backgroundColor = ClrPcker_Bckgrnd.SelectedColor.Value;
+            Color foregroundColor = ClrPcker_Bckgrnd.SelectedColor.Value;
+
+            settings = new UserSettings(backgroundColor, foregroundColor, errorColor);
+
+            backgroundColor.R = ClrPcker_Bckgrnd.SelectedColor.Value.R;
+            backgroundColor.G = ClrPcker_Bckgrnd.SelectedColor.Value.G;
+            backgroundColor.B = ClrPcker_Bckgrnd.SelectedColor.Value.B;
+
         }
+        #endregion
         
 
         //private void SaveTolerance_Button_Click(object sender, RoutedEventArgs e)

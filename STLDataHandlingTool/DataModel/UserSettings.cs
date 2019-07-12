@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DataModel
 {
     public class UserSettings
     {
-        public ColorRGB BackgroundColor { get; set; }
-        public ColorRGB ForegroundColor { get; set; }
+        public Color BackgroundColor { get; private set; }
+        public Color ForegroundColor { get; private set; }
+        public Color ErrorColor { get; private set; }
 
-        public UserSettings(ColorRGB backgroundColor, ColorRGB foregroundColor)
+        public UserSettings(Color backgroundColor, Color foregroundColor, Color errorColor)
         {
             BackgroundColor = backgroundColor;
             ForegroundColor = foregroundColor;
+            ErrorColor = errorColor;
         }
     }
 }
