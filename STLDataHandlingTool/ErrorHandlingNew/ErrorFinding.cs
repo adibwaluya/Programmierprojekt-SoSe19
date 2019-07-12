@@ -84,7 +84,7 @@ namespace ErrorHandling
                     }
                     else                                                        // Standardfall. currentVectorY und currentVectorZ geben an, wo der Wert auf der y und z-Achse bei x=1 liegt.
                     {
-                        currentVectorY = currentVectorY / currentVectorX;
+                        currentVectorY = currentVectorY / currentVectorX;       // Diese beiden Divisionen stellen sicher, dass die Vorzeichen bei entgegengerichteten Vektoren gleich sind.
                         currentVectorZ = (point1.Z - point2.Z) / currentVectorX;
                     }
 
