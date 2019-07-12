@@ -36,10 +36,10 @@
             // 
             // stlSelectBt
             // 
-            this.stlSelectBt.Location = new System.Drawing.Point(223, 10);
+            this.stlSelectBt.Location = new System.Drawing.Point(11, 11);
             this.stlSelectBt.Margin = new System.Windows.Forms.Padding(2);
             this.stlSelectBt.Name = "stlSelectBt";
-            this.stlSelectBt.Size = new System.Drawing.Size(76, 23);
+            this.stlSelectBt.Size = new System.Drawing.Size(100, 23);
             this.stlSelectBt.TabIndex = 0;
             this.stlSelectBt.Text = "Import STL Data";
             this.stlSelectBt.UseVisualStyleBackColor = true;
@@ -47,7 +47,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(118, 10);
+            this.textBox1.Location = new System.Drawing.Point(117, 39);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 599);
@@ -55,9 +55,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(223, 38);
+            this.button1.Location = new System.Drawing.Point(117, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Find Errors";
             this.button1.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 10);
+            this.textBox2.Location = new System.Drawing.Point(11, 39);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 599);
@@ -75,7 +75,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 623);
+            this.ClientSize = new System.Drawing.Size(508, 657);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
