@@ -1,11 +1,17 @@
-﻿using System.Drawing;
+﻿/*******************************************************************************************
+ * Copyright (c) <2019><Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya> *
+ *******************************************************************************************/
+
+// The aim of this class is to provide a data type, in which all vertex related information
+// can be stored together.
+
+#region Using directives
+
+using System.Drawing;
 using OpenTK;
 
-/*
- * Starting Point of Refactoring and solving problems in the code. The idea is to save vertices and
- * all other dependent information in a struct an access it from there.
- * Decided using a struct here for efficiency reasons (value type!).
- */
+
+#endregion
 
 namespace OpenGlUserControl 
 {
@@ -17,11 +23,13 @@ namespace OpenGlUserControl
         // If a new property is added, it has to be changed only once and will be reflected everywhere else
         public static int SizeInBytes => Vector3d.SizeInBytes + Vector4.SizeInBytes; 
 
+
         public Vertex(Vector3d point, Vector4 color)
         {
             Point = point;
             Color = color;
         }
+
 
         public Vertex(Vector3d point, Color color)
         {

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*******************************************************************************************
+ * Copyright (c) <2019><Michael Kaip, Maximilian Mews, Michael Reno, Adib Ghassani Waluya> *
+ *******************************************************************************************/
+
+#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
@@ -7,6 +13,8 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Color = System.Drawing.Color;
 using Point = System.Drawing.Point;
+
+#endregion
 
 namespace OpenGlUserControl
 {
@@ -56,6 +64,8 @@ namespace OpenGlUserControl
         public float ViewAngle = MathHelper.PiOver4; // 45 degree (in radian)
         public float DistanceToNearClipPlane = 1.0f;
         public float DistanceToFarClipPlane = 10.0f;
+
+        // Resize event handler
         private void _glControl_Resize(object sender, EventArgs e) 
         {
             // Setting the viewport
@@ -73,7 +83,7 @@ namespace OpenGlUserControl
             GL.LoadIdentity();
         }
 
-
+        // Helper for moving the camera around
         public Vector3 CameraLocation
         {
             get => _cameraLocation;
@@ -89,6 +99,8 @@ namespace OpenGlUserControl
 
         private int _vertexBufferObject;
         private int _indexBufferObject;
+
+        #region LookAt Method (not in use!)
 
         private static Matrix4 LookAt(Vector3 from, Vector3 to, Vector3 tmp )
         {
@@ -115,11 +127,15 @@ namespace OpenGlUserControl
  
             return camToWorld; 
         }
-    private void Render()
+
+        #endregion
+
+        // Method for rendering
+        private void Render()
         {
             _glControl.MakeCurrent();
 
-            GL.ClearColor(this.BackColor);
+            GL.ClearColor(BackColor);
 
             //Resetting the depth and the color buffer in order to clean it up, before rendering new stuff.
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -172,37 +188,8 @@ namespace OpenGlUserControl
             Render();
         }
 
-        //private void InitializeBuffers(Tuple<Vertex[], Normal[], uint[], uint[]> dataPoints)
-        //{
-        //    InitializeVertexBuffer(dataPoints.Item1);
-        //    InitializeNormalBuffer(dataPoints.Item2);
-        //    InitializeFaceIndexArray(dataPoints.Item3);
-        //    InitializeEdgeIndexArray(dataPoints.Item4);
-
-        //    #region bounding box calculations
-
-        //    var min = GetBoundingBoxMinValue(dataPoints);
-        //    var max = GetBoundingBoxMaxValue(dataPoints);
-
-        //    for (var i = 0; i < dataPoints.Count; i = i + 4)
-        //    {
-        //        for (var j = 0; j < VertexBuffer.Length; j = j + 5)
-        //        {
-        //            var normalizedPoint = Normalize(dataPoints[i], max, min);
-        //            VertexBuffer[j] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 1st vertex
-
-        //            normalizedPoint = Normalize(dataPoints[i + 1], max, min);
-        //            VertexBuffer[j + 1] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 2nd vertex
-
-        //            normalizedPoint = Normalize(dataPoints[i + 2], max, min);
-        //            VertexBuffer[j + 2] = new Vector3d(normalizedPoint.X, normalizedPoint.Y, normalizedPoint.Z); // Adding the 3rd vertex
-
-        //            VertexBuffer[j + 3] = new Vector3d(dataPoints[i + 3].X, dataPoints[i + 3].Y, dataPoints[i + 3].Z); // Adding the normal vector
-        //        }
-        //    }
-        //    #endregion
-        //}
-
+    
+        #region Helpers for bounding Box calculations and normalizing vertices from the given data model. Might be useful in some cases...
 
         /// <summary>
         /// Used for normalizing the coordinates of the given data points within a range of -1 and 1.
@@ -279,6 +266,9 @@ namespace OpenGlUserControl
             return minBoundingBoxValue;
         }
 
+        #endregion
+
+        // Buffer data members
         public Vertex[] VertexBuffer;
         public Normal[] NormalBuffer;
         public uint[] FaceIndexBuffer;
@@ -294,6 +284,7 @@ namespace OpenGlUserControl
             FaceIndexBuffer = GetFaceIndices(VertexBuffer,ds);
             EdgeIndexBuffer = GetEdgeIndices(ds);
         }
+    
 
         private static Vertex[] GetVertices(DataStructure ds, Color foregroundColor) 
         {
@@ -307,6 +298,7 @@ namespace OpenGlUserControl
             return vertices;
         }
 
+
         private static Normal[] GetNormals(DataStructure ds)
         {
             var normalVectors = new Normal[ds.faces.m_int2Face.Count];
@@ -318,6 +310,7 @@ namespace OpenGlUserControl
 
             return normalVectors;
         }
+
 
         private static uint[] GetFaceIndices(Vertex[] vertices, DataStructure ds)
         {

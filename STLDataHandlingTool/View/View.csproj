@@ -131,6 +131,10 @@
       <Project>{79fadb57-8897-4fe0-99bc-a99dc3e475c1}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OpenGlUserControl\OpenGlUserControl.csproj">
+      <Project>{329e5de2-9a3d-43be-a10b-afa55593f7f5}</Project>
+      <Name>OpenGlUserControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StlExportDataModel\StlExportDataModel.csproj">
       <Project>{19ca515d-b8c8-418e-a40e-e738a5264776}</Project>
       <Name>StlExportDataModel</Name>
