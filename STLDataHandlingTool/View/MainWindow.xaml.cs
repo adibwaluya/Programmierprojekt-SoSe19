@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataModel;
 using Microsoft.Win32;
 using StlExport;
@@ -58,13 +47,13 @@ namespace View
             {
                 // AsAsciiFile here with SaveDlg.Filename and data model as parameter
                 dw.AsAsciiFile(saveDlg.FileName, dm);
-                MessageBox.Show("File saved as an ASCII STL File.");
+                MessageBox.Show("File saved as an ASCII STL File.", "Successful!");
             }
             else // If the user wants to save the DataStructure as a binary STL File (FilterIndex == 2)
             {
                 // AsBinaryFile here with SaveDlg.Filename and data model as parameter
                 dw.AsBinaryFile(saveDlg.FileName, dm);
-                MessageBox.Show("File saved as a binary STL File.");
+                MessageBox.Show("File saved as a binary STL File.", "Successful!");
             }
         }
 
@@ -121,13 +110,13 @@ namespace View
         private void Information_Boxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // The related information will be printed on the text box, according to which info the user wants on the drop down list
-            if (Information_Boxes.SelectedIndex == 0 && new DataStructure().points.int2pts.Count != 0) // To prevent Null Exception
+            if (Information_Boxes.SelectedIndex == 0 && new DataStructure().points.m_int2pt.Count != 0) // To prevent Null Exception
             {
-                Info_Box.Text = "The number of points in the data is " + new DataStructure().points.int2pts.Count;
+                Info_Box.Text = "The number of points in the data is " + new DataStructure().points.m_int2pt.Count;
             }
-            else if (Information_Boxes.SelectedIndex == 1 && new DataStructure().faces.Int2Faces.Count != 0) // To prevent Null Exception
+            else if (Information_Boxes.SelectedIndex == 1 && new DataStructure().faces.m_int2Face.Count != 0) // To prevent Null Exception
             {
-                Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.Int2Faces.Count;
+                Info_Box.Text = "The number of faces in the data is " + new DataStructure().faces.m_int2Face.Count;
             }
         }
 

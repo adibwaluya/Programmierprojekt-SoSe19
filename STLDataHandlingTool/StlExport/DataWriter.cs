@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Collections;
 using System.Globalization;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
 using StlExportDataModel;
 using DataModel;
@@ -45,27 +39,27 @@ namespace StlExport
             
                 // Write the body of the STL data
                 // with for - loop to iterate every three points
-                for (int i = 0; i < dataStructure.points.int2pts.Count; i = i + 3)
+                for (int i = 0; i < dataStructure.points.m_int2pt.Count; i = i + 3)
                 {
                     //All normal and points as e-sign exponent format
-                    Face newFace = dataStructure.faces.Int2Faces[i];
-                    Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
+                    Face newFace = dataStructure.faces.m_int2Face[i];
+                    Normal norm = newFace.NormFromFace(dataStructure.faces.m_int2Face[i]);
 
                     string nXasE = norm.X.ToString("E"); // Normals can also be {0; 0; 0}
                     string nYasE = norm.Y.ToString("E");
                     string nZasE = norm.Z.ToString("E");
 
-                    string iXasE = dataStructure.points.int2pts[i].X.ToString("E"); // for i
-                    string iYasE = dataStructure.points.int2pts[i].Y.ToString("E");
-                    string iZasE = dataStructure.points.int2pts[i].Z.ToString("E");
+                    string iXasE = dataStructure.points.m_int2pt[i].X.ToString("E"); // for i
+                    string iYasE = dataStructure.points.m_int2pt[i].Y.ToString("E");
+                    string iZasE = dataStructure.points.m_int2pt[i].Z.ToString("E");
 
-                    string i1XasE = dataStructure.points.int2pts[i + 1].X.ToString("E"); // for i + 1
-                    string i1YasE = dataStructure.points.int2pts[i + 1].Y.ToString("E");
-                    string i1ZasE = dataStructure.points.int2pts[i + 1].Z.ToString("E");
+                    string i1XasE = dataStructure.points.m_int2pt[i + 1].X.ToString("E"); // for i + 1
+                    string i1YasE = dataStructure.points.m_int2pt[i + 1].Y.ToString("E");
+                    string i1ZasE = dataStructure.points.m_int2pt[i + 1].Z.ToString("E");
 
-                    string i2XasE = dataStructure.points.int2pts[i + 2].X.ToString("E"); // for i + 2
-                    string i2YasE = dataStructure.points.int2pts[i + 2].Y.ToString("E");
-                    string i2ZasE = dataStructure.points.int2pts[i + 2].Z.ToString("E");
+                    string i2XasE = dataStructure.points.m_int2pt[i + 2].X.ToString("E"); // for i + 2
+                    string i2YasE = dataStructure.points.m_int2pt[i + 2].Y.ToString("E");
+                    string i2ZasE = dataStructure.points.m_int2pt[i + 2].Z.ToString("E");
 
                     //Write the body of ASCII STL Data
                     txtWriter.WriteLine($"facet normal {nXasE} {nYasE} {nZasE}");
@@ -112,16 +106,16 @@ namespace StlExport
                     txtWriter.Write(Header + " ");
 
                     // UINT32 – Number of triangles
-                    uint totalTriangles = (((UInt32) dataStructure.points.int2pts.Count) / 3); // A triangle consists of 3 points
+                    uint totalTriangles = (((UInt32) dataStructure.points.m_int2pt.Count) / 3); // A triangle consists of 3 points
                     txtWriter.Write(totalTriangles.ToString("E") + " ");
 
                     // foreach triangle
                     // for - loop is used to get a better iteration over the points
-                    for (int i = 0; i <= dataStructure.points.int2pts.Count; i = i + 3)
+                    for (int i = 0; i <= dataStructure.points.m_int2pt.Count; i = i + 3)
                     {
                         //All normal and points as e-sign exponent format
-                        Face newFace = dataStructure.faces.Int2Faces[i];
-                        Normal norm = newFace.NormFromFace(dataStructure.faces.Int2Faces[i]);
+                        Face newFace = dataStructure.faces.m_int2Face[i];
+                        Normal norm = newFace.NormFromFace(dataStructure.faces.m_int2Face[i]);
 
                         uint nX = (UInt32) norm.X;               // Normals can also be {0; 0; 0}
                         uint nY = (UInt32)norm.Y;
@@ -131,23 +125,23 @@ namespace StlExport
                         string nYasE = nY.ToString("E2");
                         string nZasE = nZ.ToString("E2");
 
-                        uint iX = (UInt32)dataStructure.points.int2pts[i].X; // for i
-                        uint iY = (UInt32)dataStructure.points.int2pts[i].Y;
-                        uint iZ = (UInt32)dataStructure.points.int2pts[i].Z;
+                        uint iX = (UInt32)dataStructure.points.m_int2pt[i].X; // for i
+                        uint iY = (UInt32)dataStructure.points.m_int2pt[i].Y;
+                        uint iZ = (UInt32)dataStructure.points.m_int2pt[i].Z;
                         string iXasE = iX.ToString("E2");
                         string iYasE = iY.ToString("E2");
                         string iZasE = iZ.ToString("E2");
 
-                        uint i1X = (UInt32)dataStructure.points.int2pts[i + 1].X; // for i + 1
-                        uint i1Y = (UInt32)dataStructure.points.int2pts[i + 1].Y;
-                        uint i1Z = (UInt32)dataStructure.points.int2pts[i + 1].Z;
+                        uint i1X = (UInt32)dataStructure.points.m_int2pt[i + 1].X; // for i + 1
+                        uint i1Y = (UInt32)dataStructure.points.m_int2pt[i + 1].Y;
+                        uint i1Z = (UInt32)dataStructure.points.m_int2pt[i + 1].Z;
                         string i1XasE = i1X.ToString("E2");
                         string i1YasE = i1Y.ToString("E2");
                         string i1ZasE = i1Z.ToString("E2");
 
-                        uint i2X = (UInt32)dataStructure.points.int2pts[i + 2].X;
-                        uint i2Y = (UInt32)dataStructure.points.int2pts[i + 2].Y;
-                        uint i2Z = (UInt32)dataStructure.points.int2pts[i + 2].Z;
+                        uint i2X = (UInt32)dataStructure.points.m_int2pt[i + 2].X;
+                        uint i2Y = (UInt32)dataStructure.points.m_int2pt[i + 2].Y;
+                        uint i2Z = (UInt32)dataStructure.points.m_int2pt[i + 2].Z;
                         string i2XasE = i2X.ToString("E2"); // for i + 2
                         string i2YasE = i2Y.ToString("E2");
                         string i2ZasE = i2Z.ToString("E2");
