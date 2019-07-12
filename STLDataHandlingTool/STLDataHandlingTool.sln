@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StlExport", "StlExport\StlE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{79FADB57-8897-4FE0-99BC-A99DC3E475C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportSTL and Errorhandling Test", "ImportSTL and Errorhandling Test\ImportSTL and Errorhandling Test.csproj", "{62657072-0B11-4F40-A94C-188FB02C55EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79FADB57-8897-4FE0-99BC-A99DC3E475C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62657072-0B11-4F40-A94C-188FB02C55EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62657072-0B11-4F40-A94C-188FB02C55EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62657072-0B11-4F40-A94C-188FB02C55EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62657072-0B11-4F40-A94C-188FB02C55EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

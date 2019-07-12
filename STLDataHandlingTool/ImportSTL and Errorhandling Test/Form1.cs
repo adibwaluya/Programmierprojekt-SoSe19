@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ErrorHandling;
+using System.Diagnostics;
 
 namespace importSTLTest
 {
@@ -22,6 +23,8 @@ namespace importSTLTest
 
         private void stlSelectBt_Click(object sender, EventArgs e)
         {
+            Stopwatch timePassed = new Stopwatch();
+            timePassed.Start();
             OpenFileDialog openFile = new OpenFileDialog
             {
                 Title = "Browse STL Data",
@@ -35,8 +38,8 @@ namespace importSTLTest
                 importSTL.DataReader read = new importSTL.DataReader(openFile.FileName);
                 dm = read.ReadFile();
 
-                textBox1.Text = Convert.ToString("import finished");
-                
+                timePassed.Stop();
+                textBox1.Text = Convert.ToString("import finished - Time Passed: " + timePassed.Elapsed);
             }
         }
 
@@ -47,6 +50,9 @@ namespace importSTLTest
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Stopwatch timePassed = new Stopwatch();
+            timePassed.Start();
+
             ErrorFinding errorFinding = new ErrorFinding();
             errorFinding.FindError(dm, new System.Drawing.Color());
             StringBuilder sb = new StringBuilder();
@@ -57,7 +63,9 @@ namespace importSTLTest
                     sb.AppendLine("ID " + Convert.ToString(i) + " " + Convert.ToString(dm.edges.GetEdge(i).CurrentCondition));
                 }
             }
+            timePassed.Stop();
             sb.AppendLine("Edges not Listed here are not faulty");
+            sb.AppendLine("Time Passed: " + timePassed.Elapsed);
             textBox1.Text = Convert.ToString(sb);
         }
     }
