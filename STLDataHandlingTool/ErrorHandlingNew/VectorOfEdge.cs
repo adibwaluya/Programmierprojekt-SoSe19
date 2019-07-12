@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ErrorHandling
 {
+    /// <summary>
+    /// Beinhaltet eine Liste von allen Kanten mit Ausrichtung vectorY, vectorZ.
+    /// </summary>
     public class VectorOfEdge
     {
         public double vectorY;

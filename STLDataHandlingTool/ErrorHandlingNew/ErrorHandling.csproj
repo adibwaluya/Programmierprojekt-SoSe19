@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="ErrorFinding.cs" />
     <Compile Include="IdentifyBodies.cs" />
-    <Compile Include="IErrorHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VectorOfEdge.cs" />
   </ItemGroup>
