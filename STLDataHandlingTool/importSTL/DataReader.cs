@@ -54,6 +54,8 @@ namespace importSTL
                 dm = null;
             }
 
+            ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
+            identifyBodies.FindBodies(dm);
             return dm;
         }
 
@@ -286,10 +288,7 @@ namespace importSTL
             }
 
             return dm;
-        }
-
-        ErrorHandling.IdentifyBodies identifyBodies = new ErrorHandling.IdentifyBodies();
-        
+        } 
 
     }
 }
