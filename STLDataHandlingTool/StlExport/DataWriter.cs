@@ -7,7 +7,6 @@ using System.Text;
 using System.IO;
 using System.Globalization;
 using System.Threading;
-using StlExportDataModel;
 using DataModel;
 using System.Windows;
 

@@ -50,8 +50,7 @@
                     <ColumnDefinition Width="335*"/>
                 </Grid.ColumnDefinitions>
 
-                <!--<local:GUITestOpenGlControl Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827"/>-->
-                <!--Winforms UserControl-->
+                 <!--Winforms UserControl-->
                 <WindowsFormsHost
                 Grid.Column="0" HorizontalAlignment="Left" Height="630" Margin="0,10,0,0" VerticalAlignment="Top" Width="827" 
                 Background="Green">

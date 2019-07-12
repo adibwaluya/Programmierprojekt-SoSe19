@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using DataModel;
 using Microsoft.Win32;
 using StlExport;
-using StlExportDataModel;
 
 
 namespace View
