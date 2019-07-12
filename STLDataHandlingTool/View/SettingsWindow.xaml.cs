@@ -46,20 +46,34 @@ namespace View
             Box3.Text = "#" + ClrPcker_Error.SelectedColor.Value.R.ToString() + ClrPcker_Error.SelectedColor.Value.G.ToString() + ClrPcker_Error.SelectedColor.Value.B.ToString();
         }
 
+        private void ClrPcker_Bckgrnd_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            Box4.Text = "#" + ClrPcker_Bckgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.B.ToString();
+        }
+
+        private void ClrPcker_Frgrnd_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            Box5.Text = "#" + ClrPcker_Frgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.B.ToString();
+        }
+
         private void SaveColor_Button_Click(object sender, RoutedEventArgs e)
         {
             Box1.Text = "#" + ClrPcker_Body1.SelectedColor.Value.R.ToString() + ClrPcker_Body1.SelectedColor.Value.G.ToString() + ClrPcker_Body1.SelectedColor.Value.B.ToString();
             Box2.Text = "#" + ClrPcker_Body2.SelectedColor.Value.R.ToString() + ClrPcker_Body2.SelectedColor.Value.G.ToString() + ClrPcker_Body2.SelectedColor.Value.B.ToString();
             Box3.Text = "#" + ClrPcker_Error.SelectedColor.Value.R.ToString() + ClrPcker_Error.SelectedColor.Value.G.ToString() + ClrPcker_Error.SelectedColor.Value.B.ToString();
+            Box4.Text = "#" + ClrPcker_Bckgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Bckgrnd.SelectedColor.Value.B.ToString();
+            Box5.Text = "#" + ClrPcker_Frgrnd.SelectedColor.Value.R.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.G.ToString() + ClrPcker_Frgrnd.SelectedColor.Value.B.ToString();
+
 
             Color body1Color = ClrPcker_Body1.SelectedColor.Value;
             Color body2Color = ClrPcker_Body2.SelectedColor.Value;
             Color errorColor = ClrPcker_Error.SelectedColor.Value;
         }
+        
 
-        private void SaveTolerance_Button_Click(object sender, RoutedEventArgs e)
-        {
-            string setTolerance = Tolerance_Box.Text;
-        }
+        //private void SaveTolerance_Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string setTolerance = Tolerance_Box.Text;
+        //}
     }
 }

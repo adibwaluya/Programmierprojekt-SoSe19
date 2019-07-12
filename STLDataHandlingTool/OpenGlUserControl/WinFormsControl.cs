@@ -360,9 +360,9 @@ namespace OpenGlUserControl
         /// </summary>
         /// <param name="EdgeIndices">The indices of points store in data structure, which describes the edges.</param>
         /// <param name="EdgeColor">The color in which this edges will be drawn.</param>
-        public static void ShowErrors(uint[] EdgeIndices, Color EdgeColor)
+        public static void ShowErrors(List<uint> EdgeIndices)
         {
-            if (EdgeIndices.Length % 2 != 0)
+            if (EdgeIndices.Count % 2 != 0)
             {
                 throw new ArgumentException("One edge is described by exactly to vertices. " +
                                             "Therefore, please make sure that the number of indices is even.");
