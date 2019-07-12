@@ -186,7 +186,9 @@ namespace ErrorHandling
                 }
             }
         }
-
+        /// <summary>
+        /// Prüft, ob zwei Vektoren in die gleiche Richtung zeigen.
+        /// </summary>
         private bool ApproximatelyEqual(double y1, double z1, double y2, double z2)
         {
             double tolerance = (y1 + z1) / 1000;
@@ -199,7 +201,12 @@ namespace ErrorHandling
                 return false;
             }
         }
-
+        /// <summary>
+        /// Schreibt Kanten, die Teil eines Pfades sind einen wählbaren Zustand zu.
+        /// </summary>
+        /// <param name="dm">Datenmodell</param>
+        /// <param name="vec">Kanten befinden sich in der Liste, die Teil der Klasse VectorOfEdge ist</param>
+        /// <param name="condition">Zustand</param>
         private void SetCycleEdges(DataStructure dm, VectorOfEdge vec, Edge.Condition condition)
         {
             foreach (int edgeID in vec.edgeIDList)
