@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Threading;
 using StlExportDataModel;
 using DataModel;
+using System.Windows;
 
 namespace StlExport
 {
@@ -81,7 +82,7 @@ namespace StlExport
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                MessageBox.Show("A handled exception just occurred: " + e.Message + "\nPlease try again.", "Exception During Export", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             finally
             {
@@ -157,7 +158,7 @@ namespace StlExport
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    MessageBox.Show("A handled exception just occurred: " + e.Message + "\nPlease try again.", "Exception During Export", MessageBoxButton.OK, MessageBoxImage.Warning);
                     throw;
                 }
             }
