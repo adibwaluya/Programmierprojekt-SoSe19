@@ -179,7 +179,7 @@ namespace OpenGlUserControl
         /// <param name="ds">An object of type DataStructure.</param>
         /// <param name="backgroundColor">The background color of type Color, which is used for rendering.</param>
         /// <param name="foregroundColor">he foreground color of type Color, which is used for rendering</param>
-        public void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
+        public static void DrawModel(DataStructure ds, Color backgroundColor, Color foregroundColor)
         {
             if (ds == null) throw new ArgumentNullException(nameof(ds));
 
@@ -358,7 +358,7 @@ namespace OpenGlUserControl
         /// </summary>
         /// <param name="EdgeIndices">The indices of points store in data structure, which describes the edges.</param>
         /// <param name="EdgeColor">The color in which this edges will be drawn.</param>
-        public void ShowErrors(uint[] EdgeIndices, Color EdgeColor)
+        public static void ShowErrors(uint[] EdgeIndices, Color EdgeColor)
         {
             if (EdgeIndices.Length % 2 != 0)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataModel;
+using OpenGlUserControl;
 
 namespace ErrorHandling
 {
@@ -32,6 +33,7 @@ namespace ErrorHandling
                     }
                 }
             }
+            //WinFormsControl.ShowErrors();
         }
         /// <summary>
         /// Für jede potentiell fehlerhafte Kante wird festgestellt, ob sie fehlerhaft oder korrekt ist.
