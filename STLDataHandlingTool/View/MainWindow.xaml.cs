@@ -18,6 +18,9 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Creating data structure for all components to use
+        DataStructure STLFile = new DataStructure();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -78,10 +81,9 @@ namespace View
             // Requirements to open the file
             if (openDlg.ShowDialog() == true)
             {
-                // Connect to STL Import dummy
-                StlExportTestDM testDM = new StlExportTestDM();
-                DataStructure dm = new DataStructure();
-                testDM.FillDatamodel(dm);
+                // Connect to STL Import
+                importSTL.DataReader read = new importSTL.DataReader(openDlg.FileName);
+                STLFile = read.ReadFile();
             }
         }
 
