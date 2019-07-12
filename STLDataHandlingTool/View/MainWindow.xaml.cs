@@ -100,7 +100,22 @@ namespace View
         // Error handling
         private void ErrorHandle_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (STLFile != null)
+            {
+                try
+                {
+                    ErrorHandling.ErrorFinding error = new ErrorHandling.ErrorFinding();
+                    error.FindError(STLFile);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occured: " + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No STL file exist. \nPlease open a valid file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // Setting
